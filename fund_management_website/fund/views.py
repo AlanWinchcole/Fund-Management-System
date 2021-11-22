@@ -1,6 +1,12 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+
 #from fund.forms import RegisterForm
 # Create your views here.
+
+def index(request):
+    	return HttpResponse("This is the index page")
+
 def register(request):
 	registered = False
 
