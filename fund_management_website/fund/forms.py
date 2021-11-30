@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Modelform
+#from django.forms import Modelform
 from .models import *
 
 
@@ -15,7 +15,7 @@ class UserForm(forms.ModelForm):
                     'password': 'Password', }
 
 
-)
+
 class Form(forms.ModelForm):
     userType = forms.ChoiceField()
     class Meta:
@@ -30,4 +30,4 @@ class Form(forms.ModelForm):
             'userType': forms.RadioSelect(choices = [(1, "LAG Member"), (2,"Volunteer"), (3, "Applicant"), (4, "Other")])
         }
 
-)
+
