@@ -1,7 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from fund.forms import UserForm
 from fund.forms import ApplicationForm
@@ -65,5 +66,11 @@ def dashboard(request):
 
 def welcome(request):
 	return render(request,'fund/welcome.html')
+
+@ login_required
+def log_out(request):
+	logout(request)
+
+
 
 

@@ -1,5 +1,7 @@
 from django.urls import path
 from fund import views
+from django.contrib.auth.views import LogoutView
+from fund_management_website import settings
 
 app_name = "fund"
 
@@ -9,4 +11,7 @@ urlpatterns = [
     path("login/", views.login, name = "login"),
     path("application/", views.dashboard, name = "application"),
     path("welcome/", views.welcome, name = "welcome"),
+    #path("logout/", views.logout, name= "logout")
+    path('logout/', LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name='logout'),
+
 ]

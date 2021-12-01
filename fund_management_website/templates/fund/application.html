@@ -9,7 +9,11 @@
         Application Page
     </title>
 </head>
-    {% block body_block %}
+<body>
+<header class="masthead mb-auto">
+            <a class = "btn btn-danger" href="{% url 'fund:logout' %}">Logout</a>
+</header>
+{% block body_block %}
     <main class = "container-fluid pb-3 col-4 border rounded-1">
         <h1 class="text-center"> Application Form </h1>
         <form id = "ApplicationForm" method="post" action="{% url 'fund:application' %}">
@@ -19,4 +23,6 @@
             <input type="submit" value="Apply" class="btn btn-primary">
         </form>
         {% endblock %}
+</body>
+
 </html>
