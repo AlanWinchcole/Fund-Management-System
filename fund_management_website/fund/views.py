@@ -64,11 +64,12 @@ def login(request):
 
 
 def dashboard(request):
-	if request== 'POST':
+	if request.method == 'POST':
 		application_form = ApplicationForm(request.POST)
 		if application_form.is_valid():
+			print("form is vali")
 			application_form.save()
-			HttpResponse("Yay your application has been submitted.")
+			return HttpResponse("Yay your application has been submitted.")
 		else:
 			print(application_form.errors)
 	else:
