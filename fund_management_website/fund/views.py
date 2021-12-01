@@ -63,6 +63,7 @@ def dashboard(request):
 
 
 
-
+def welcome(request):
+	return render(request,'fund/welcome.html')
 
 

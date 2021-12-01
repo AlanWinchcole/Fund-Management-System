@@ -11,8 +11,7 @@ class UserProfile(models.Model):
 		return self.user.username
 
 class ApplicationData(models.Model):
-        
-        applicationID = models.CharField(max_length=200, null = True, blank=True)
+        applicationID = models.AutoField(max_length=200, null = False, blank=True, primary_key=True)
         organisationName = models.CharField(max_length=200, null = True, blank=True)
         projectTitle = models.CharField(max_length=200, null = True, blank=True)
         CH_OSCR_number = models.CharField(max_length=20, unique=True, blank=True, null = True,)
@@ -31,7 +30,7 @@ class ApplicationData(models.Model):
                 super(ApplicationData, self).save(*args, **kwargs)
 
         def __str__(self):
-                return self.applicationID
+                return self.projectTitle
 
         class Meta:
                 verbose_name_plural = "ApplicationData"

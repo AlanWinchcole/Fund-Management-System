@@ -36,7 +36,8 @@ class Form(forms.ModelForm) :
 class ApplicationForm(forms.ModelForm) :
     class Meta :
         model = ApplicationData
-        fields = ('__all__')
+        fields = ('applicationID','organisationName','projectTitle' ,'CH_OSCR_number','contactName' ,'contactEmail','projectDesc','userGroupDesc','learningOpp' ,'keyPartnersWork' ,'projImpactClimate' ,'projSupportLocBus',
+                  'proContribution','feedback' )
         labels = {
             'applicationID' :'Application ID',
             'organisationName' :'Name of the Organisation',
@@ -54,7 +55,7 @@ class ApplicationForm(forms.ModelForm) :
             'feedback' :"Feedback",
         }
         widgets = {
-            'applicationID' :forms.TextInput(attrs={ 'class' :'form-control' }),
+            'applicationID' :forms.NumberInput(attrs={ 'class' :'form-control','readonly':'readonly' }),
             'organisationName' :forms.TextInput(attrs={ 'class' :'form-control' }),
             'projectTitle' :forms.TextInput(attrs={ 'class' :'form-control' }),
             'CH_OSCR_number' :forms.TextInput(attrs={ 'class' :'form-control' }),
