@@ -12,17 +12,19 @@
 <main class = "container-fluid pb-3 col-4 border rounded-1">
     <img class="text-center mt-4 mb-4" src="{% static 'images/borders.png'%}" height="80" width="240px"  alt="Scottish Borders Logo">
     <h1 class = "text-center mb-3 font-weight-normal"> Login </h1>
-    <form id = "login_form" method ="post" action = "{% url 'fund:index' %}" style="max-width:480px;margin:auto;">
-        <label for="Username" class="sr-only">Username:</label>
-        <input type="username" id="username" class="form-control" placeholder="Username" required autofocus>
-        <label for="password" class="sr-only">Password:</label>
-        <input type="password" id="password" class="form-control" placeholder="Password" required autofocus>
+    <form id = "login_form" method ="post" action = "{% url 'fund:application' %}" style="max-width:480px;margin:auto;">
+        {% csrf_token %}
+<!--        <label for="Username" class="sr-only">Username:</label>-->
+<!--        <input type="username" id="username" class="form-control" placeholder="Username" required autofocus>-->
+<!--        <label for="password" class="sr-only">Password:</label>-->
+<!--        <input type="password" id="password" class="form-control" placeholder="Password" required autofocus>-->
 
-        <div class="checkbox text-center p-2">
-            <label>
-                <input type="checkbox" value="rememberme"> Remember Me
-            </label> 
-        </div>
+<!--        <div class="checkbox text-center p-2">-->
+<!--            <label>-->
+<!--                <input type="checkbox" value="rememberme"> Remember Me-->
+<!--            </label> -->
+<!--        </div>-->
+        {% bootstrap_form user_form %}
         <div class = "text-center p-2">
             <p> If you do not have an account yet, <a href = "{%url 'fund:register' %}"> register here. </a></p>
             <button type= "submit" class="btn btn-primary ben-lg"> Log In </button>

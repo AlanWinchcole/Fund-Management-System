@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 {% load bootstrap5 %}
 
 
@@ -6,10 +6,11 @@
     {% block body_block %}
     <main class = "container-fluid pb-3 col-4 border rounded-1">
         <h1 class="text-center"> Application Form </h1>
-        <form id = "ApplicationForm" method="post" action="{% url 'fund:dashboard' %}"> 
+        <form id = "ApplicationForm" method="post" action="{% url 'fund:application' %}">
             {% csrf_token %}
             {% bootstrap_form ApplicationForm %}
 
             <input type="submit" name="submit" value="Application"/>
         </form>
+        {% endblock %}
 </html>
