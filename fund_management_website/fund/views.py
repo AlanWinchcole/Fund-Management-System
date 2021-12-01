@@ -30,22 +30,6 @@ def register(request):
 		'registered':registered})
 
 def login(request):
-	# if request.method == 'POST':
-	# 	username = request.POST.get('username')
-	# 	password = request.POST.get('password')
-	# 	user = authenticate(username=username, password=password)
-	# 	if user:
-	# 		if user.is_active:
-	# 			login(request, user)
-	# 			return render(request,'fund/application.html')
-	# 		else:
-	# 			return HttpResponse("Your account is disabled.")
-	# 	else:
-	# 		print("Invalid login details: {0}, {1}".format(username, password))
-	# 		return HttpResponse("Invalid login details supplied.")
-	# else:
-	# 	user_form = UserForm()
-	# 	return render(request, 'fund/login.html', {'user_form':user_form})
 	if request.user.is_authenticated:
 		return redirect(reverse('fund:application'))
 	if request.method == 'POST':
@@ -64,6 +48,7 @@ def login(request):
 
 
 def dashboard(request):
+	application_form = ApplicationForm()
 	if request.method == 'POST':
 		application_form = ApplicationForm(request.POST)
 		if application_form.is_valid():
@@ -73,7 +58,7 @@ def dashboard(request):
 		else:
 			print(application_form.errors)
 	else:
-		application_form = ApplicationForm()
+
 		return render(request,'fund/application.html', {'ApplicationForm':application_form})
 
 
