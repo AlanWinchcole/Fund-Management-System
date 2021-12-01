@@ -25,7 +25,18 @@ class ApplicationData(models.Model):
         projImpactClimate = models.CharField(max_length=300)
         projSupportLocBus = models.CharField(max_length=300)
         proContribution = models.CharField(max_length=300)
-        feedback = models.CharField(max_length=500)       
+        feedback = models.CharField(max_length=500)
+
+        def save(self, *args, **kwargs):
+                super(ApplicationData, self).save(*args, **kwargs)
+
+        def __str__(self):
+                return self.applicationID
+
+        class Meta:
+                verbose_name_plural = "ApplicationData"
+
+        
         
 
         #need to create a class for budget profile and link to app data
