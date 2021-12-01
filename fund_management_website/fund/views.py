@@ -13,25 +13,25 @@ def register(request):
 	registered = False
 
 	if request.method == 'POST':
-		register_form = UserForm(data=request.POST)
-		if register_form.is_valid():
-			user = register_form.save()
+		user_form = UserForm(request.POST)
+		if user_form.is_valid():
+			user = user_form.save()
 			user.set_password(user.password)
 			user.save()
 			registered = True
 		else:
-			print(register_form.errors)
+			print(user_form.errors)
 	else:
-		register_form = UserForm()
+		user_form = UserForm()
 	return render(request,
 		'fund/register.html',
-		{'register_form':register_form,
+		{'user_form':user_form,
 		'registered':registered})
 
 def login(request):
 	if request.method == 'POST':
 		username = request.POST.get('username')
-		username = request.POST.get('password')
+		password = request.POST.get('password')
 		user = authenticate(username=username, password=password)
 		if user:
 			if user.is_active:
