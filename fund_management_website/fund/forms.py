@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import fields
+from django.forms.models import *
 #from django.forms import Modelform
 from .models import *
 
@@ -30,4 +32,7 @@ class Form(forms.ModelForm):
             'userType': forms.RadioSelect(choices = [(1, "LAG Member"), (2,"Volunteer"), (3, "Applicant"), (4, "Other")])
         }
 
-
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = ApplicationData
+        fields = ('__all__')

@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from fund.forms import UserForm
+from fund.forms import ApplicationForm
 # Create your views here.
 
 def index(request):
