@@ -47,7 +47,7 @@ def login(request):
 	return render(request,'fund/login.html', {'user_form':user_form})
 
 
-
+@ login_required
 def dashboard(request):
 	application_form = ApplicationForm()
 	if request.method == 'POST':
@@ -63,7 +63,7 @@ def dashboard(request):
 		return render(request,'fund/application.html', {'ApplicationForm':application_form})
 
 
-
+@ login_required
 def welcome(request):
 	return render(request,'fund/welcome.html')
 
