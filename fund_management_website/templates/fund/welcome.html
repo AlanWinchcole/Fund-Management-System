@@ -7,21 +7,23 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Welcome to Fund Management Portal</title>
 </head>
-<body>
+
+<body class="text-center">
 <div class="container">
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <a class = "btn btn-danger" href="{% url 'fund:logout' %}">Logout</a>
-        </header>
-
+        <div style="text-align: left;">
+            <header class="masthead mb-auto">
+                <a class = "btn btn-danger" href="{% url 'fund:logout' %}">Logout</a>
+            </header>
+        </div>
         <main role="main" class="inner cover">
             <h1 class="cover-heading">Welcome to the funding portal</h1>
             <p class="lead">This is your current dashboard, you can see all your application that you have submitted and/or have in progress.
             </p>
             <p class="lead">
                 Apply for funding here.
-                <a class="btn btn-primary" href="{%url 'fund:application' %}">Application Form</a>
+                <br> <a class="mt-3 mb-3 btn btn-primary" href="{%url 'fund:application' %}">Application Form</a> </br>
             </p>
         </main>
 
