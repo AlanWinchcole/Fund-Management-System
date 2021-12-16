@@ -36,10 +36,10 @@ class Form(forms.ModelForm) :
 class ApplicationForm(forms.ModelForm) :
     class Meta :
         model = ApplicationData
-        fields = ('applicationID','organisationName','projectTitle' ,'CH_OSCR_number','contactName' ,'contactEmail','projectDesc','userGroupDesc','learningOpp' ,'keyPartnersWork' ,'projImpactClimate' ,'projSupportLocBus',
-                  'proContribution','feedback' )
+        fields = ('organisationName','projectTitle' ,'CH_OSCR_number','contactName' ,'contactEmail','projectDesc','userGroupDesc','learningOpp' ,'keyPartnersWork' ,'projImpactClimate' ,'projSupportLocBus',
+                  'proContribution',)
         labels = {
-            'applicationID' :'Application ID',
+
             'organisationName' :'Name of the Organisation',
             'projectTitle' :'Project Title',
             'CH_OSCR_number' :'OSCR Number',
@@ -52,10 +52,10 @@ class ApplicationForm(forms.ModelForm) :
             'projImpactClimate' :"Project's Impact on Climate",
             'projSupportLocBus' :"How does project support local business?",
             'proContribution' :"Pro Contribution",
-            'feedback' :"Feedback",
+
         }
         widgets = {
-            'applicationID' :forms.NumberInput(attrs={ 'class' :'form-control','readonly':'readonly' }),
+
             'organisationName' :forms.TextInput(attrs={ 'class' :'form-control' }),
             'projectTitle' :forms.TextInput(attrs={ 'class' :'form-control' }),
             'CH_OSCR_number' :forms.TextInput(attrs={ 'class' :'form-control' }),
@@ -68,6 +68,6 @@ class ApplicationForm(forms.ModelForm) :
             'projImpactClimate' :forms.TextInput(attrs={ 'class' :'form-control' }),
             'projSupportLocBus' :forms.TextInput(attrs={ 'class' :'form-control' }),
             'proContribution' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'feedback' :forms.TextInput(attrs={ 'class' :'form-control' }),
+
 
         }

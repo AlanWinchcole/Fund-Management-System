@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from fund.forms import UserForm
 from fund.forms import ApplicationForm
+from fund.models import *
+
+
 # Create your views here.
 
 def index(request):
@@ -47,7 +50,7 @@ def login(request):
 	return render(request,'fund/login.html', {'user_form':user_form})
 
 
-@ login_required
+
 def dashboard(request):
 	application_form = ApplicationForm()
 	if request.method == 'POST':
@@ -62,8 +65,23 @@ def dashboard(request):
 
 		return render(request,'fund/application.html', {'ApplicationForm':application_form})
 
+# id is the application id
+def updateApplication(request, id):
+	application = ApplicationData.objects.get(id=id)
+	application_form = ApplicationForm(instance = application)
+	if request.method == 'POST':
+		application_form = ApplicationForm(request.POST, instance = application)
+		if application_form.is_valid():
+			print("form is vali")
+			application_form.save()
+			return HttpResponse("Yay your application has been submitted.")
+		else:
+			print(application_form.errors)
+	else:
+		return render(request,'fund/application.html', {'ApplicationForm':application_form})
 
-@ login_required
+
+
 def welcome(request):
 	return render(request,'fund/welcome.html')
 

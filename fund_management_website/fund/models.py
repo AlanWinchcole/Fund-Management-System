@@ -11,20 +11,23 @@ class UserProfile(models.Model):
 		return self.user.username
 
 class ApplicationData(models.Model):
-        applicationID = models.AutoField(max_length=200, null = False, blank=True, primary_key=True)
         organisationName = models.CharField(max_length=200, null = True, blank=True)
         projectTitle = models.CharField(max_length=200, null = True, blank=True)
         CH_OSCR_number = models.CharField(max_length=20, unique=True, blank=True, null = True,)
+        # Could take these out as they are basically users.
         contactName = models.CharField(max_length=200, null = True, blank=True)
         contactEmail = models.EmailField(max_length=254, null = True, blank=True)
-        projectDesc = models.CharField(max_length=300, null = True, blank=True)
-        userGroupDesc = models.CharField(max_length=300, null = True, blank=True)
-        learningOpp = models.CharField(max_length=300, null = True, blank=True)
-        keyPartnersWork = models.CharField(max_length=300, null = True, blank=True)
-        projImpactClimate = models.CharField(max_length=300, null = True, blank=True)
-        projSupportLocBus = models.CharField(max_length=300, null = True, blank=True)
-        proContribution = models.CharField(max_length=300, null = True, blank=True)
-        feedback = models.CharField(max_length=500, null = True, blank=True)
+
+        projectDesc = models.TextField(max_length=300, null = True, blank=True)
+        userGroupDesc = models.TextField(max_length=300, null = True, blank=True)
+        learningOpp = models.TextField(max_length=300, null = True, blank=True)
+        keyPartnersWork = models.TextField(max_length=300, null = True, blank=True)
+        projImpactClimate = models.TextField(max_length=300, null = True, blank=True)
+        projSupportLocBus = models.TextField(max_length=300, null = True, blank=True)
+        proContribution = models.TextField(max_length=300, null = True, blank=True)
+
+        length = models.IntegerField(null=True, blank=True, db_column="Length of the Project")
+        totalBudget =models.FloatField(null=True, blank=True, db_column="Total Budget for the Project")
 
         def save(self, *args, **kwargs):
                 super(ApplicationData, self).save(*args, **kwargs)
@@ -35,12 +38,20 @@ class ApplicationData(models.Model):
         class Meta:
                 verbose_name_plural = "ApplicationData"
 
-        
-        
+# Completed Application
+class Project(models.Model):
+    pass
 
-        #need to create a class for budget profile and link to app data
 
-#class BudgetProfile(models.Model):
+
+class SubBudgetProfile(models.Model):
+    budgetTitle = models.CharField(max_length=200, null = True, blank=True, db_column="Heading")
+    budgetDescription = models.TextField(null=True, blank=True, db_column= "Description")
+    totalBudget = models.FloatField(null=True, blank=True, db_column= "Total Budget Requested")
+
+
+    def __str__(self) :
+        return self.budgetTitle
         
         
         
