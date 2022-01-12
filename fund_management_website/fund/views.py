@@ -89,6 +89,9 @@ def welcome(request):
 def log_out(request):
 	logout(request)
 
+def info(request):
+	return render(request,'fund/info.html')
+
 
 
 
