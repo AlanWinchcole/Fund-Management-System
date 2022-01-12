@@ -29,5 +29,5 @@ pylint:       # This job runs in the build stage, which runs first.
   stage: Static Analysis
   script:
     - echo "Running Static Analysis"
-    - pylint -d C0301 fund/*.py
+    - pylint -d C0301 fund_management_website/fund/*.py
 
