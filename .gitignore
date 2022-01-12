@@ -7,7 +7,6 @@
 *.pyc
 __pycache__/
 local_settings.py
-db.sqlite3
 
 db.sqlite3-journal
 
@@ -16,8 +15,9 @@ db.sqlite3-journal
 # <django-project-name>/staticfiles/
 
 # Gitignore for database
-/fund/migrations/
+fund_management_website/fund/migrations/
 db.sqlite3
+fund_management_website/db.sqlite3
 
 
 #specific to this project
