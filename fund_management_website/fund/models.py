@@ -44,14 +44,7 @@ class Project(models.Model):
 
 
 
-class SubBudgetProfile(models.Model):
-    budgetTitle = models.CharField(max_length=200, null = True, blank=True, db_column="Heading")
-    budgetDescription = models.TextField(null=True, blank=True, db_column= "Description")
-    totalBudget = models.FloatField(null=True, blank=True, db_column= "Total Budget Requested")
 
-
-    def __str__(self) :
-        return self.budgetTitle
         
         
         
