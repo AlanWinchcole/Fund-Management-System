@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="70a37480-10fb-469a-8253-fd7a3de93da3" name="Changes" comment="Changes:&#10;- Dashboard completed">
+      <change afterPath="$PROJECT_DIR$/fund_management_website/static/images/scottish-government-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fund_management_website/static/svg/person.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fund_management_website/static/svg/table.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fund_management_website/templates/fund/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fund_management_website/templates/fund/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fund_management_website/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/fund_management_website/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fund_management_website/fund/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/fund_management_website/fund/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fund_management_website/fund/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/fund_management_website/fund/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fund_management_website/templates/fund/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/fund_management_website/templates/fund/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fund_management_website/templates/fund/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/fund_management_website/templates/fund/welcome.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="template_branch" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/fund_management_website/templates/fund/application.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/fund_management_website/fund/models.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/fund_management_website/templates/fund/welcome.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/fund_management_website/fund/views.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/fund_management_website/fund/urls.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/fund_management_website/templates/fund/base.html" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="21eTYLUhqAYevl6oxZOL7MaEEhj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/fund_management_website/static/svg" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/fund_management_website/static/svg" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/fund_management_website/static/svg" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="70a37480-10fb-469a-8253-fd7a3de93da3" name="Changes" comment="" />
+      <created>1638300599368</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638300599368</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Edited git ignore file to exclude __pycache__">
+      <created>1638354809514</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638354809514</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Changes:&#10;- Fixed the bug with register page">
+      <created>1638355481454</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1638355481454</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Changes:&#10;- Fixed the login bug">
+      <created>1638356752023</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638356752023</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Changes:&#10;- Fixed the application page">
+      <created>1638359266588</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638359266588</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changes:&#10;- moved git ignore outside the project folder">
+      <created>1638359328543</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638359328543</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Changes:&#10;- edited gitignore file">
+      <created>1638359496240</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1638359496240</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changes:&#10;- Bug fix try to make application form work after login">
+      <created>1638360436036</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1638360436036</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Changes:&#10;- Bug fix login to application form.">
+      <created>1638364017118</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1638364017118</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Changes:&#10;- Added logout function">
+      <created>1638365782553</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1638365782553</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Changes:&#10;- Made some changes to models.py (Requires deletion of database and migration file before makingmigration)&#10;- Added update application button in dashboard">
+      <created>1639664514753</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1639664514754</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Changes:&#10;- Added a landing page">
+      <created>1641982430291</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1641982430291</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Changes:&#10;- Added a button on dashboard for budget profile">
+      <created>1641988656107</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1641988656107</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Changes:&#10;- Added a dashboard page but not completed yet.&#10;(It requires the master template)">
+      <created>1642440120515</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1642440120515</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Changes:&#10;- Made changes to the navigation bar.">
+      <created>1642544237395</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1642544237395</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Changes:&#10;- Dashboard completed">
+      <created>1642545093235</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1642545093235</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Edited git ignore file to exclude __pycache__" />
+    <MESSAGE value="Changes:&#10;- Fixed the bug with register page" />
+    <MESSAGE value="Changes:&#10;- Fixed the login bug" />
+    <MESSAGE value="Changes:&#10;- Fixed the application page" />
+    <MESSAGE value="Changes:&#10;- moved git ignore outside the project folder" />
+    <MESSAGE value="Changes:&#10;- edited gitignore file" />
+    <MESSAGE value="Changes:&#10;- Bug fix try to make application form work after login" />
+    <MESSAGE value="Changes:&#10;- Bug fix login to application form." />
+    <MESSAGE value="Changes:&#10;- Added logout function" />
+    <MESSAGE value="Changes:&#10;- Made some changes to models.py (Requires deletion of database and migration file before makingmigration)&#10;- Added update application button in dashboard" />
+    <MESSAGE value="Changes:&#10;- Added a landing page" />
+    <MESSAGE value="Changes:&#10;- Added a button on dashboard for budget profile" />
+    <MESSAGE value="Changes:&#10;- Added a dashboard page but not completed yet.&#10;(It requires the master template)" />
+    <MESSAGE value="Changes:&#10;- Made changes to the navigation bar." />
+    <MESSAGE value="Changes:&#10;- Dashboard completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes:&#10;- Dashboard completed" />
+  </component>
+</project>
