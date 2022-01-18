@@ -51,7 +51,7 @@ def login(request):
 
 
 
-def dashboard(request):
+def application(request):
 	application_form = ApplicationForm()
 	if request.method == 'POST':
 		application_form = ApplicationForm(request.POST)
@@ -97,6 +97,9 @@ def base(request):
 
 def test(request):
 	return render(request,'fund/test.html')
+
+def dashboard(request):
+	return render(request, 'fund/dashboard.html')
 
 
 

@@ -1,55 +1,61 @@
-{% extend 'master_template.html' %}
+{% extends 'fund/base.html' %}
 {% load static %}
 
+{%block title_block %}
+    Dashboard
+{% endblock %}
+
 {% block body_block %}
-<body>
+
 <main role="main" class="inner cover">
     <div class="container-fluid">
-
         <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
-            <h1 class="cover-heading">Welcome to the funding portal</h1>
-            <p class="lead">This is your current dashboard, you can see all your application that you have submitted
+            <h1 class="cover-heading text-center">Welcome to your dashboard</h1>
+            <p class="lead text-center">This is your current dashboard, you can see all your application that you have submitted
                 and/or have in progress.
             </p>
         </div>
     </div>
+    <hr>
     <div class="container">
+        <p class="h3 text-center">Profile</p>
         <div class="row">
             <div class="col-4">
-
+                <img src="{% static 'svg/person.svg'%}" class="img-fluid float-left" height=100 width=100 alt="Person Icon"/>
             </div>
             <div class="col-8">
                 <table class="table table-borderless">
                     <thead>
-
                     </thead>
                     <tbody>
                         <tr>
                             <td>Name: </td>
-                            <td>#</td>
+                            <td>Test Name</td>
                         </tr>
                         <tr>
                             <td>Email: </td>
-                            <td>#</td>
+                            <td>email@email.com</td>
                         </tr>
                         <tr>
                             <td>Address: </td>
-                            <td>#</td>
+                            <td>123 Hello World</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <hr>
     <div class="container">
-        <p class="h3">Application</p><br>
-        <p class="h4 text-muted">Apply for new application here.<a class="mt-3 mb-3 btn btn-primary" href="{%url 'fund:application' %}">Apply</a> </p>
+        <p class="h3 text-center">Application</p>
+        <p class="h5 text-muted text-center">Want to apply for a new application?   <a class="mt-3 mb-3 btn btn-secondary" href="{% url 'fund:application' %}">Apply Here</a> </p>
+
     <div class="row">
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
+                    <img src="{%static 'svg/table.svg' %}" alt="Table Icon" width=20 height=20 />
                     Incomplete Applications
                 </div>
                 <div class="card-body">
@@ -66,8 +72,9 @@
                         <tr>
                             <td>application.id</td>
                             <td>application.projectTitle</td>
-                            <td><a href="{% url 'fund:update_application application.id%}"> Update</a></td>
+                            <td><a href="#"> Update</a></td>
                         </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -76,7 +83,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
+                    <img src="{%static 'svg/table.svg' %}" alt="Table Icon" width=20 height=20/>
                     Completed Application
                 </div>
                 <div class="card-body">
@@ -95,6 +102,7 @@
                             <td>application.projectTitle</td>
                             <td><a href="#"> View Status </a></td>
                         </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -103,5 +111,5 @@
     </div>
     </div>
 </main>
-</body>
+
 {% endblock %}

@@ -9,7 +9,7 @@ urlpatterns = [
     path("", views.login, name = "index"),
     path("register/", views.register, name="register"),
     path("login/", views.login, name = "login"),
-    path("application/", views.dashboard, name = "application"),
+    path("application/", views.application, name = "application"),
     path("update_application/<int:id>", views.updateApplication, name = "update_application"),
     path("welcome/", views.welcome, name = "welcome"),
     #path("logout/", views.logout, name= "logout")
@@ -17,5 +17,6 @@ urlpatterns = [
     path('info/', views.info, name="info"),
     path('base/', views.base, name="base"),
     path('test/', views.test, name="test"),
+    path('dashboard/', views.dashboard, name ="dashboard"),
 
 ]
