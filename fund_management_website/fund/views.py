@@ -60,7 +60,7 @@ def application(request):
 		if application_form.is_valid():
 			print("form is vali")
 			application_form.save()
-			return HttpResponse("Yay your application has been submitted.")
+			return redirect('fund:dashboard')
 		else:
 			print(application_form.errors)
 	else:
@@ -74,13 +74,13 @@ def updateApplication(request, id):
 	if request.method == 'POST':
 		application_form = ApplicationForm(request.POST, instance = application)
 		if application_form.is_valid():
-			print("form is vali")
+			print("form is valid")
 			application_form.save()
-			return HttpResponse("Yay your application has been submitted.")
+			return render(request, "fund/dashboard.html")
 		else:
 			print(application_form.errors)
 	else:
-		return render(request,'fund/application.html', {'ApplicationForm':application_form})
+		return render(request,'fund/application.html', {'applicationForm':application_form})
 
 def budgetProfile(request):
 	items = BudgetProfile.objects.all()
@@ -93,7 +93,7 @@ def addItem(request):
     totalCost=request.POST.get("totalCost")
 
     try:
-        item=BudgetProfile(heading=heading,description=description,totalCost=totalCost)
+        item = BudgetProfile(heading=heading,description=description,totalCost=totalCost)
         item.save()
         item_data={"ID":item.ID,"error":False,"errorMessage":"Item Added Successfully"}
         return JsonResponse(item_data,safe=False)
@@ -147,7 +147,8 @@ def test(request):
 	return render(request,'fund/test.html')
 
 def dashboard(request):
-	return render(request, 'fund/dashboard.html')
+	allApplications = ApplicationData.objects.all()
+	return render(request, 'fund/dashboard.html', context={'applications':allApplications,})
 
 
 
