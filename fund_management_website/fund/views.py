@@ -92,6 +92,12 @@ def log_out(request):
 def info(request):
 	return render(request,'fund/info.html')
 
+def base(request):
+	return render(request,'fund/base.html')
+
+def test(request):
+	return render(request,'fund/test.html')
+
 
 
 
