@@ -53,7 +53,7 @@ def login(request):
 
 
 
-def dashboard(request):
+def application(request):
 	application_form = ApplicationForm()
 	if request.method == 'POST':
 		application_form = ApplicationForm(request.POST)
@@ -139,6 +139,15 @@ def log_out(request):
 
 def info(request):
 	return render(request,'fund/info.html')
+
+def base(request):
+	return render(request,'fund/base.html')
+
+def test(request):
+	return render(request,'fund/test.html')
+
+def dashboard(request):
+	return render(request, 'fund/dashboard.html')
 
 
 
