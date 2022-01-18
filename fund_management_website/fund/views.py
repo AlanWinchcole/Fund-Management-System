@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from fund.forms import UserForm
 from fund.forms import ApplicationForm
+from django.views.decorators.csrf import csrf_exempt
 from fund.models import *
+import json
 
 
 # Create your views here.
@@ -80,7 +82,53 @@ def updateApplication(request, id):
 	else:
 		return render(request,'fund/application.html', {'ApplicationForm':application_form})
 
+def budgetProfile(request):
+	items = BudgetProfile.objects.all()
+	return render(request,"fund/budgetProfile.html",{"items":items})
 
+@csrf_exempt
+def addItem(request):
+    heading=request.POST.get("heading")
+    description=request.POST.get("description")
+    totalCost=request.POST.get("totalCost")
+
+    try:
+        item=BudgetProfile(heading=heading,description=description,totalCost=totalCost)
+        item.save()
+        item_data={"ID":item.ID,"error":False,"errorMessage":"Item Added Successfully"}
+        return JsonResponse(item_data,safe=False)
+    except:
+        item_data={"error":True,"errorMessage":"Failed to Item Student"}
+        return JsonResponse(item_data,safe=False)
+
+@csrf_exempt
+def saveItem(request):
+	data=request.POST.get("data")
+	dict_data=json.loads(data)
+	try:
+		for dic_single in dict_data:
+			item=BudgetProfile.objects.get(ID=dic_single['ID'])
+			item.heading=dic_single['heading']
+			item.description=dic_single['description']
+			item.totalCost=dic_single['totalCost']
+			item.save()
+		item_data={"error":False,"errorMessage":"Items Updated Successfully"}
+		return JsonResponse(item_data,safe=False)
+	except:
+		item_data={"error":True,"errorMessage":"Failed to Update Data"}
+		return JsonResponse(item_data,safe=False)
+
+@csrf_exempt
+def deleteItem(request):
+    ID=request.POST.get("ID")
+    try:
+        item=BudgetProfile.objects.get(ID=ID)
+        item.delete()
+        item_data={"error":False,"errorMessage":"Deleted Successfully"}
+        return JsonResponse(item_data,safe=False)
+    except:
+        item_data={"error":True,"errorMessage":"Failed to Delete Data"}
+        return JsonResponse(item_data,safe=False)
 
 def welcome(request):
 	return render(request,'fund/welcome.html')

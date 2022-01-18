@@ -42,8 +42,12 @@ class ApplicationData(models.Model):
 class Project(models.Model):
     pass
 
-
-
+class BudgetProfile(models.Model):
+        ID = models.AutoField(primary_key=True)
+        heading = models.TextField(max_length=300,null = True, blank = True)
+        description = models.TextField(max_length=300, null = True, blank = True)
+        totalCost = models.DecimalField(max_digits = 10,decimal_places = 2)
+        objects=models.Manager()
 
         
         

@@ -11,6 +11,10 @@ urlpatterns = [
     path("login/", views.login, name = "login"),
     path("application/", views.dashboard, name = "application"),
     path("update_application/<int:id>", views.updateApplication, name = "update_application"),
+    path("budget_profile/",views.budgetProfile, name = "budget_profile"),
+    path('add_item/', views.addItem,name="add_item"),
+    path('save_item/', views.saveItem,name="save_item"),
+    path('delete_item/', views.deleteItem,name="delete_item"),
     path("welcome/", views.welcome, name = "welcome"),
     #path("logout/", views.logout, name= "logout")
     path('logout/', LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name='logout'),
