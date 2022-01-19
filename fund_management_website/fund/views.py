@@ -37,13 +37,13 @@ def register(request):
 
 def login(request):
 	if request.user.is_authenticated:
-		return redirect(reverse('fund:application'))
+		return redirect(reverse('fund:dashboard'))
 	if request.method == 'POST':
 		user_form = AuthenticationForm(request=request,data = request.POST)
 
 		if user_form.is_valid():
 			login(request,user_form.get_user())
-			return redirect(reverse('fund:application'))
+			return redirect(reverse('fund:dashboard'))
 		else:
 			print(user_form.errors)
 
@@ -131,7 +131,7 @@ def deleteItem(request):
         return JsonResponse(item_data,safe=False)
 
 def welcome(request):
-	return render(request,'fund/welcome.html')
+	return render(request,'fund/info.html')
 
 @ login_required
 def log_out(request):
