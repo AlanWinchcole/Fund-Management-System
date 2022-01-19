@@ -143,9 +143,6 @@ def info(request):
 def base(request):
 	return render(request,'fund/base.html')
 
-def test(request):
-	return render(request,'fund/test.html')
-
 def dashboard(request):
 	allApplications = ApplicationData.objects.all()
 	return render(request, 'fund/dashboard.html', context={'applications':allApplications,})
