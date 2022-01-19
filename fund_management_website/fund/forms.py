@@ -10,9 +10,11 @@ class UserForm(forms.ModelForm) :
 
     class Meta :
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('username', 'first_name', 'last_name' ,'email', 'password')
 
         labels = { 'username' :"Username",
+                   'first_name': 'First Name',
+                   'last_name':'Last Name',
                    'email' :"Email Address",
                    'password' :'Password', }
 
