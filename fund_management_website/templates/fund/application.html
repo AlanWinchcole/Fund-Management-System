@@ -1,5 +1,4 @@
 
-
 {% extends 'fund/base.html' %}
 {% block title_block %}
     Application
@@ -10,7 +9,7 @@
         <h1 class="text-center"> Application Form </h1>
         <form id = "ApplicationForm" method="post" action="{% url 'fund:application' %}">
             {% csrf_token %}
-            {{ApplicationForm.as_p}}
+            {{form.as_p}}
             <input type="submit" value="Apply" class="btn btn-primary">
         </form>
     </div>

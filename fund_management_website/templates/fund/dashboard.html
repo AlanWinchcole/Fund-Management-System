@@ -72,7 +72,7 @@
                         <tr>
                             <td>{{application.id}}</td>
                             <td>{{application.projectTitle}}</td>
-                            <td><a href="#"> Update</a></td>
+                            <td><a href="{%url 'fund:update_application' application.id %}"> Update</a></td>
                         </tr>
                         {% endfor %}
                         </tbody>
