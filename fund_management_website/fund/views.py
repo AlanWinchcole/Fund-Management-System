@@ -65,22 +65,22 @@ def application(request):
 			print(application_form.errors)
 	else:
 
-		return render(request,'fund/application.html', {'ApplicationForm':application_form})
+		return render(request,'fund/application.html', {'form':application_form})
 
 # id is the application id
 def updateApplication(request, id):
 	application = ApplicationData.objects.get(id=id)
 	application_form = ApplicationForm(instance = application)
 	if request.method == 'POST':
-		application_form = ApplicationForm(request.POST, instance = application)
+		application_form = ApplicationForm(request.POST, instance=application)
 		if application_form.is_valid():
 			print("form is valid")
 			application_form.save()
-			return render(request, "fund/dashboard.html")
+			return redirect('fund:dashboard')
 		else:
 			print(application_form.errors)
 	else:
-		return render(request,'fund/application.html', {'applicationForm':application_form})
+		return render(request,'fund/application.html', {'form':application_form})
 
 def budgetProfile(request):
 	items = BudgetProfile.objects.all()
