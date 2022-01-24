@@ -69,10 +69,10 @@ def application(request):
 
 # id is the application id
 def updateApplication(request, id):
-	application = ApplicationData.objects.get(id=id)
-	application_form = ApplicationForm(instance = application)
+	applicationObj = ApplicationData.objects.get(id=id)
+	application_form = ApplicationForm(instance = applicationObj)
 	if request.method == 'POST':
-		application_form = ApplicationForm(request.POST, instance=application)
+		application_form = ApplicationForm(request.POST, instance=applicationObj)
 		if application_form.is_valid():
 			print("form is valid")
 			application_form.save()
