@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'fund',
     'bootstrap5',
-    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
