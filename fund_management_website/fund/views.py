@@ -35,7 +35,7 @@ def register(request):
 		{'user_form':user_form,
 		'registered':registered})
 
-def login(request):
+def user_login(request):
 	if request.user.is_authenticated:
 		return redirect(reverse('fund:dashboard'))
 	if request.method == 'POST':
@@ -51,7 +51,9 @@ def login(request):
 		user_form = AuthenticationForm()
 	return render(request,'fund/login.html', {'user_form':user_form})
 
-
+@ login_required
+def user_logout(request):
+	logout(request)
 
 def application(request):
 	application_form = ApplicationForm()
@@ -133,9 +135,6 @@ def deleteItem(request):
 def welcome(request):
 	return render(request,'fund/info.html')
 
-@ login_required
-def log_out(request):
-	logout(request)
 
 def info(request):
 	return render(request,'fund/info.html')
@@ -145,6 +144,7 @@ def base(request):
 
 def dashboard(request):
 	allApplications = ApplicationData.objects.all()
+	print(request.user.get_full_name())
 	return render(request, 'fund/dashboard.html', context={'applications':allApplications,})
 
 
