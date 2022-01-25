@@ -142,10 +142,13 @@ def info(request):
 def base(request):
 	return render(request,'fund/base.html')
 
+@login_required
 def dashboard(request):
 	allApplications = ApplicationData.objects.all()
-	print(request.user.get_full_name())
-	return render(request, 'fund/dashboard.html', context={'applications':allApplications,})
+	username  =request.user.username
+	full_name = request.user.get_full_name()
+	email = request.user.email
+	return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email})
 
 
 
