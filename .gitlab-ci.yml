@@ -34,6 +34,8 @@
 
 migrations:
   stage: build
+  tags:
+    - fund_management
   script:
     - python3 manage.py makemigrations
     - python3 manage.py migrate
@@ -41,6 +43,8 @@ migrations:
 
 django-tests:
   stage: test
+  tags:
+    - fund_management
   script:
     - python3 manage.py test
 
