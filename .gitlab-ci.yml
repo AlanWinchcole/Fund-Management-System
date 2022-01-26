@@ -55,5 +55,4 @@ test:
     - docker
   script:
     - python /fund_management_website/manage.py test
-  only:
-    - merge_requests
+
