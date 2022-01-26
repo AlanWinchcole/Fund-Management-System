@@ -55,3 +55,5 @@ test:
     - docker
   script:
     - python manage.py test
+  only:
+    - merge_requests
