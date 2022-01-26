@@ -51,9 +51,7 @@ def user_login(request):
 		user_form = AuthenticationForm()
 	return render(request,'fund/login.html', {'user_form':user_form})
 
-@ login_required
-def user_logout(request):
-	logout(request)
+
 
 def application(request):
 	application_form = ApplicationForm()
@@ -71,10 +69,10 @@ def application(request):
 
 # id is the application id
 def updateApplication(request, id):
-	applicationObj = ApplicationData.objects.get(id=id)
-	application_form = ApplicationForm(instance = applicationObj)
+	application = ApplicationData.objects.get(id=id)
+	application_form = ApplicationForm(instance = application)
 	if request.method == 'POST':
-		application_form = ApplicationForm(request.POST, instance=applicationObj)
+		application_form = ApplicationForm(request.POST, instance=application)
 		if application_form.is_valid():
 			print("form is valid")
 			application_form.save()
@@ -85,22 +83,22 @@ def updateApplication(request, id):
 		return render(request,'fund/application.html', {'form':application_form})
 
 def budgetProfile(request):
-	items = BudgetProfile.objects.all()
+	items = BudgetItems.objects.all()
 	return render(request,"fund/budgetProfile.html",{"items":items})
 
 @csrf_exempt
 def addItem(request):
     heading=request.POST.get("heading")
     description=request.POST.get("description")
-    totalCost=request.POST.get("totalCost")
+    budget_allocation=request.POST.get("budget_allocation")
 
     try:
-        item = BudgetProfile(heading=heading,description=description,totalCost=totalCost)
+        item = BudgetItems(heading=heading,description=description,budget_allocation=budget_allocation)
         item.save()
-        item_data={"ID":item.ID,"error":False,"errorMessage":"Item Added Successfully"}
+        item_data={"heading":item.heading,"error":False,"errorMessage":"Item Added Successfully"}
         return JsonResponse(item_data,safe=False)
     except:
-        item_data={"error":True,"errorMessage":"Failed to Item Student"}
+        item_data={"error":True,"errorMessage":"Failed to add item"}
         return JsonResponse(item_data,safe=False)
 
 @csrf_exempt
@@ -135,6 +133,9 @@ def deleteItem(request):
 def welcome(request):
 	return render(request,'fund/info.html')
 
+@ login_required
+def log_out(request):
+	logout(request)
 
 def info(request):
 	return render(request,'fund/info.html')
@@ -142,13 +143,9 @@ def info(request):
 def base(request):
 	return render(request,'fund/base.html')
 
-@login_required
 def dashboard(request):
 	allApplications = ApplicationData.objects.all()
-	username  =request.user.username
-	full_name = request.user.get_full_name()
-	email = request.user.email
-	return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email})
+	return render(request, 'fund/dashboard.html', context={'applications':allApplications,})
 
 
 

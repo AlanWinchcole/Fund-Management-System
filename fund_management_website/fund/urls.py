@@ -6,7 +6,7 @@ from fund_management_website import settings
 app_name = "fund"
 
 urlpatterns = [
-    path("", views.login, name = "index"),
+    path("", views.user_login, name = "index"),
     path("register/", views.register, name="register"),
     path("login/", views.user_login, name = "login"),
     path("application/", views.application, name = "application"),

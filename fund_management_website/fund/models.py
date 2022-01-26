@@ -64,13 +64,14 @@ class SubBudgetProfile(models.Model):
 
 # Each heading will be itemised
 class BudgetItems(models.Model):
+    #ID = models.AutoField(primary_key=True)
     heading = models.ForeignKey(SubBudgetProfile, on_delete=models.CASCADE, null=False)
     item_name = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
     budget_allocation = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.heading
+        return self.item_name
 
 
 # Heading wise Spending Profile

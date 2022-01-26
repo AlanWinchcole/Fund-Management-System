@@ -1,5 +1,7 @@
+{% extends 'fund/base.html' %}
 {% load static %}
 {% load bootstrap5 %}
+{% block body_block %}
 <html>
 <head>
 
@@ -9,7 +11,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
+
 <body>
+<div class="container-fluid">
+        <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+
+            <h1 class="cover-heading text-center">Welcome to your Budget Profile</h1>
+            <p class="lead text-center">This is your current Budget Profile, you can see the current details you have filled out and also add, edit or delete them.
+            </p>
+        </div>
+    </div>
+    <hr>
 <div class="container">
     <div class="row form-group" style="margin-top:30px;">
         <div class="col-lg-6">
@@ -49,7 +61,7 @@
                         <td>{{ item.ID }}</td>
                         <td class="editable" data-type="heading">{{ item.heading }}</td>
                         <td class="editable" data-type="description">{{ item.description }}</td>
-                        <td class="editable" data-type="totalCost">{{ item.totalCost }}</td>
+                        <td class="editable" data-type="budget_allocation">{{ item.budget_allocation }}</td>
                         <td class="btn-td-block"><button class="btn btn-block btn-delete btn-danger">DELETE</button></td>
                     </tr>
                     {% endfor %}
@@ -82,7 +94,7 @@
           </div>
            <div class="form-group">
               <label>Total Cost : </label>
-              <input type="number" step="0.01" name="totalCost" id="ins_total_cost" class="form-control" placeholder="Total Cost">
+              <input type="number" step="0.01" name="totalCost" id="ins_budget_allocation" class="form-control" placeholder="Total Cost">
           </div>
           <div class="form-group">
               <input type="button" name="submit" class="btn btn-block btn-info btn-insert-data" value="Add Item">
@@ -109,7 +121,7 @@
 
         var heading=$("#ins_heading").val();
         var description=$("#ins_description").val();
-        var totalCost=$("#ins_total_cost").val();
+        var budget_allocation=$("#ins_budget_allocation").val();
         if(heading==""){
         	$("#ins_error").text("Please Enter a Heading")
             $("#ins_error").show()
@@ -118,7 +130,7 @@
             $("#ins_error").text("Please Enter a Description")
             $("#ins_error").show()
             return;
-        }else if(totalCost==""){
+        }else if(budget_allocation==""){
             $("#ins_error").text("Please Enter a total cost")
             $("#ins_error").show()
             return;
@@ -128,14 +140,14 @@
             $.ajax({
                 url:'{% url 'fund:add_item' %}',
                 type:'POST',
-                data:{heading:heading,description:description,totalCost:totalCost}
+                data:{heading:heading,description:description,budget_allocation:budget_allocation}
             })
             .done(function(response){
                 if(response['error']==false){
                     $("#ins_error").hide();
                     $("#ins_success").text(response['errorMessage']);
                     $("#ins_success").show();
-                    var html_data="<tr><td>"+response['ID']+"</td><td class='editable' data-type='heading'>"+heading+"</td><td class='editable' data-type='description'>"+description+"</td><td class='editable' data-type='totalCost'>"+totalCost+"</td><td class='btn-td-block'><button class='btn btn-block btn-delete btn-danger'>DELETE</button></td></tr>";
+                    var html_data="<tr><td>"+response['ID']+"</td><td class='editable' data-type='heading'>"+heading+"</td><td class='editable' data-type='description'>"+description+"</td><td class='editable' data-type='budget_allocation'>"+budget_allocation+"</td><td class='btn-td-block'><button class='btn btn-block btn-delete btn-danger'>DELETE</button></td></tr>";
                     $(".table tbody").append(html_data);
                 }
                 else{
@@ -151,7 +163,7 @@
             })
             .always(function(){
                 $(".btn-insert-data").removeAttr("disabled");
-                $(".btn-insert-data").text("INSERT STUDENT");
+                $(".btn-insert-data").text("INSERT item");
             })
         }
     })
@@ -258,4 +270,5 @@
     });  
 </script>
 </body>
+{% endblock %}
 </html>
