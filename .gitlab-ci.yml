@@ -47,12 +47,26 @@ before_script:
 # }
 #
 # and then adding `--settings app.settings.ci` (or similar) to the test command
+stages:
+  - test
 
-test:
+unit_tests:
+  stages: 
+    - test
   variables:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
   tags:
     - docker
   script:
     - python /fund_management_website/manage.py test
+  
+pylint:
+  stages:
+    - test
+  tags:
+    - docker
+  script:
+    - pylint -d C0301 fund_management_website/fund/*.py
+
+
 
