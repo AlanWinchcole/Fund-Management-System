@@ -51,8 +51,7 @@ stages:
   - test
 
 unit_tests:
-  stage: 
-    - test
+  stage: test
   variables:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
   tags:
@@ -61,8 +60,7 @@ unit_tests:
     - python /fund_management_website/manage.py test
   
 pylint:
-  stage:
-    - test
+  stage: test
   tags:
     - docker
   script:
