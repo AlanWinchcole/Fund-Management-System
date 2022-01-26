@@ -57,7 +57,7 @@ unit_tests:
   tags:
     - docker
   script:
-    - python /fund_management_website/manage.py test
+    - python manage.py test
   
 pylint:
   stage: test
