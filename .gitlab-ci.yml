@@ -54,6 +54,6 @@ test:
   tags:
     - docker
   script:
-    - python manage.py test
+    - python /fund_management_website/manage.py test
   only:
     - merge_requests
