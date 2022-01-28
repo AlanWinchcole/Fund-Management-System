@@ -91,6 +91,10 @@ def budgetProfile(request):
 	#headings = SubBudgetProfile.objects.all()
 	return render(request,"fund/budgetProfile.html",{"items":items})
 
+def SpendProfile(request):
+	items = SpendingItems.objects.all()
+	return render(request, "fund/SpendProfile.html",{"items":items})
+	
 @csrf_exempt
 def addItem(request):
     heading=request.POST.get("heading")

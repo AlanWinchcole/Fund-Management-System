@@ -22,5 +22,6 @@ urlpatterns = [
     path('base/', views.base, name="base"),
     path('dashboard/', views.dashboard, name ="dashboard"),
     path('budget_profile/', views.budgetProfile, name ="budget_profile"),
+    path('spend_profile/', views.SpendProfile, name ="spend_profile"),
 
 ]
