@@ -44,16 +44,16 @@ class ApplicationData(models.Model) :
 # Each application has a budget profile
 class BudgetProfile(models.Model) :
     # One application can only have one budget profile
-    associated_application = models.OneToOneField(ApplicationData, on_delete=models.CASCADE, null=False)
+    associated_application = models.OneToOneField(ApplicationData, on_delete=models.CASCADE, blank=True, null=True)
     totalBudget = models.DecimalField(max_digits=10, decimal_places=2)
     objects = models.Manager()
 
 # Budget profile would be divided into different headings
 class SubBudgetProfile(models.Model):
-    associated_budget_profile = models.ForeignKey(BudgetProfile, on_delete=models.CASCADE, null=False)
+    associated_budget_profile = models.ForeignKey(BudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
     heading = models.CharField(max_length=255, null=False, blank=False, unique=True, primary_key=True)
-    budget_allocation = models.DecimalField(max_digits=10, decimal_places=2)
-    sub_budget_slug = models.SlugField(max_length=255, unique=True)
+    budget_allocation = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    sub_budget_slug = models.SlugField(max_length=255, unique=True,blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.sub_budget_slug = slugify(self.heading)
@@ -64,9 +64,10 @@ class SubBudgetProfile(models.Model):
 
 # Each heading will be itemised
 class BudgetItems(models.Model):
-    #ID = models.AutoField(primary_key=True)
-    heading = models.ForeignKey(SubBudgetProfile, on_delete=models.CASCADE, null=False)
-    item_name = models.CharField(max_length=255, blank=False, null=False)
+    ID = models.AutoField(primary_key=True)
+    heading = models.ForeignKey(SubBudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
+    #heading = models.CharField(max_length=255, blank=False, null=False)
+    item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     budget_allocation = models.DecimalField(max_digits=10, decimal_places=2)
 

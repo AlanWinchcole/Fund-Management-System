@@ -52,6 +52,9 @@ def user_login(request):
 	return render(request,'fund/login.html', {'user_form':user_form})
 
 
+@ login_required
+def user_logout(request):
+	logout(request)
 
 def application(request):
 	application_form = ApplicationForm()
@@ -69,10 +72,11 @@ def application(request):
 
 # id is the application id
 def updateApplication(request, id):
-	application = ApplicationData.objects.get(id=id)
-	application_form = ApplicationForm(instance = application)
+	applicationObj = ApplicationData.objects.get(id=id)
+	application_form = ApplicationForm(instance = applicationObj)
+
 	if request.method == 'POST':
-		application_form = ApplicationForm(request.POST, instance=application)
+		application_form = ApplicationForm(request.POST, instance=applicationObj)
 		if application_form.is_valid():
 			print("form is valid")
 			application_form.save()
@@ -84,18 +88,24 @@ def updateApplication(request, id):
 
 def budgetProfile(request):
 	items = BudgetItems.objects.all()
+	#headings = SubBudgetProfile.objects.all()
 	return render(request,"fund/budgetProfile.html",{"items":items})
 
 @csrf_exempt
 def addItem(request):
     heading=request.POST.get("heading")
+    ID=request.POST.get("ID")
+    item_name=request.POST.get("item_name")
     description=request.POST.get("description")
     budget_allocation=request.POST.get("budget_allocation")
 
     try:
-        item = BudgetItems(heading=heading,description=description,budget_allocation=budget_allocation)
+        
+        heading = SubBudgetProfile(heading=heading)
+        heading.save()
+        item = BudgetItems(ID=ID,heading=heading,item_name=item_name,description=description,budget_allocation=budget_allocation)
         item.save()
-        item_data={"heading":item.heading,"error":False,"errorMessage":"Item Added Successfully"}
+        item_data={"heading":item.ID,"error":False,"errorMessage":"Item Added Successfully"}
         return JsonResponse(item_data,safe=False)
     except:
         item_data={"error":True,"errorMessage":"Failed to add item"}
@@ -107,10 +117,16 @@ def saveItem(request):
 	dict_data=json.loads(data)
 	try:
 		for dic_single in dict_data:
-			item=BudgetProfile.objects.get(ID=dic_single['ID'])
-			item.heading=dic_single['heading']
+			heading=SubBudgetProfile(heading=dic_single['heading'])
+			heading.save()
+			#item2 = BudgetItems(heading=heading.heading)
+			#item2.save()
+			#item_heading = SubBudgetProfile.objects.get(heading=dic_single['heading'])
+			item=BudgetItems.objects.get(ID=dic_single['ID'])
+			#item.heading=item_heading.heading
+			item.item_name=dic_single['item_name']
 			item.description=dic_single['description']
-			item.totalCost=dic_single['totalCost']
+			item.budget_allocation=dic_single['budget_allocation']
 			item.save()
 		item_data={"error":False,"errorMessage":"Items Updated Successfully"}
 		return JsonResponse(item_data,safe=False)
@@ -122,7 +138,7 @@ def saveItem(request):
 def deleteItem(request):
     ID=request.POST.get("ID")
     try:
-        item=BudgetProfile.objects.get(ID=ID)
+        item=BudgetItems.objects.get(ID=ID)
         item.delete()
         item_data={"error":False,"errorMessage":"Deleted Successfully"}
         return JsonResponse(item_data,safe=False)
@@ -133,10 +149,6 @@ def deleteItem(request):
 def welcome(request):
 	return render(request,'fund/info.html')
 
-@ login_required
-def log_out(request):
-	logout(request)
-
 def info(request):
 	return render(request,'fund/info.html')
 
@@ -145,7 +157,10 @@ def base(request):
 
 def dashboard(request):
 	allApplications = ApplicationData.objects.all()
-	return render(request, 'fund/dashboard.html', context={'applications':allApplications,})
+	username  =request.user.username
+	full_name = request.user.get_full_name()
+	email = request.user.email
+	return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email})
 
 
 
