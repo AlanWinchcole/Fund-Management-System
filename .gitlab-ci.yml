@@ -16,7 +16,7 @@ services:
   - postgres:latest
 
 variables:
-  POSTGRES_DB: database_name
+  POSTGRES_DB: db.sqlite3
 
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
@@ -53,10 +53,16 @@ stages:
 unit_tests:
   stage: test
   variables:
-    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/db.sqlite3"
   tags:
     - docker
   script:
+    - cd fund_management_website
+    - pip instal virtualenv
+    - virtualenv -p python3 venv
+    - source venv/bin/activate
+    - python manage.py makemigrations fund
+    - python manage.py migrate
     - python manage.py test
   
 pylint:
