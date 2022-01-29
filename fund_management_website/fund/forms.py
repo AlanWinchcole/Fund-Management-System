@@ -19,20 +19,6 @@ class UserForm(forms.ModelForm) :
                    'password' :'Password', }
 
 
-# class Form(forms.ModelForm) :
-#     userType = forms.ChoiceField()
-#
-#     class Meta :
-#         model = UserProfile
-#         fields = ('verified',)
-#
-#         labels = {
-#             'verified' :"Is the user verified",
-#             'userType' :"Type of user"
-#         }
-#         widgets = {
-#             'userType' :forms.RadioSelect(choices=[(1, "LAG Member"), (2, "Volunteer"), (3, "Applicant"), (4, "Other")])
-#         }
 
 
 class ApplicationForm(forms.ModelForm) :
@@ -63,13 +49,11 @@ class ApplicationForm(forms.ModelForm) :
             'CH_OSCR_number' :forms.TextInput(attrs={ 'class' :'form-control' }),
             # 'contactName' :forms.TextInput(attrs={ 'class' :'form-control' }),
             # 'contactEmail' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'projectDesc' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'userGroupDesc' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'learningOpp' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'keyPartnersWork' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'projImpactClimate' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'projSupportLocBus' :forms.TextInput(attrs={ 'class' :'form-control' }),
-            'proContribution' :forms.TextInput(attrs={ 'class' :'form-control' }),
-
-
+            'projectDesc' :forms.Textarea(attrs={ 'class' :'form-control' }),
+            'userGroupDesc' :forms.Textarea(attrs={ 'class' :'form-control' }),
+            'learningOpp' :forms.Textarea(attrs={ 'class' :'form-control' }),
+            'keyPartnersWork' :forms.Textarea(attrs={ 'class' :'form-control' }),
+            'projImpactClimate' :forms.Textarea(attrs={ 'class' :'form-control' }),
+            'projSupportLocBus' :forms.Textarea(attrs={ 'class' :'form-control' }),
+            'proContribution' :forms.Textarea(attrs={ 'class' :'form-control' }),
         }
