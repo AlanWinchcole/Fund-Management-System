@@ -1,76 +1,33 @@
-  # This file is a template, and might need editing before it works on your project.
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Django.gitlab-ci.yml
+default:
+  image: python:3.9
+  before_script:
+    - pip install virtualenv
+    - virtualenv -p python3 venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt
+    - python3 manage.py makemigrations fund
+    - python3 manage.py migrate
 
-# Official framework image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/python
-image: python:3.9
-
-# Pick zero or more services to be used on all builds.
-# Only needed when using a docker container to run your tests in.
-# Check out: http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
-services:
-  - mysql:latest
-  - postgres:latest
-
-variables:
-  POSTGRES_DB: db.sqlite3
-
-# This folder is cached between builds
-# https://docs.gitlab.com/ee/ci/yaml/index.html#cache
-cache:
-  paths:
-    - ~/.cache/pip/
-
-# This is a basic example for a gem or script which doesn't use
-# services such as redis or postgres
-before_script:
-  - python -V  # Print out python version for debugging
-  # Uncomment next line if your Django app needs a JS runtime:
-  # - apt-get update -q && apt-get install nodejs -yqq
-  - pip install -r requirements.txt
-
-# To get Django tests to work you may need to create a settings file using
-# the following DATABASES:
-#
-# DATABASES = {
-#     'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'ci',
-#        'USER': 'postgres',
-#        'PASSWORD': 'postgres',
-#        'HOST': 'postgres',
-#        'PORT': '5432',
-#    },
-# }
-#
-# and then adding `--settings app.settings.ci` (or similar) to the test command
 stages:
   - test
 
 unit_tests:
   stage: test
-  variables:
-    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/db.sqlite3"
   tags:
     - docker
+    - shell
   script:
     - cd fund_management_website
-    - pip instal virtualenv
-    - virtualenv -p python3 venv
-    - source venv/bin/activate
-    - python manage.py makemigrations fund
-    - python manage.py migrate
-    - python manage.py test
-  
+    - python3 manage.py test
+
 pylint:
   stage: test
   tags:
     - docker
+    - shell
   script:
     - pylint -d C0301 fund_management_website/fund/*.py
+
 
 
 
