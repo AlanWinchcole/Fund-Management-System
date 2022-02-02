@@ -15,7 +15,6 @@ unit_tests:
   stage: test
   tags:
     - docker
-    - shell
   script:
     - cd fund_management_website
     - python3 manage.py test
@@ -24,7 +23,6 @@ pylint:
   stage: test
   tags:
     - docker
-    - shell
   script:
     - pylint -d C0301 fund_management_website/fund/*.py
 
