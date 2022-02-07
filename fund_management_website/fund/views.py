@@ -63,14 +63,17 @@ def user_logout(request):
 	logout(request)
 
 def application(request):
-	user = request.user.id
+	user = request.user
 	print(user)
-	application_form = ApplicationForm(initial={'user_id': user})
+	application_form = ApplicationForm()
 	if request.method == 'POST':
-		application_form = ApplicationForm(request.POST, initial={'user_id':user})
+		application_form = ApplicationForm(request.POST)
 		if application_form.is_valid():
 			print("form is valid")
-			application_form.save()
+			application = application_form.save(commit=False)
+			application.user = user
+			print(application.user)
+			application.save()
 			return redirect('fund:dashboard')
 		else:
 			print(application_form.errors)
@@ -174,6 +177,7 @@ def dashboard(request):
 	email = request.user.email
 	return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email})
 
-
+def applicationIntroduction(request):
+	return render(request, 'fund/application_introduction.html')
 
 

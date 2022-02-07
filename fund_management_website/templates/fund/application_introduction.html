@@ -1,0 +1,36 @@
+{% extends "fund/base.html" %}
+{% load static %}
+{% block title_block%}
+    Application Introduction
+{% endblock %}
+{% block body_block %}
+    <main class="inner cover">
+    <h3>Level 2 Project - (£15k - £50k)</h3>
+    <h1>Application Form</h1>
+    {% now "j N Y" %}
+    <p>Version 03</p>
+    <p><h4>Thank you for your interest in the Scottish borders Rural Communities Test of
+    Change programme. Please complete this Application form and return to:</h4></p>
+    <address>
+    Scottish Borders LAG<br>
+    RCTC Application <br>
+    Email Address:<a href="mailto:scotbordersleader@scotborders.gov.uk">scotbordersleader@scotborders.gov.uk</a> <br>
+    Heading: RCTC Application <br>
+    For the attention of : Simon Lynch <br>
+    </address>
+
+    <p>This application form is accompanied by the Guidance Note, (L2)</p>
+    <h2>Notes on completing the form</h2><br>
+
+    <p >The Application has four sections:</p>
+    <ol>
+        <li>Project Description: Please tell us about your organisation and what your project is looking to achieve</li>
+        <li>Project Themes: Please complete the six themes (core and supporting)</li>
+        <li>Budget Profile: Please complete the Budget Profile template</li>
+        <li>Comments and Feedback: Please leave comments and feedback on how you found the application process</li>
+    </ol>
+        <div class="container">
+            <a class="mt-3 mb-3 btn btn-primary" href="{% url 'fund:application' %}">Apply Here</a>
+        </div>
+   </main>
+{% endblock %}
