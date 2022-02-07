@@ -99,11 +99,12 @@ def updateApplication(request, id):
 
 def budgetProfile(request):
 	items = BudgetItems.objects.all()
-	#headings = SubBudgetProfile.objects.all()
+	#items = SubBudgetProfile.objects.all()
 	return render(request,"fund/budgetProfile.html",{"items":items})
 
 def SpendProfile(request):
 	items = SpendingItems.objects.all()
+	#headings = BudgetItems.objects.all()
 	return render(request, "fund/SpendProfile.html",{"items":items})
 	
 @csrf_exempt
@@ -120,6 +121,8 @@ def addItem(request):
         heading.save()
         item = BudgetItems(ID=ID,heading=heading,item_name=item_name,description=description,budget_allocation=budget_allocation)
         item.save()
+        spend_items = SpendingItems(ID=ID,heading=heading,item_name=item_name,description=description)
+        spend_items.save()
         item_data={"heading":item.ID,"error":False,"errorMessage":"Item Added Successfully"}
         return JsonResponse(item_data,safe=False)
     except:
