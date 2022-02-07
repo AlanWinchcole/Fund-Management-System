@@ -4,8 +4,8 @@ default:
     - pip install virtualenv
     - virtualenv -p python3 venv
     - source venv/bin/activate
-    - cd fund_management_website
     - pip install -r requirements.txt
+    - cd fund_management_website
     - python3 manage.py makemigrations fund
     - python3 manage.py migrate
 
