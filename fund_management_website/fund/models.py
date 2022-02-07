@@ -16,7 +16,7 @@ class UserProfile(models.Model) :
 
 
 class ApplicationData(models.Model) :
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
     organisationName = models.CharField(max_length=200, null=True, blank=True)
     projectTitle = models.CharField(max_length=200, null=True, blank=True)
     CH_OSCR_number = models.CharField(max_length=20, unique=True, blank=True, null=True, )
@@ -86,11 +86,13 @@ def user_directory_path(instance, filename):
 
 # Each heading has itemised expenditure
 class SpendingItems(models.Model):
-    associated_spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, null=False)
-    item_name = models.CharField(max_length=255, blank=False, null=False)
+    ID = models.AutoField(primary_key=True)
+    associated_spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, null=True, blank=True)
+    heading = models.CharField(max_length=255, blank=True, null=True)
+    item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    money_spent = models.DecimalField(max_digits=10, decimal_places=2)
-    evidence = models.FileField(upload_to=user_directory_path)
+    money_spent = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    evidence = models.FileField(upload_to=user_directory_path,blank=True, null=True)
 
 # Model to allow multiple file uploads
 class EvidenceFile(models.Model):

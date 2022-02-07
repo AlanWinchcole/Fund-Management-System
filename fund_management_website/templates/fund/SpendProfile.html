@@ -17,11 +17,113 @@
         <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
             <h1 class="cover-heading text-center">Welcome to your Spend Profile</h1>
-            <p class="lead text-center">This is your current Spend Profile, this is where you will report your spending againast your initial budget.
+            <p class="lead text-center">This is your current Spend Profile, this is where you will report your spending against your proposed budget.
             </p>
         </div>
     </div>
     <hr>
+    <div class="container">
+    <div class="row form-group" style="margin-top:30px;">
+        <div class="col-lg-6">
+            <button class="btn btn-block btn-success" id="insert_btn" data-toggle="modal" data-target="#insert_data">Add Item</button>
+        </div>
+        <div class="col-lg-6">
+            <button class="btn btn-block btn-success" id="update_btn">Edit Items</button>
+            <button class="btn btn-block btn-success" id="save_all_btn" style="display:none;margin-top:0px">Save Items</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+              <div class="alert alert-success" id="upt_success" style="display:none">
+
+              </div>
+               <div class="alert alert-danger" id="upt_error" style="display:none">
+
+              </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Heading</th>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Spending Evidence</th>
+                        <th>Total Spent (£)</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.ID }}</td>
+                        <td class="editable" data-type="heading">{{ item.heading }}</td>
+                        <td class="editable" data-type="item_name">{{ item.item_name }}</td>
+                        <td class="editable" data-type="description">{{ item.description }}</td>
+                        <td class="editable" data-type="Evidence">{{ item.evidence }}</td>
+                        <td class="editable" data-type="money_spent">{{ item.money_spent }}</td>
+                        <td class="btn-td-block"><button class="btn btn-block btn-delete btn-danger">DELETE</button></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="insert_data" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Add Item</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+          <div class="form-group">
+              <label>Heading : </label>
+              <input type="text" name="heading" id="ins_heading" class="form-control" placeholder="Heading">
+          </div>
+          <div class="form-group">
+              <label>Item Name : </label>
+              <input type="text" name="item_name" id="ins_item_name" class="form-control" placeholder="Description">
+          </div>
+          <div class="form-group">
+              <label>Description : </label>
+              <input type="text" name="description" id="ins_description" class="form-control" placeholder="Description">
+          </div>
+           <div class="form-group">
+              <label>Total Spent : </label>
+              <input type="number" step="0.01" name="budget_allocation" id="ins_budget_allocation" class="form-control" placeholder="Total Spent">
+          </div>
+          <div class="form-group">
+              <input type="button" name="submit" class="btn btn-block btn-info btn-insert-data" value="Add Item">
+          </div>
+          <div class="form-group">
+              <div class="alert alert-success" id="ins_success" style="display:none">
+
+              </div>
+               <div class="alert alert-danger" id="ins_error" style="display:none">
+
+              </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </body>
 {% endblock %}
 </html>
