@@ -171,7 +171,7 @@ def base(request):
 	return render(request,'fund/base.html')
 
 def dashboard(request):
-	allApplications = ApplicationData.objects.all()
+	allApplications = ApplicationData.objects.filter(user = request.user)
 	username  =request.user.username
 	full_name = request.user.get_full_name()
 	email = request.user.email
