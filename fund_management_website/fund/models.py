@@ -16,7 +16,7 @@ class UserProfile(models.Model) :
 
 
 class ApplicationData(models.Model) :
-    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     organisationName = models.CharField(max_length=200, null=True, blank=True)
     projectTitle = models.CharField(max_length=200, null=True, blank=True)
     CH_OSCR_number = models.CharField(max_length=20, unique=True, blank=True, null=True, )
