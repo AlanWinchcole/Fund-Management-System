@@ -4,8 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from fund.forms import UserForm
-from fund.forms import ApplicationForm
+from fund.forms import *
 from django.views.decorators.csrf import csrf_exempt
 from fund.models import *
 import json
@@ -18,21 +17,28 @@ def index(request):
 
 def register(request):
 	registered = False
-
 	if request.method == 'POST':
 		user_form = UserForm(request.POST)
-		if user_form.is_valid():
+		user_profile_form = UserProfileForm(request.POST)
+		if user_form.is_valid() and user_profile_form.is_valid():
 			user = user_form.save()
 			user.set_password(user.password)
 			user.save()
-			registered = True
+
+			profile = user_profile_form.save(commit = False)
+			profile.user = user
+
+			profile.save()
+			registered =True
 		else:
 			print(user_form.errors)
 	else:
 		user_form = UserForm()
+		user_profile_form = UserProfileForm()
 	return render(request,
 		'fund/register.html',
 		{'user_form':user_form,
+		 'user_profile_form':user_profile_form,
 		'registered':registered})
 
 def user_login(request):
@@ -57,11 +63,13 @@ def user_logout(request):
 	logout(request)
 
 def application(request):
-	application_form = ApplicationForm()
+	user = request.user.id
+	print(user)
+	application_form = ApplicationForm(initial={'user_id': user})
 	if request.method == 'POST':
-		application_form = ApplicationForm(request.POST)
+		application_form = ApplicationForm(request.POST, initial={'user_id':user})
 		if application_form.is_valid():
-			print("form is vali")
+			print("form is valid")
 			application_form.save()
 			return redirect('fund:dashboard')
 		else:

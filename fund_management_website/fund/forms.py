@@ -18,8 +18,10 @@ class UserForm(forms.ModelForm) :
                    'email' :"Email Address",
                    'password' :'Password', }
 
-
-
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ("contact_number",)
 
 class ApplicationForm(forms.ModelForm) :
     class Meta :

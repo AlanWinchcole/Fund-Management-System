@@ -14,15 +14,21 @@
     <div style="text-align: center">
 <img class="mt-4 mb-4" src="{% static 'svg/scotgovlogo.svg'%}" height="120" width="300px"  alt="Scottish Government Logo" />    </div>
     <h1 class= "text-center"> Register</h1>
+    {% if registered %}
+    <h3 class = "text-center"><strong>Thank you for registering</strong></h3>
+    <p><a href = "{%url 'fund:login' %}"> Login Here </a></p>
+    {% else %}
     <form id = "user_form" method = "post" action = "{% url 'fund:register' %}">
         {% csrf_token %}
         {% bootstrap_form user_form %}
+        {% bootstrap_form user_profile_form %}
 
         <div class = "text-center p-2">
-            <p>Already have an account? <a href = "{%url 'fund:login' %}"> Login Here</a></p>
+            <p class="text-center">Already have an account? <a href = "{%url 'fund:login' %}"> Login Here</a></p>
             <button type="submit" class= "btn btn-primary btn-lg"> Register </button>
         </div>
     </form>
+    {% endif %}
     
 
 </main>
