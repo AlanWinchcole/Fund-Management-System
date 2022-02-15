@@ -178,8 +178,12 @@ def dashboard(request):
 	username  =request.user.username
 	full_name = request.user.get_full_name()
 	email = request.user.email
-	contact = UserProfile.objects.get(user = request.user).contact_number
-	return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email, "contact":contact})
+	if not request.user.is_superuser:
+		contact = UserProfile.objects.get(user = request.user).contact_number
+		return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email, "contact":contact})
+	return render(request, 'fund/dashboard.html',
+				  context={ 'applications' :allApplications, "username" :username, "full_name" :full_name,
+							"email" :email})
 
 def applicationIntroduction(request):
 	return render(request, 'fund/application_introduction.html')

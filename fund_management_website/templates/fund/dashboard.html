@@ -41,11 +41,12 @@
                             <td>Email: </td>
                             <td><a href="mailto:{{email}}">{{email}}</a></td>
                         </tr>
+                    {% if contact %}
                         <tr>
                             <td>Contact: </td>
                             <td>{{contact}}</td>
                         </tr>
-
+                    {% endif %}
                     </tbody>
                 </table>
             </div>
