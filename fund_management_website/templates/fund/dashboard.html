@@ -74,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for application in applications %}
+                        {% for application in incomplete_applications %}
                         <tr>
                             <td>{{application.id}}</td>
                             <td>{{application.projectTitle}}</td>
@@ -102,7 +102,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for application in applications %}
+                        {% for application in completed_applications %}
                         <tr>
                             <td>{{application.id}}</td>
                             <td>{{application.projectTitle}}</td>

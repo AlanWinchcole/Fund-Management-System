@@ -174,15 +174,16 @@ def base(request):
 	return render(request,'fund/base.html')
 
 def dashboard(request):
-	allApplications = ApplicationData.objects.filter(user = request.user)
+	completedApplications = ApplicationData.objects.filter(user = request.user, application_complete = True)
+	incompleteApplications = ApplicationData.objects.filter(user = request.user, application_complete = False)
 	username  =request.user.username
 	full_name = request.user.get_full_name()
 	email = request.user.email
 	if not request.user.is_superuser:
 		contact = UserProfile.objects.get(user = request.user).contact_number
-		return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email, "contact":contact})
+		return render(request, 'fund/dashboard.html', context={'completed_applications':completedApplications,'incomplete_applications':incompleteApplications ,"username":username, "full_name":full_name, "email":email, "contact":contact})
 	return render(request, 'fund/dashboard.html',
-				  context={ 'applications' :allApplications, "username" :username, "full_name" :full_name,
+				  context={ 'completed_applications':completedApplications,'incomplete_applications':incompleteApplications, "username" :username, "full_name" :full_name,
 							"email" :email})
 
 def applicationIntroduction(request):
