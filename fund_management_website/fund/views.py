@@ -130,6 +130,24 @@ def addItem(request):
         return JsonResponse(item_data,safe=False)
 
 @csrf_exempt
+def addItemSpendProfile(request):
+    heading=request.POST.get("heading")
+    ID=request.POST.get("ID")
+    item_name=request.POST.get("item_name")
+    description=request.POST.get("description")
+    money_spent=request.POST.get("money_spent")
+
+    try:
+
+        spend_items = SpendingItems(ID=ID,heading=heading,item_name=item_name,description=description,money_spent=money_spent)
+        spend_items.save()
+        item_data={"heading":spend_items.ID,"error":False,"errorMessage":"Item Added Successfully"}
+        return JsonResponse(item_data,safe=False)
+    except:
+        item_data={"error":True,"errorMessage":"Failed to add item"}
+        return JsonResponse(item_data,safe=False)
+
+@csrf_exempt
 def saveItem(request):
 	data=request.POST.get("data")
 	dict_data=json.loads(data)
@@ -145,6 +163,29 @@ def saveItem(request):
 			item.item_name=dic_single['item_name']
 			item.description=dic_single['description']
 			item.budget_allocation=dic_single['budget_allocation']
+			item.save()
+		item_data={"error":False,"errorMessage":"Items Updated Successfully"}
+		return JsonResponse(item_data,safe=False)
+	except:
+		item_data={"error":True,"errorMessage":"Failed to Update Data"}
+		return JsonResponse(item_data,safe=False)
+
+@csrf_exempt
+def saveItemSpendProfile(request):
+	data=request.POST.get("data")
+	dict_data=json.loads(data)
+	try:
+		for dic_single in dict_data:
+			#heading=SubBudgetProfile(heading=dic_single['heading'])
+			#heading.save()
+			#item2 = BudgetItems(heading=heading.heading)
+			#item2.save()
+			#item_heading = SubBudgetProfile.objects.get(heading=dic_single['heading'])
+			item=SpendingItems.objects.get(ID=dic_single['ID'])
+			item.heading=dic_single['heading']
+			item.item_name=dic_single['item_name']
+			item.description=dic_single['description']
+			item.money_spent=dic_single['money_spent']
 			item.save()
 		item_data={"error":False,"errorMessage":"Items Updated Successfully"}
 		return JsonResponse(item_data,safe=False)
