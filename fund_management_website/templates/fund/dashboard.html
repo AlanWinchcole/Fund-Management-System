@@ -77,7 +77,11 @@
                         {% for application in incomplete_applications %}
                         <tr>
                             <td>{{application.id}}</td>
+                            {% if application.projectTitle %}
                             <td>{{application.projectTitle}}</td>
+                            {% else %}
+                            <td>N/A</td>
+                            {% endif %}
                             <td><a href="{%url 'fund:update_application' application.id %}"> Update</a></td>
                         </tr>
                         {% endfor %}
