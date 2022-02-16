@@ -141,7 +141,7 @@ def addItemSpendProfile(request):
     money_spent=request.POST.get("money_spent")
 
     try:
-        
+
         spend_items = SpendingItems(ID=ID,heading=heading,item_name=item_name,description=description,money_spent=money_spent)
         spend_items.save()
         item_data={"heading":spend_items.ID,"error":False,"errorMessage":"Item Added Successfully"}
@@ -219,12 +219,17 @@ def base(request):
 	return render(request,'fund/base.html')
 
 def dashboard(request):
-	allApplications = ApplicationData.objects.filter(user = request.user)
+	completedApplications = ApplicationData.objects.filter(user = request.user, application_complete = True)
+	incompleteApplications = ApplicationData.objects.filter(user = request.user, application_complete = False)
 	username  =request.user.username
 	full_name = request.user.get_full_name()
 	email = request.user.email
-	#contact = UserProfile.objects.get(user = request.user).contact_number
-	return render(request, 'fund/dashboard.html', context={'applications':allApplications,"username":username, "full_name":full_name, "email":email})
+	if not request.user.is_superuser:
+		contact = UserProfile.objects.get(user = request.user).contact_number
+		return render(request, 'fund/dashboard.html', context={'completed_applications':completedApplications,'incomplete_applications':incompleteApplications ,"username":username, "full_name":full_name, "email":email, "contact":contact})
+	return render(request, 'fund/dashboard.html',
+				  context={ 'completed_applications':completedApplications,'incomplete_applications':incompleteApplications, "username" :username, "full_name" :full_name,
+							"email" :email})
 
 def applicationIntroduction(request):
 	return render(request, 'fund/application_introduction.html')

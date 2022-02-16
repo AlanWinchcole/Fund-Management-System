@@ -10,7 +10,30 @@
         <form id = "ApplicationForm" method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.as_p}}
-            <input type="submit" value="Apply" class="btn btn-primary">
+            <input type="submit" value="Apply" class="btn btn-primary" onclick="check_empty();">
         </form>
     </div>
+{% endblock %}
+{% block javascript_block %}
+    <script>
+        // check if any fields are empty
+
+        function check_empty(){
+        var flag = true;
+        // get all input and check if any of them are empty
+        var inputBoxes = document.querySelectorAll(".form-control"); // gives back a list of all nodes.
+        console.log(inputBoxes);
+        inputBoxes.forEach(inputBox=>{
+            if (inputBox.value.length == 0){
+                flag = false;
+            };
+            });
+        if (!flag) {
+            alert("You have left some fields empty, please leave the 'Is your application complete?' box unchecked. ");
+        }
+        else{
+            alert("You have filled all fields, please update the 'Is your application complete?' checkbox accordingly.");
+        };
+        };
+    </script>
 {% endblock %}

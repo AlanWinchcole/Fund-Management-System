@@ -27,7 +27,7 @@ class ApplicationForm(forms.ModelForm) :
     class Meta :
         model = ApplicationData
         fields = ('organisationName','projectTitle' ,'CH_OSCR_number','projectDesc','userGroupDesc','learningOpp' ,'keyPartnersWork' ,'projImpactClimate' ,'projSupportLocBus',
-                  'proContribution',)
+                  'proContribution', 'application_complete')
         labels = {
 
             'organisationName' :'Name of the Organisation',
@@ -42,6 +42,7 @@ class ApplicationForm(forms.ModelForm) :
             'projImpactClimate' :"Project's Impact on Climate",
             'projSupportLocBus' :"How does project support local business?",
             'proContribution' :"Pro Contribution",
+            'application_complete':"Is your application complete?",
 
         }
         widgets = {
@@ -58,4 +59,5 @@ class ApplicationForm(forms.ModelForm) :
             'projImpactClimate' :forms.Textarea(attrs={ 'class' :'form-control' }),
             'projSupportLocBus' :forms.Textarea(attrs={ 'class' :'form-control' }),
             'proContribution' :forms.Textarea(attrs={ 'class' :'form-control' }),
+            'application_complete':forms.CheckboxInput(attrs={'class':'boolean'}),
         }

@@ -41,11 +41,12 @@
                             <td>Email: </td>
                             <td><a href="mailto:{{email}}">{{email}}</a></td>
                         </tr>
+                    {% if contact %}
                         <tr>
                             <td>Contact: </td>
                             <td>{{contact}}</td>
                         </tr>
-
+                    {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -73,10 +74,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for application in applications %}
+                        {% for application in incomplete_applications %}
                         <tr>
                             <td>{{application.id}}</td>
+                            {% if application.projectTitle %}
                             <td>{{application.projectTitle}}</td>
+                            {% else %}
+                            <td>N/A</td>
+                            {% endif %}
                             <td><a href="{%url 'fund:update_application' application.id %}"> Update</a></td>
                         </tr>
                         {% endfor %}
@@ -101,7 +106,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for application in applications %}
+                        {% for application in completed_applications %}
                         <tr>
                             <td>{{application.id}}</td>
                             <td>{{application.projectTitle}}</td>
