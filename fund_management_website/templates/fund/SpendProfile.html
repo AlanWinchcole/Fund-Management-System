@@ -101,7 +101,7 @@
               <input type="text" name="description" id="ins_description" class="form-control" placeholder="Description">
           </div>
            <div class="form-group">
-              <label>Total Spent : </label>
+              <label>Money Spent : </label>
               <input type="number" step="0.01" name="budget_allocation" id="ins_budget_allocation" class="form-control" placeholder="Total Spent">
           </div>
           <div class="form-group">
@@ -124,6 +124,134 @@
 
   </div>
 </div>
+<script>
+        $(".btn-insert-data").click(function(){
+
+        var heading=$("#ins_heading").val();
+        var item_name=$("#ins_item_name").val();
+        var description=$("#ins_description").val();
+        var money_spent=$("#ins_budget_allocation").val();
+        if(heading==""){
+            $("#ins_error").text("Please Enter a Heading")
+            $("#ins_error").show()
+            return;
+        }else if(item_name==""){
+            $("#ins_error").text("Please Enter a name to identify the item")
+            $("#ins_error").show()
+            return;
+        }else if(description==""){
+            $("#ins_error").text("Please Enter a Description")
+            $("#ins_error").show()
+            return;
+        }else if(money_spent==""){
+            $("#ins_error").text("Please Enter the money spent")
+            $("#ins_error").show()
+            return;
+        }else{
+                $(".btn-insert-data").attr("disabled","disabled");
+                $(".btn-insert-data").text("Adding... Please Wait..");
+            $.ajax({
+                url:'{% url 'fund:add_item_spend' %}',
+                type:'POST',
+                data:{heading:heading,item_name:item_name,description:description,money_spent:money_spent}
+            })
+            .done(function(response){
+                if(response['error']==false){
+                    $("#ins_error").hide();
+                    $("#ins_success").text(response['errorMessage']);
+                    $("#ins_success").show();
+                    var html_data="<tr><td>"+response['ID']+"</td><td class='editable' data-type='heading'>"+heading+"</td><td class='editable' data-type='item_name'>"+item_name+ "</td><td class='editable' data-type='description'>"+description+ "</td><td class='editable' data-type='budget_allocation'>"+money_spent+"</td><td class='btn-td-block'><button class='btn btn-block btn-delete btn-danger'>DELETE</button></td></tr>";
+                    $(".table tbody").append(html_data);
+                }
+                else{
+                    $("#ins_success").hide();
+                    $("#ins_error").text(response['errorMessage']);
+                    $("#ins_error").show();
+                }
+            })
+            .fail(function(){
+                 $("#ins_success").hide();
+                 $("#ins_error").text("Something Went Wrong!");
+                 $("#ins_error").show();
+            })
+            .always(function(){
+                $(".btn-insert-data").removeAttr("disabled");
+                $(".btn-insert-data").text("INSERT item");
+            })
+        }
+    })
+
+    $("#update_btn").click(function(){
+           $("#update_btn").hide();
+           $("#save_all_btn").show();
+       $(".editable").each(function(){
+           var value=$(this).text();
+           var types=$(this).data('type');
+           if(types!='budget_allocation'){
+                var html_data="<input type='text' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
+                $(this).html(html_data);
+            }else{
+                var html_data="<input type='number' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
+                $(this).html(html_data);
+            }
+       });
+    });
+
+    $("#save_all_btn").click(function(){
+        $("#save_all_btn").attr("disabled","disabled");
+        $("#save_all_btn").text("Saving Data....");
+
+        var json_data=[];
+        $(".input_data").each(function(){
+                var value=$(this).val();
+                var parent_html=$(this).parent();
+                parent_html.html(value);
+                $(this).remove();
+         });
+        $("tbody tr").each(function(){
+             var ID=$(this).children().eq(0).text()
+             var heading=$(this).children().eq(1).text()
+             var item_name=$(this).children().eq(2).text()
+             var description=$(this).children().eq(3).text()
+             var money_spent=$(this).children().eq(5).text()
+
+             var single_data={"ID":ID,"heading":heading,"item_name":item_name,"description":description,"money_spent":money_spent};
+             json_data.push(single_data);
+        });
+
+        var string_data=JSON.stringify(json_data)
+        $.ajax({
+                url:'{% url 'fund:save_item_spend' %}',
+                type:'POST',
+                data:{data:string_data}
+            })
+            .done(function(response){
+                if(response['error']==false){
+                    $("#upt_error").hide();
+                    $("#upt_success").text(response['errorMessage']);
+                    $("#upt_success").show();
+
+                }
+                else{
+                    $("#upt_success").hide();
+                    $("#upt_error").text(response['errorMessage']);
+                    $("#upt_error").show();
+                }
+            })
+            .fail(function(){
+                 $("#upt_success").hide();
+                 $("#upt_error").text("Something Went Wrong!");
+                 $("#upt_error").show();
+            })
+            .always(function(){
+                 $("#save_all_btn").removeAttr("disabled");
+                 $("#save_all_btn").text("SAVE ALL");
+                 $("#update_btn").show();
+                 $("#save_all_btn").hide();
+            })
+
+    }); 
+</script>
 </body>
 {% endblock %}
 </html>
