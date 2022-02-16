@@ -54,7 +54,8 @@
                         <th>Description</th>
                         <th>Spending Evidence</th>
                         <th>Total Spent (£)</th>
-                        <th>Action</th>
+                        <th>Budget to be allocated (£)</th>
+                        <th>Budget Remaining (£)</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,7 +67,7 @@
                         <td class="editable" data-type="description">{{ item.description }}</td>
                         <td class="editable" data-type="Evidence">{{ item.evidence }}</td>
                         <td class="editable" data-type="money_spent">{{ item.money_spent }}</td>
-                        <td class="btn-td-block"><button class="btn btn-block btn-delete btn-danger">DELETE</button></td>
+                        <td class="editable" data-type="money_spent">{{ item.budget_allocation }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -101,8 +102,16 @@
               <input type="text" name="description" id="ins_description" class="form-control" placeholder="Description">
           </div>
            <div class="form-group">
+              <label>Evidence : </label>
+              <input type="file" id='myFile' name='filename' name="evidence" id="ins_evidence" class="form-control" placeholder="Total Spent">
+          </div>
+           <div class="form-group">
               <label>Money Spent : </label>
               <input type="number" step="0.01" name="budget_allocation" id="ins_budget_allocation" class="form-control" placeholder="Total Spent">
+          </div>
+          <div class="form-group">
+              <label>Item Budget : </label>
+              <input type="number" step="0.01" name="budget_allocation" id="ins_budget_allocation_new" class="form-control" placeholder="Total Spent">
           </div>
           <div class="form-group">
               <input type="button" name="submit" class="btn btn-block btn-info btn-insert-data" value="Add Item">
@@ -187,7 +196,11 @@
        $(".editable").each(function(){
            var value=$(this).text();
            var types=$(this).data('type');
-           if(types!='budget_allocation'){
+           
+            if(types=='Evidence'){
+                var html_data="<input type='file' id='request.user.id' name='filename' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
+                $(this).html(html_data);
+            }else if(types!='money_spent'){
                 var html_data="<input type='text' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
                 $(this).html(html_data);
             }else{
@@ -213,9 +226,10 @@
              var heading=$(this).children().eq(1).text()
              var item_name=$(this).children().eq(2).text()
              var description=$(this).children().eq(3).text()
+             var evidence=$(this).children().eq(4).text()
              var money_spent=$(this).children().eq(5).text()
 
-             var single_data={"ID":ID,"heading":heading,"item_name":item_name,"description":description,"money_spent":money_spent};
+             var single_data={"ID":ID,"heading":heading,"item_name":item_name,"description":description,"evidence":evidence,"money_spent":money_spent};
              json_data.push(single_data);
         });
 

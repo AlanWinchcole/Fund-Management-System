@@ -104,6 +104,9 @@ def budgetProfile(request):
 
 def SpendProfile(request):
 	items = SpendingItems.objects.all()
+	#spendObj = SpendingItems.objects.get(id=id)
+	#item =  SpendingItems(request.POST, instance=spendObj)
+	#item.save()
 	#headings = BudgetItems.objects.all()
 	return render(request, "fund/SpendProfile.html",{"items":items})
 	
@@ -121,7 +124,7 @@ def addItem(request):
         heading.save()
         item = BudgetItems(ID=ID,heading=heading,item_name=item_name,description=description,budget_allocation=budget_allocation)
         item.save()
-        spend_items = SpendingItems(ID=ID,heading=heading,item_name=item_name,description=description)
+        spend_items = SpendingItems(ID=ID,heading=heading,item_name=item_name,description=description,budget_allocation=budget_allocation)
         spend_items.save()
         item_data={"heading":item.ID,"error":False,"errorMessage":"Item Added Successfully"}
         return JsonResponse(item_data,safe=False)
@@ -185,6 +188,7 @@ def saveItemSpendProfile(request):
 			item.heading=dic_single['heading']
 			item.item_name=dic_single['item_name']
 			item.description=dic_single['description']
+			item.evidence=dic_single['evidence']
 			item.money_spent=dic_single['money_spent']
 			item.save()
 		item_data={"error":False,"errorMessage":"Items Updated Successfully"}

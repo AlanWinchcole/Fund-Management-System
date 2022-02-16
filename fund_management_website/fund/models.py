@@ -86,12 +86,14 @@ def user_directory_path(instance, filename):
 
 # Each heading has itemised expenditure
 class SpendingItems(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True)
     ID = models.AutoField(primary_key=True)
-    associated_spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, null=True, blank=True)
+    #associated_spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, null=True, blank=True)
     heading = models.CharField(max_length=255, blank=True, null=True)
     item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     money_spent = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    budget_allocation = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     evidence = models.FileField(upload_to=user_directory_path,blank=True, null=True)
 
 # Model to allow multiple file uploads
