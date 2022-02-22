@@ -53,9 +53,9 @@ def user_login(request):
 		else:
 			print(user_form.errors)
 
-	else:
-		user_form = AuthenticationForm()
-	return render(request,'fund/login.html', {'user_form':user_form})
+	#else:
+		# user_form = AuthenticationForm()
+	return render(request,'fund/login.html') # {'user_form':user_form})
 
 
 @ login_required
