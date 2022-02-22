@@ -6,6 +6,9 @@ from django.core.validators import RegexValidator
 
 
 # Create your models here.
+from django.utils import timezone
+
+
 class UserProfile(models.Model) :
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     regex_validator = RegexValidator(regex=r'^\+?1?\d{9,12}$', message="Phone number must be entered in the format: '+999999999'. Up to 12 digits allowed.")
@@ -30,8 +33,11 @@ class ApplicationData(models.Model) :
 
     length = models.IntegerField(null=True, blank=True)
     application_complete = models.BooleanField(default=False)
+    date_of_application = models.DateField(null=True, blank=True)
 
     def save(self, *args, **kwargs) :
+        if self.application_complete:
+            self.date_of_application = timezone.now()
         super(ApplicationData, self).save(*args, **kwargs)
 
     def __str__(self) :
