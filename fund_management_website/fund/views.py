@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.urls import reverse
 from fund.forms import *
 from django.views.decorators.csrf import csrf_exempt
@@ -74,7 +74,7 @@ def application(request):
 			application.user = user
 			print(application.user)
 			application.save()
-			return redirect('fund:dashboard')
+			return redirect('fund:dashboard/', username=request.user.username)
 		else:
 			print(application_form.errors)
 	else:
@@ -241,7 +241,7 @@ def dashboard(request, username=None):
 def admin_dashboard(request):
         users = get_user_model()
         user_list = users.objects.all()
-        completed_applications = ApplicationData.objects.filter(application_complete = True).all()
+        completed_applications = ApplicationData.objects.all().filter(application_complete = True)
         username = request.user.username
         full_name = request.user.get_full_name()
         email = request.user.email

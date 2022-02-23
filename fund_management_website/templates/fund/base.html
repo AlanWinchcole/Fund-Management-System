@@ -39,7 +39,7 @@
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-light " style="background-color:#e1e1e1;" >
     <div class="container">
-        <a href="{% url 'fund:dashboard' %}" class="navbar-brand mb-0 h1 py-0">
+        <a href="{% url 'fund:dashboard' username=request.user.username %}" class="navbar-brand mb-0 h1 py-0">
             <img class="d-inline-block align-top" src="{% static 'svg/scotgovlogo.svg'%}" height="30" width="150px"
                  alt="Scottish Government Logo"/>
             <p class="navbar-brand">Scottish Borders</p>
@@ -52,7 +52,7 @@
             <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    <a href="{% url 'fund:dashboard' %}" class="nav-link">
+                    <a href="{% url 'fund:dashboard' username=request.user.username %}" class="nav-link">
                         Dashboard
                     </a>
                 </li>
