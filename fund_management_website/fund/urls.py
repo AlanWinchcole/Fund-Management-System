@@ -25,6 +25,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name ="dashboard"),
     path('budget_profile/', views.budgetProfile, name ="budget_profile"),
     path('spend_profile/', views.SpendProfile, name ="spend_profile"),
-    path("application_introduction/", views.applicationIntroduction, name = "application_introduction")
-
+    path("application_introduction/", views.applicationIntroduction, name = "application_introduction"),
+    path("user_profile/<str:username>", views.user_profile, name = "user_profile"),
 ]

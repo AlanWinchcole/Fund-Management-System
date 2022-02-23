@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.urls import reverse
 from fund.forms import *
 from django.views.decorators.csrf import csrf_exempt
@@ -219,17 +219,55 @@ def base(request):
 	return render(request,'fund/base.html')
 
 def dashboard(request):
-	completedApplications = ApplicationData.objects.filter(user = request.user, application_complete = True)
-	incompleteApplications = ApplicationData.objects.filter(user = request.user, application_complete = False)
-	username  =request.user.username
+	username = request.user.username
 	full_name = request.user.get_full_name()
 	email = request.user.email
-	if not request.user.is_superuser:
-		contact = UserProfile.objects.get(user = request.user).contact_number
-		return render(request, 'fund/dashboard.html', context={'completed_applications':completedApplications,'incomplete_applications':incompleteApplications ,"username":username, "full_name":full_name, "email":email, "contact":contact})
-	return render(request, 'fund/dashboard.html',
-				  context={ 'completed_applications':completedApplications,'incomplete_applications':incompleteApplications, "username" :username, "full_name" :full_name,
-							"email" :email})
+	if request.user.is_superuser:
+		admin = True
+		users = get_user_model()
+		user_list = users.objects.all()
+		completed_applications = ApplicationData.objects.filter(application_complete=True).order_by('date_of_application')
+		return render(request, 'fund/dashboard.html',
+						  context={ 'completed_applications' :completed_applications,
+									"username" :username, "full_name" :full_name,
+									"email" :email, "user_list":user_list, 'admin': admin})
+	else:
+		completedApplications = ApplicationData.objects.filter(user = request.user, application_complete = True)
+		incompleteApplications = ApplicationData.objects.filter(user = request.user, application_complete = False)
+		contact = UserProfile.objects.get(user=request.user).contact_number
+		return render(request, 'fund/dashboard.html', context={ 'completed_applications' :completedApplications,
+																	'incomplete_applications' :incompleteApplications,
+																	"username" :username, "full_name" :full_name,
+																	"email" :email, "contact" :contact,
+																	})
+
+
+from django.contrib.auth.decorators import user_passes_test
+
+@user_passes_test(lambda u: u.is_superuser)
+def user_profile(request, username):
+	users = get_user_model()
+	user = users.objects.get(username = username)
+	print(user)
+	if user.is_superuser:
+		admin = True
+	else:
+		admin = False
+	completed_applications = None
+	username = user.username
+	full_name = user.get_full_name()
+	email = user.email
+	contact = None
+	if not admin:
+		contact = UserProfile.objects.get(user = user).contact_number
+		completed_applications = ApplicationData.objects.filter(user=user, application_complete=True)
+		print(completed_applications)
+
+	data = {"username" : username, "full_name" : full_name, "email" : email, "completed_applications" : completed_applications, 'contact':contact, 'admin':admin}
+	return render(request, 'fund/user_profile.html', context=data)
+
+
+
 
 def applicationIntroduction(request):
 	return render(request, 'fund/application_introduction.html')

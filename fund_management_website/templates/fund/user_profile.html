@@ -1,0 +1,88 @@
+{% extends 'fund/base.html' %}
+{% load static %}
+
+{%block title_block %}
+    Profile for {{full_name}}
+{% endblock %}
+
+{% block body_block %}
+    <main role="main" class="inner cover">
+    <div class="container-fluid">
+        <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+
+            <h1 class="cover-heading text-center">Profile Page for {{full_name}}</h1>
+
+        </div>
+    </div>
+        <div class="container">
+        <p class="h3 text-center">Profile</p>
+        <div class="row">
+            <div class="col-4">
+                <img src="{% static 'svg/person.svg'%}" class="img-fluid float-left" height=100 width=100 alt="Person Icon"/>
+            </div>
+            <div class="col-8">
+                <table class="table table-borderless">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr>
+                            <td>Username </td>
+                            <td>{{username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Name: </td>
+                            <td> {{full_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email: </td>
+                            <td><a href="mailto:{{email}}">{{email}}</a></td>
+                        </tr>
+                    {% if contact %}
+                        <tr>
+                            <td>Contact: </td>
+                            <td>{{contact}}</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr>
+        {% if not admin %}
+        <div class="row">
+            <div class = "col-2">
+            </div>
+            <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <img src="{%static 'svg/table.svg' %}" alt="Table Icon" width=20 height=20/>
+                    Completed Application
+                </div>
+                <div class="card-body">
+                    <table id="dataTable" class="dataTable table table-striped table-hover tableresponsive">
+                        <thead>
+                            <tr>
+                                <th>Application ID</th>
+                                <th>Application Title</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for application in completed_applications %}
+                        <tr>
+                            <td>{{application.id}}</td>
+                            <td>{{application.projectTitle}}</td>
+                            <td><a href="#"> View Status </a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% endif %}
+
+    </main>
+{% endblock %}
