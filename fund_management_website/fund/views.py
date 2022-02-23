@@ -74,7 +74,7 @@ def application(request):
 			application.user = user
 			print(application.user)
 			application.save()
-			return redirect('fund:dashboard/', username=request.user.username)
+			return redirect('fund:dashboard')
 		else:
 			print(application_form.errors)
 	else:
@@ -218,36 +218,53 @@ def info(request):
 def base(request):
 	return render(request,'fund/base.html')
 
-def dashboard(request, username=None):
-        if username:
-                post_owner = get_object_or_404(User, username=username)
-        else:
-                post_owner = request.user
-        completedApplications = ApplicationData.objects.filter(user = request.user, application_complete = True)
-        incompleteApplications = ApplicationData.objects.filter(user = request.user, application_complete = False)
-        username  =request.user.username
-        full_name = request.user.get_full_name()
-        email = request.user.email
-        if not request.user.is_superuser:
-                contact = UserProfile.objects.get(user = request.user).contact_number
-                return render(request, 'fund/dashboard.html', context={'completed_applications':completedApplications,'incomplete_applications':incompleteApplications ,
-                                                                       "username":username, "full_name":full_name, "email":email, "contact":contact, "post_owner":post_owner})
-        return render(request, 'fund/dashboard.html',
-				  context={ 'completed_applications':completedApplications,'incomplete_applications':incompleteApplications,
-                                            "username" :username, "full_name" :full_name, "post_owner":post_owner,
-							"email" :email})
+def dashboard(request):
+	username = request.user.username
+	full_name = request.user.get_full_name()
+	email = request.user.email
+	if request.user.is_superuser:
+		admin = True
+		users = get_user_model()
+		user_list = users.objects.all()
+		completed_applications = ApplicationData.objects.filter(application_complete=True).order_by('date_of_application')
+		return render(request, 'fund/dashboard.html',
+						  context={ 'completed_applications' :completed_applications,
+									"username" :username, "full_name" :full_name,
+									"email" :email, "user_list":user_list, 'admin': admin})
+	else:
+		completedApplications = ApplicationData.objects.filter(user = request.user, application_complete = True)
+		incompleteApplications = ApplicationData.objects.filter(user = request.user, application_complete = False)
+		contact = UserProfile.objects.get(user=request.user).contact_number
+		return render(request, 'fund/dashboard.html', context={ 'completed_applications' :completedApplications,
+																	'incomplete_applications' :incompleteApplications,
+																	"username" :username, "full_name" :full_name,
+																	"email" :email, "contact" :contact,
+																	})
 
 
-def admin_dashboard(request):
-        users = get_user_model()
-        user_list = users.objects.all()
-        completed_applications = ApplicationData.objects.all().filter(application_complete = True)
-        username = request.user.username
-        full_name = request.user.get_full_name()
-        email = request.user.email
+from django.contrib.auth.decorators import user_passes_test
 
-        data = {"username" : username, "full_name" : full_name, "email" : email, "user_list" : user_list, "completed_applications " : completed_applications}
-        return render(request, 'fund/admin_dashboard.html', context=data)
+@user_passes_test(lambda u: u.is_superuser)
+def user_profile(request, username):
+	users = get_user_model()
+	user = users.objects.get(username = username)
+	print(user)
+	if user.is_superuser:
+		admin = True
+	else:
+		admin = False
+	completed_applications = None
+	username = user.username
+	full_name = user.get_full_name()
+	email = user.email
+	contact = None
+	if not admin:
+		contact = UserProfile.objects.get(user = user).contact_number
+		completed_applications = ApplicationData.objects.filter(user=user, application_complete=True)
+		print(completed_applications)
+
+	data = {"username" : username, "full_name" : full_name, "email" : email, "completed_applications" : completed_applications, 'contact':contact, 'admin':admin}
+	return render(request, 'fund/user_profile.html', context=data)
 
 
 

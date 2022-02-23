@@ -22,9 +22,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name='logout'),
     path('welcome/', views.info, name="welcome"),
     path('base/', views.base, name="base"),
-    path('dashboard/<str:username>/', views.dashboard, name ="dashboard"),
+    path('dashboard/', views.dashboard, name ="dashboard"),
     path('budget_profile/', views.budgetProfile, name ="budget_profile"),
     path('spend_profile/', views.SpendProfile, name ="spend_profile"),
     path("application_introduction/", views.applicationIntroduction, name = "application_introduction"),
-    path("admin_dashboard/", views.admin_dashboard, name = "admin_dashboard")
+    path("user_profile/<str:username>", views.user_profile, name = "user_profile"),
 ]
