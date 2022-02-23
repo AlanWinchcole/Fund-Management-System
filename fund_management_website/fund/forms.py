@@ -1,14 +1,14 @@
+""" Module to define different forms"""
 from django import forms
-from django.forms import fields
-from django.forms.models import *
-# from django.forms import Modelform
-from .models import *
+from .models import UserProfile, ApplicationData, User
 
 
 class UserForm(forms.ModelForm) :
+    """ """
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta :
+        """ """
         model = User
         fields = ('username', 'first_name', 'last_name' ,'email', 'password')
 
@@ -19,12 +19,16 @@ class UserForm(forms.ModelForm) :
                    'password' :'Password', }
 
 class UserProfileForm(forms.ModelForm):
+    """ """
     class Meta:
+        """ """
         model = UserProfile
         fields = ("contact_number",)
 
 class ApplicationForm(forms.ModelForm) :
+    """ """
     class Meta :
+        """ """
         model = ApplicationData
         fields = ('organisationName','projectTitle' ,'CH_OSCR_number','projectDesc','userGroupDesc','learningOpp' ,'keyPartnersWork' ,'projImpactClimate' ,'projSupportLocBus',
                   'proContribution', 'application_complete')

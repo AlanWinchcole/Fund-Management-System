@@ -105,10 +105,8 @@ class SpendingItems(models.Model):
     @property
     def calc_budget_remaining(self):
         return self.budget_allocation - self.money_spent
-    
 
 # Model to allow multiple file uploads
 class EvidenceFile(models.Model):
     file = models.FileField(upload_to=user_directory_path)
     spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, related_name='evidences')
-

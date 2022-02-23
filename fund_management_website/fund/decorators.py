@@ -1,9 +1,9 @@
-from tokenize import group
-from urllib import request
+"""Module to assign different groups of users"""
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
-def allowed_users(allowed_roles=[]):
+def allowed_users(allowed_roles):
+    """Allowed_users"""
     def decorator(view_func):
         def wrapper_func(request, *args, **kwargs):
 
@@ -19,6 +19,7 @@ def allowed_users(allowed_roles=[]):
     return decorator
 
 def admin_only(view_func):
+    """Admin_only"""
     def wrapper_func(request, *args, **kwargs):
         group = None
         if request.user.groups.exists():
