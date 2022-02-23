@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.core.validators import RegexValidator
-
+from decimal import Decimal
 
 
 # Create your models here.
@@ -98,9 +98,14 @@ class SpendingItems(models.Model):
     heading = models.CharField(max_length=255, blank=True, null=True)
     item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    money_spent = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    money_spent = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True,default=Decimal('0.00'))
     budget_allocation = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     evidence = models.FileField(upload_to=user_directory_path,blank=True, null=True)
+
+    @property
+    def calc_budget_remaining(self):
+        return self.budget_allocation - self.money_spent
+    
 
 # Model to allow multiple file uploads
 class EvidenceFile(models.Model):

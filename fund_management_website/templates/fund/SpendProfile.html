@@ -67,7 +67,8 @@
                         <td class="editable" data-type="description">{{ item.description }}</td>
                         <td class="editable" data-type="Evidence">{{ item.evidence }}</td>
                         <td class="editable" data-type="money_spent">{{ item.money_spent }}</td>
-                        <td class="editable" data-type="money_spent">{{ item.budget_allocation }}</td>
+                        <td class="editable" data-type="budget_allocation">{{ item.budget_allocation }}</td>
+                        <td class="editable" data-type="budget_remaining">{{ item.calc_budget_remaining}}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
