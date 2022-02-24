@@ -1,6 +1,8 @@
+"""Define the urls for html files"""
+
 from django.urls import path
-from fund import views
 from django.contrib.auth.views import LogoutView
+from fund import views
 from fund_management_website import settings
 
 app_name = "fund"

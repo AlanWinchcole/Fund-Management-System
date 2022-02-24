@@ -4,11 +4,11 @@ from .models import UserProfile, ApplicationData, User
 
 
 class UserForm(forms.ModelForm) :
-    """ """
+    """Forms for Users"""
     password = forms.CharField(widget=forms.PasswordInput())
 
-    class Meta :
-        """ """
+    class Meta:
+        """Meta properties of UserForms"""
         model = User
         fields = ('username', 'first_name', 'last_name' ,'email', 'password')
 
@@ -18,17 +18,19 @@ class UserForm(forms.ModelForm) :
                    'email' :"Email Address",
                    'password' :'Password', }
 
+
 class UserProfileForm(forms.ModelForm):
-    """ """
+    """Extension form for Users"""
     class Meta:
-        """ """
+        """Meta properties of UserProfileForm"""
         model = UserProfile
         fields = ("contact_number",)
 
-class ApplicationForm(forms.ModelForm) :
-    """ """
-    class Meta :
-        """ """
+
+class ApplicationForm(forms.ModelForm):
+    """Form for Applications"""
+    class Meta:
+        """Meta properties for Application"""
         model = ApplicationData
         fields = ('organisationName','projectTitle' ,'CH_OSCR_number','projectDesc','userGroupDesc','learningOpp' ,'keyPartnersWork' ,'projImpactClimate' ,'projSupportLocBus',
                   'proContribution', 'application_complete')
