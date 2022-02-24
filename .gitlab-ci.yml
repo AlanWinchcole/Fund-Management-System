@@ -27,7 +27,7 @@ pylint:
   tags:
     - docker
   script:
-    - pylint -d C0301 fund_management_website/fund/*.py
+    - pylint -d --fail-under=4 C0301 fund_management_website/fund/*.py
 
 
 
