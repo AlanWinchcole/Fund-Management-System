@@ -29,4 +29,6 @@ urlpatterns = [
     path('spend_profile/', views.SpendProfile, name ="spend_profile"),
     path("application_introduction/", views.applicationIntroduction, name = "application_introduction"),
     path("user_profile/<str:username>", views.user_profile, name = "user_profile"),
+    path("view_application_status/<int:id>", views.view_application_status, name="view_application_status"),
+    path("add_comment/<int:id>", views.add_comment, name= "add_comment"),
 ]

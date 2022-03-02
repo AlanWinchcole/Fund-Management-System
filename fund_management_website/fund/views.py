@@ -290,3 +290,30 @@ def user_profile(request, username) :
 
 def applicationIntroduction(request) :
     return render(request, 'fund/application_introduction.html')
+
+def view_application_status(request, id):
+    admin = True if request.user.is_superuser else False
+    application = ApplicationData.objects.get(id = id)
+    application_form = ApplicationForm(instance=application)
+    comments = Comments.objects.filter(application = application)
+    print(comments)
+    for comment in comments:
+        print(comment.comment)
+    return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin})
+
+
+def add_comment(request, id):
+    user = request.user
+    comment_form =  CommentForm()
+    if request.method =='POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = user
+            comment.application = ApplicationData.objects.get(id=id)
+            comment.save()
+            return redirect('fund:view_application_status', id)
+        else:
+            print(comment_form.errors)
+    else:
+        return render(request, 'fund/add_to_db.html', {'form':comment_form, 'title_text': "Add Comment", 'form_text': "Comment"})

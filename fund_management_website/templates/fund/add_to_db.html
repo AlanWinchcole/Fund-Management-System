@@ -1,0 +1,18 @@
+{% extends 'fund/base.html' %}
+{% load static %}
+
+{%block title_block %}
+   {{title_text}}
+{% endblock %}
+
+{% block body_block %}
+
+    <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
+        <h1 class="text-center"> {{form_text}} Form </h1>
+        <form id = "ApplicationForm" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Submit" class="btn btn-primary" onclick="check_empty();">
+        </form>
+    </div>
+{% endblock %}
