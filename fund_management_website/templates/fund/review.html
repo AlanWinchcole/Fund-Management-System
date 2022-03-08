@@ -5,12 +5,60 @@
 {% endblock %}
 {% block body_block %}
 
-    <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
-        <h1 class="text-center"> Review Application </h1>
-        <form id = "ReviewForm" method="post" action="" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="Submit" class="btn btn-primary" onclick="check_empty();">
-        </form>
-    </div>
+
+
+<h1 class="text-center"> Review Application </h1>
+
+  <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
+  </div>
+
+  <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
+      <form id = "ReviewForm" method="post" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-row">
+            <label for="co_production"><strong>{{form.co_production.label}}</strong></label>
+            <p>Has this application adequately consulted their user group and demonstrate an understanding of their needs</p>
+            {{form.co_production}}
+          </div>
+
+          <div class="form-row">
+            <label for="capacity_building"><strong>{{form.capacity_building.label}}</strong></label>
+            <p>The application evidences an understanding of how learning is captured and reflected</p>
+            {{form.capacity_building}}
+          </div>
+
+          <div class="form-row">
+            <label for="partnership_working"><strong>{{form.partnership_working.label}}</strong></label>
+            <p>The project has evidenced how they are working in partnership to improve outcomes</p>
+            {{form.partnership_working}}
+          </div>
+
+          <div class="form-row">
+            <label for="climate_environment"><strong>{{form.climate_environment.label}}</strong></label>
+            <p>The project understands its impact on the climate and environment and how they manage this</p>
+            {{form.climate_environment}}
+          </div>
+
+          <div class="form-row">
+            <label for="local_economic_res_building"><strong>{{form.local_economic_res_building.label}}</strong></label>
+            <p>The project understands how it impacts and benefits the local economy</p>
+            {{form.local_economic_res_building}}
+          </div>
+
+          <div class="form-row">
+            <label for="social_return_acc"><strong>{{form.social_return_acc.label}}</strong></label>
+            <p>The project understands how it impacts and benefits the local community</p>
+            {{form.social_return_acc}}
+          </div>
+
+          <div class="form-row">
+            <label for="general_feedback"><strong>{{form.general_feedback.label}}</strong></label>
+            <br>
+            {{ form.general_feedback }}
+          </div>
+          <span class="tooltip">?</span>
+          <input type="submit" value="Submit" class="btn btn-primary" onclick="check_empty();">
+      </form>
+  </div>
+
 {% endblock %}

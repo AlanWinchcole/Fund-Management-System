@@ -73,6 +73,8 @@ def reviewApplication(request, id):
             review = review_form.save(commit=False)
             review.application = application
             review.user = request.user
+            #print(review.score())
+            
             review.save()
 
             return redirect("fund:dashboard")

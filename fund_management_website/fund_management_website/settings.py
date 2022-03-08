@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'fund',
     'bootstrap5',
     'formtools',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [

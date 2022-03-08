@@ -74,11 +74,23 @@ class ReviewForm(forms.ModelForm):
     class Meta:
 
         model = Review
-        fields = ('co_production','co_production_feedback')
+
+        fields = ('co_production', 'capacity_building', 'partnership_working', 'climate_environment',
+                  'local_economic_res_building', 'social_return_acc', 'general_feedback',)
 
         labels = {
 
-            'co_production' : 'co_production',
-            'co_production_feedback' : 'co_production_feedback'
+            'co_production' : 'Co-Production (Human)',
+            'capacity_building' : 'Capacity building (Learning)',
+            'partnership_working' : 'Partnership working (Systems)',
+            'climate_environment': 'Climate and Environment',
+            'local_economic_res_building' : 'Local economic and resilience building',
+            'social_return_acc' : 'Social return and accountability',
+            'general_feedback' : 'Comments'
 
         }
+        
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+

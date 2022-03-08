@@ -139,7 +139,7 @@
                             <thead>
                                 <tr>
                                     <th>Username</th>
-                                    <th>Full name</th>
+                                    <th>Name</th>
                                     <th>Group</th>
                                 </tr>
                             </thead>
@@ -150,9 +150,9 @@
                                 {% if user.full_name %}
                                 <td>{{user.full_name}}</td>
                                 {% else %}
-                                <td>N/A</td>
+                                <td>{{user.first_name}} {{user.last_name}}</td>
                                 {% endif %}
-                                <td>Noob</td>
+                                <td>{{user.groups}}</td>
                             </tr>
                             {% endfor %}
                             </tbody>
@@ -173,19 +173,19 @@
                         <table class="dataTable table table-striped table-hover tableresponsive">
                             <thead>
                                 <tr>
-                                    <th>Project Name</th>
+                                    <th>ID</th>
                                     <th>Date</th>
-                                    <th>Username</th>
-                                    <th>Reviewed</th>
+                                    <th>Project Name</th>
+                                    <th>Review</th>
                                 </tr>
                             </thead>
                             <tbody>
                             {% for app in completed_applications %}
                             <tr>
-                                <td>{{app.projectTitle}}</td>
+                                <td><a href="{% url 'fund:user_profile' app.id %}"</a>{{app.id}}</td>
                                 <td>{{app.date_of_application}}</td>
-                                <td>{{app.user.usernane}}</td>
-                                <td>{{app.user.usernane}}</td>
+                                <td>{{app.projectTitle}}</td>
+                                <td><a href="/review/{{ app.id }}"><button id="review{{ app.id }}" class="btn btn-primary" data-id="{{app.id}}">Review</button></a></td>
 
                             </tr>
                             {% endfor %}
@@ -198,5 +198,10 @@
     </div>
     {% endif %}
 </main>
+
+{% endblock %}
+
+
+{% block javascript_block %}
 
 {% endblock %}
