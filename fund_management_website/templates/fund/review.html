@@ -1,0 +1,16 @@
+
+{% extends 'fund/base.html' %}
+{% block title_block %}
+    Review Application
+{% endblock %}
+{% block body_block %}
+
+    <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
+        <h1 class="text-center"> Review Application </h1>
+        <form id = "ReviewForm" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Submit" class="btn btn-primary" onclick="check_empty();">
+        </form>
+    </div>
+{% endblock %}

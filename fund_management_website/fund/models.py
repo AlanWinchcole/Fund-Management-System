@@ -47,6 +47,19 @@ class ApplicationData(models.Model) :
         """ Further information about Application"""
         verbose_name_plural = "ApplicationData"
 
+class Review(models.Model):
+    
+    LIGHT_CHOICES = [(0, 'RED'),(1, 'AMBER'),(2, 'GREEN')]
+    
+    application = models.OneToOneField(ApplicationData, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+    co_production = models.IntegerField(choices=LIGHT_CHOICES, default=LIGHT_CHOICES[0])
+    co_production_feedback = models.TextField(blank=True, null=True)
+
+
+    def save(self, *args, **kwargs):
+        super(Review, self).save(*args, **kwargs)
 # Each application has a budget profile
 class BudgetProfile(models.Model) :
     """Define table for Budget Profile in database"""

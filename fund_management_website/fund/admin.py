@@ -1,7 +1,7 @@
 """ Register all models to admin page"""
 from django.contrib import admin
 from fund.models import UserProfile, ApplicationData, BudgetProfile, SubBudgetProfile\
-    ,BudgetItems, SpendingProfile, SpendingItems, EvidenceFile
+    ,BudgetItems, SpendingProfile, SpendingItems, EvidenceFile, Review
 
 # Register your models here.
 admin.site.register(UserProfile)
@@ -12,3 +12,4 @@ admin.site.register(BudgetItems)
 admin.site.register(SpendingProfile)
 admin.site.register(SpendingItems)
 admin.site.register(EvidenceFile)
+admin.site.register(Review)

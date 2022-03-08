@@ -1,6 +1,6 @@
 """ Module to define different forms"""
 from django import forms
-from .models import UserProfile, ApplicationData, User
+from .models import UserProfile, ApplicationData, User, Review
 
 
 class UserForm(forms.ModelForm) :
@@ -66,4 +66,19 @@ class ApplicationForm(forms.ModelForm):
             'projSupportLocBus' :forms.Textarea(attrs={ 'class' :'form-control' }),
             'proContribution' :forms.Textarea(attrs={ 'class' :'form-control' }),
             'application_complete':forms.CheckboxInput(attrs={'class':'boolean'}),
+        }
+
+
+class ReviewForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Review
+        fields = ('co_production','co_production_feedback')
+
+        labels = {
+
+            'co_production' : 'co_production',
+            'co_production_feedback' : 'co_production_feedback'
+
         }
