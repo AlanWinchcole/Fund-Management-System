@@ -64,6 +64,26 @@ def user_login(request) :
 def user_logout(request) :
     logout(request)
 
+def reviewApplication(request, id):
+    application = ApplicationData.objects.get(id=id)
+    review_form = ReviewForm()
+    if request.method == 'POST' :
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.application = application
+            review.user = request.user
+            #print(review.score())
+
+            review.save()
+
+            return redirect("fund:dashboard")
+        else:
+            print(review_form.errors)
+    else:
+        return render(request, 'fund/review.html', { 'form' :review_form })
+
+
 
 def application(request) :
     user = request.user

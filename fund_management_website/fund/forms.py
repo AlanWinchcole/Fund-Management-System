@@ -1,6 +1,6 @@
 """ Module to define different forms"""
 from django import forms
-from .models import UserProfile, ApplicationData, User, Comments
+from .models import UserProfile, ApplicationData, User, Comments, Review
 
 
 class UserForm(forms.ModelForm) :
@@ -77,4 +77,31 @@ class CommentForm(forms.ModelForm):
         fields = ('comment', )
 
         labels = { 'comment' :"Plese add your comments for this application", }
+
+
+
+class ReviewForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Review
+
+        fields = ('co_production', 'capacity_building', 'partnership_working', 'climate_environment',
+                  'local_economic_res_building', 'social_return_acc', 'general_feedback',)
+
+        labels = {
+
+            'co_production' : 'Co-Production (Human)',
+            'capacity_building' : 'Capacity building (Learning)',
+            'partnership_working' : 'Partnership working (Systems)',
+            'climate_environment': 'Climate and Environment',
+            'local_economic_res_building' : 'Local economic and resilience building',
+            'social_return_acc' : 'Social return and accountability',
+            'general_feedback' : 'Comments'
+
+        }
+
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
 
