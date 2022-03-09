@@ -149,10 +149,10 @@
                             {% for user in user_list %}
                             <tr>
                                 <td><a href="{% url 'fund:user_profile' user.username %}"</a>{{user.username}}</td>
-                                {% if user.full_name %}
-                                <td>{{user.full_name}}</td>
+                                {% if user.get_full_name %}
+                                <td>{{user.get_full_name}}</td>
                                 {% else %}
-                                <td>{{user.first_name}} {{user.last_name}}</td>
+                                <td>N\A</td>
                                 {% endif %}
                                 <td>{{user.groups}}</td>
                             </tr>
@@ -187,7 +187,7 @@
                                 <td><a href="{% url 'fund:view_application_status' app.id %}">{{app.projectTitle}}</a></td>
                                 <td>{{app.date_of_application}}</td>
                                 <td>{{app.projectTitle}}</td>
-                                <td><a href="/review/{{ app.id }}"><button id="review{{ app.id }}" class="btn btn-primary" data-id="{{app.id}}">Review</button></a></td>
+                                <td><a href="{%url 'fund:review_application' app.id%}">Review</a></td>
 
                             </tr>
                             {% endfor %}

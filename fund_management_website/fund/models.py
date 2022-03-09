@@ -65,6 +65,7 @@ class Review(models.Model):
     total_score = models.IntegerField(default=0, editable=False)
     
     general_feedback = models.TextField(blank=True, null=True)
+    date_completed = models.DateField(null=True, blank=True, auto_now_add = True)
 
     #def score(self):
         #return self.co_production + self.capacity_building + self.partnership_working + self.climate_environment + self.local_economic_res_building + self.social_return_acc
