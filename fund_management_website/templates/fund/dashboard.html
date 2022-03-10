@@ -129,11 +129,20 @@
 
         <div class="row">
             <div class="col-6">
-                <p class="h3 text-center">Users</p>
+                <p class="h3 text-center">
+                        {% if request.user.is_superuser and request.user.is_staff %}
+                            Users
+                        {% else %}
+                            Applicants
+                        {% endif %}</p>
                 <div class="card">
                     <div class="card-header">
                         <img src="{%static 'svg/table.svg' %}" alt="Table Icon" width=20 height=20 />
-                        Users
+                        {% if request.user.is_superuser and request.user.is_staff %}
+                            Users
+                        {% else %}
+                            Applicants
+                        {% endif %}
                     </div>
 
                     <div class="card-body">
@@ -142,11 +151,11 @@
                                 <tr>
                                     <th>Username</th>
                                     <th>Full name</th>
-                                    <th>Group</th>
                                 </tr>
                             </thead>
                             <tbody>
                             {% for user in user_list %}
+                                {% if not user.is_staff or not user.is_superuser%}
                             <tr>
                                 <td><a href="{% url 'fund:user_profile' user.username %}"</a>{{user.username}}</td>
                                 {% if user.get_full_name %}
@@ -154,8 +163,8 @@
                                 {% else %}
                                 <td>N\A</td>
                                 {% endif %}
-                                <td>{{user.groups}}</td>
                             </tr>
+                            {% endif %}
                             {% endfor %}
                             </tbody>
                         </table>
@@ -175,9 +184,9 @@
                         <table class="dataTable table table-striped table-hover tableresponsive">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Date</th>
                                     <th>Project Name</th>
+                                    <th>Date</th>
+                                    <th>ID</th>
                                     <th>Review</th>
                                 </tr>
                             </thead>
@@ -186,7 +195,7 @@
                             <tr>
                                 <td><a href="{% url 'fund:view_application_status' app.id %}">{{app.projectTitle}}</a></td>
                                 <td>{{app.date_of_application}}</td>
-                                <td>{{app.projectTitle}}</td>
+                                <td>{{app.id}}</td>
                                 <td><a href="{%url 'fund:review_application' app.id%}">Review</a></td>
 
                             </tr>

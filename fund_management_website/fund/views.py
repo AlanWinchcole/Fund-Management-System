@@ -65,6 +65,8 @@ def user_logout(request) :
     logout(request)
 
 def reviewApplication(request, id):
+    if not request.user.is_superuser or not request.user.is_staff:
+        return redirect("fund:dashboard")
     application = ApplicationData.objects.get(id=id)
     review_form = ReviewForm()
     if request.method == 'POST' :
@@ -260,11 +262,13 @@ def dashboard(request) :
     username = request.user.username
     full_name = request.user.get_full_name()
     email = request.user.email
-    if request.user.is_superuser :
+    print(request.user.is_staff)
+    print(request.user.is_superuser)
+    if request.user.is_superuser or request.user.is_staff:
         admin = True
         users = get_user_model()
         user_list = users.objects.all()
-        completed_applications = ApplicationData.objects.filter(application_complete=True).order_by(
+        completed_applications = ApplicationData.objects.filter(application_complete=True, ).order_by(
             'date_of_application')
         return render(request, 'fund/dashboard.html',
                       context={ 'completed_applications' :completed_applications,
