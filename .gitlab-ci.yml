@@ -24,6 +24,7 @@ unit_tests:
 
 pylint:
   stage: test
+  allow_failure: false
   tags:
     - docker
   script:
