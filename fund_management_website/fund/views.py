@@ -67,23 +67,26 @@ def user_logout(request) :
 def reviewApplication(request, id):
     application = ApplicationData.objects.get(id=id)
     review_form = ReviewForm()
+    app_reviewd_form = AppReviewdForm()
     if request.method == 'POST' :
         review_form = ReviewForm(request.POST)
-        if review_form.is_valid():
+        app_reviewd_form = AppReviewdForm(request.POST)
+        if review_form.is_valid() and app_reviewd_form.is_valid():
             review = review_form.save(commit=False)
             review.application = application
             review.user = request.user
             #print(review.score())
-            
+
             review.save()
+            review.application.save()
 
             return redirect("fund:dashboard")
         else:
-            print(review_form.errors)
+            print(review_form.errors, app_reviewd_form.errors)
     else:
-        return render(request, 'fund/review.html', { 'form' :review_form })
-    
-    
+        return render(request, 'fund/review.html', { 'form' :review_form, 'revform' : app_reviewd_form })
+
+
 
 def application(request) :
     user = request.user
@@ -264,7 +267,7 @@ def dashboard(request) :
         admin = True
         users = get_user_model()
         user_list = users.objects.all()
-        completed_applications = ApplicationData.objects.filter(application_complete=True).order_by(
+        completed_applications = ApplicationData.objects.filter(application_complete=True, application_reviewed=False).order_by(
             'date_of_application')
         return render(request, 'fund/dashboard.html',
                       context={ 'completed_applications' :completed_applications,
@@ -310,4 +313,3 @@ def user_profile(request, username) :
 
 def applicationIntroduction(request) :
     return render(request, 'fund/application_introduction.html')
-    

@@ -68,6 +68,15 @@ class ApplicationForm(forms.ModelForm):
             'application_complete':forms.CheckboxInput(attrs={'class':'boolean'}),
         }
 
+class AppReviewdForm(forms.ModelForm):
+
+    class Meta:
+
+        model = ApplicationData
+        fields = ('application_reviewed',)
+        labels = {'application_reviewed' : 'Is your review complete?'}
+
+
 
 class ReviewForm(forms.ModelForm):
 
@@ -76,7 +85,8 @@ class ReviewForm(forms.ModelForm):
         model = Review
 
         fields = ('co_production', 'capacity_building', 'partnership_working', 'climate_environment',
-                  'local_economic_res_building', 'social_return_acc', 'general_feedback',)
+                  'local_economic_res_building', 'social_return_acc', 'general_feedback',
+                  'review_complete',)
 
         labels = {
 
@@ -86,11 +96,11 @@ class ReviewForm(forms.ModelForm):
             'climate_environment': 'Climate and Environment',
             'local_economic_res_building' : 'Local economic and resilience building',
             'social_return_acc' : 'Social return and accountability',
-            'general_feedback' : 'Comments'
+            'general_feedback' : 'Comments',
+            'review_complete' : 'Review Complete',
 
         }
-        
+
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-

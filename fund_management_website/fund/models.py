@@ -30,6 +30,7 @@ class ApplicationData(models.Model) :
 
     length = models.IntegerField(null=True, blank=True)
     application_complete = models.BooleanField(default=False)
+    application_reviewed = models.BooleanField(default=False)
     date_of_application = models.DateField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -65,6 +66,8 @@ class Review(models.Model):
     total_score = models.IntegerField(default=0, editable=False)
     
     general_feedback = models.TextField(blank=True, null=True)
+    date_completed = models.DateField(null=True, blank=True, auto_now_add = True)
+    review_complete = models.BooleanField(default=False)
 
     #def score(self):
         #return self.co_production + self.capacity_building + self.partnership_working + self.climate_environment + self.local_economic_res_building + self.social_return_acc
@@ -140,3 +143,17 @@ class EvidenceFile(models.Model):
     """Define table for Evidences in database"""
     file = models.FileField(upload_to=user_directory_path)
     spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, related_name='evidences')
+
+
+class Comments(models.Model):
+    """Define table for Comments for applications"""
+    comment = models.TextField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    date = models.DateField(null=True, blank=True, auto_now_add = True)
+    application = models.ForeignKey(ApplicationData, on_delete=models.CASCADE, null=True, blank=True)
+
+    # def save(self,*args,**kwargs):
+    #     """Method to save date when a new comment is made"""
+    #     if self.application_complete :
+    #         self.date_of_application = timezone.now()
+    #     super(ApplicationData, self).save(*args, **kwargs)

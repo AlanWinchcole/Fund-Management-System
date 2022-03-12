@@ -59,6 +59,14 @@
           <span class="tooltip">?</span>
           <input type="submit" value="Submit" class="btn btn-primary" onclick="check_empty();">
       </form>
+      <form id = "AppReviewdForm" method="post" action="" enctype="multipart/form-data">
+
+        <div class="form-row">
+          {% csrf_token %}
+          <label for="app_reviewed"><strong>{{revform.application_reviewed.label}}</strong></label>
+          {{revform.application_reviewed}}
+        </div>
+      </form>
   </div>
 
 {% endblock %}
