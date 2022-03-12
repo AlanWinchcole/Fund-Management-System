@@ -149,20 +149,21 @@
                         <table class="dataTable table table-striped table-hover tableresponsive">
                             <thead>
                                 <tr>
-                                    <th>Username</th>
                                     <th>Full name</th>
+                                    <th>Username</th>
                                 </tr>
                             </thead>
                             <tbody>
                             {% for user in user_list %}
                                 {% if not user.is_staff or not user.is_superuser%}
                             <tr>
-                                <td><a href="{% url 'fund:user_profile' user.username %}"</a>{{user.username}}</td>
+
                                 {% if user.get_full_name %}
                                 <td>{{user.get_full_name}}</td>
                                 {% else %}
                                 <td>N\A</td>
                                 {% endif %}
+                                 <td><a href="{% url 'fund:user_profile' user.username %}"</a>{{user.username}}</td>
                             </tr>
                             {% endif %}
                             {% endfor %}
@@ -173,7 +174,7 @@
             </div>
 
             <div class="col-6">
-                <p class="h3 text-center">Applications for review</p>
+                <p class="h3 text-center">Applications Summary</p>
                 <div class="card">
                     <div class="card-header">
                         <img src="{%static 'svg/table.svg' %}" alt="Table Icon" width=20 height=20 />
@@ -184,19 +185,21 @@
                         <table class="dataTable table table-striped table-hover tableresponsive">
                             <thead>
                                 <tr>
-                                    <th>Project Name</th>
-                                    <th>Date</th>
                                     <th>ID</th>
-                                    <th>Review</th>
+                                    <th>Project Name</th>
+                                    <th>Date Submitted</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                             {% for app in completed_applications %}
                             <tr>
-                                <td><a href="{% url 'fund:view_application_status' app.id %}">{{app.projectTitle}}</a></td>
-                                <td>{{app.date_of_application}}</td>
                                 <td>{{app.id}}</td>
-                                <td><a href="{%url 'fund:review_application' app.id%}">Review</a></td>
+                                <td>{{app.projectTitle}}</td>
+                                <td>{{app.date_of_application}}</td>
+                                <td><a href="{% url 'fund:view_application_status' app.id %}"> View Status </a></td>
+                                <td><a href="#">Reviews</a></td>
 
                             </tr>
                             {% endfor %}
