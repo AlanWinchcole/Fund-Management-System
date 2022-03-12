@@ -58,25 +58,45 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'fund:welcome' %}" class ="nav-link">About
+                    <a href="{% url 'fund:welcome' %}" class ="nav-link">
+                        About
                     </a>
                 </li>
 
 
-                <li class="nav-item dropdown">
-                    <a href="{% url 'fund:application' %}" class="nav-link dropdown-toggle" id="navbarDropdown"
-                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Application
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a href="{% url 'fund:application_introduction' %}" class="dropdown-item">Introduction</a></li>
-                        <li><a href="#" class="dropdown-item">Project Outline</a></li>
-                        <li><a href="#" class="dropdown-item">Project Themes</a></li>
-                        <li><a href="{% url 'fund:budget_profile' %}" class="dropdown-item">Budget Profile</a></li>
-                        <li><a href="#" class="dropdown-item">Comments & Feedback</a></li>
-                        <li><a href="{% url 'fund:spend_profile' %}" class="dropdown-item">Spend Profile</a></li>
-                    </ul>
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a href="{% url 'fund:application' %}" class="nav-link dropdown-toggle" id="navbarDropdown"-->
+<!--                       role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                        Application-->
+<!--                    </a>-->
+<!--                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                        <li><a href="{% url 'fund:application_introduction' %}" class="dropdown-item">Introduction</a></li>-->
+<!--                        <li><a href="#" class="dropdown-item">Project Outline</a></li>-->
+<!--                        <li><a href="#" class="dropdown-item">Project Themes</a></li>-->
+<!--                        <li><a href="{% url 'fund:budget_profile' %}" class="dropdown-item">Budget Profile</a></li>-->
+<!--                        <li><a href="#" class="dropdown-item">Comments & Feedback</a></li>-->
+<!--                        <li><a href="{% url 'fund:spend_profile' %}" class="dropdown-item">Spend Profile</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                {% if not user.is_superuser and not user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link ms-auto" href="{% url 'fund:application_introduction' %}">Apply</a>
                 </li>
+                {% elif user.is_superuser and not user.is_staff%}
+                <li class="nav-item">
+                    <a class="nav-link ms-auto" href="#">Reviews</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link ms-auto" href="#">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class= "nav-link ms-auto" href="{% url 'admin:index' %}">Manage Users</a>
+                </li>
+
+                {% endif %}
+
+
 
                 <li class="nav-item">
                     <a class="nav-link ms-auto" href="{% url 'fund:logout' %}">Logout</a>
