@@ -2,7 +2,7 @@
 {% load static %}
 
 {%block title_block %}
-    Dashboard
+    Your reviews
 {% endblock %}
 
 {% block body_block %}
@@ -11,48 +11,9 @@
     <div class="container-fluid">
         <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
-            <h1 class="cover-heading text-center">Welcome to your  {% if admin %} admin {% endif %}dashboard</h1>
-            <p class="lead text-center">This is your current dashboard, you can see all your application that you have submitted
-                and/or have in progress.
-            </p>
+            <h1 class="cover-heading text-center">Access all your submitted reviews here</h1>
         </div>
     </div>
-    <hr>
-    <div class="container">
-        <p class="h3 text-center">Profile</p>
-        <div class="row">
-            <div class="col-4">
-                <img src="{% static 'svg/person.svg'%}" class="img-fluid float-left" height=100 width=100 alt="Person Icon"/>
-            </div>
-            <div class="col-8">
-                <table class="table table-borderless">
-                    <thead>
-                    </thead>
-                    <tbody>
-                    <tr>
-                            <td>Username </td>
-                            <td>{{username}}</td>
-                        </tr>
-                        <tr>
-                            <td>Name: </td>
-                            <td> {{full_name}}</td>
-                        </tr>
-                        <tr>
-                            <td>Email: </td>
-                            <td><a href="mailto:{{email}}">{{email}}</a></td>
-                        </tr>
-                    {% if contact %}
-                        <tr>
-                            <td>Contact: </td>
-                            <td>{{contact}}</td>
-                        </tr>
-                    {% endif %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <hr>
 
     {% if not admin %}
     <div class="container">
@@ -105,6 +66,7 @@
                                 <th>Application ID</th>
                                 <th>Application Title</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,7 +74,8 @@
                         <tr>
                             <td>{{application.id}}</td>
                             <td>{{application.projectTitle}}</td>
-                            <td><a href="#"> View Status </a></td>
+                            <td><a href="{%url 'fund:update_application' application.id %}"> Update</a></td>
+                            <td><a href="{% url 'fund:view_application_status' application.id %}"> View Status </a></td>
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -139,7 +102,7 @@
                             <thead>
                                 <tr>
                                     <th>Username</th>
-                                    <th>Name</th>
+                                    <th>Full name</th>
                                     <th>Group</th>
                                 </tr>
                             </thead>
@@ -147,10 +110,10 @@
                             {% for user in user_list %}
                             <tr>
                                 <td><a href="{% url 'fund:user_profile' user.username %}"</a>{{user.username}}</td>
-                                {% if user.full_name %}
-                                <td>{{user.full_name}}</td>
+                                {% if user.get_full_name %}
+                                <td>{{user.get_full_name}}</td>
                                 {% else %}
-                                <td>{{user.first_name}} {{user.last_name}}</td>
+                                <td>N\A</td>
                                 {% endif %}
                                 <td>{{user.groups}}</td>
                             </tr>
@@ -182,10 +145,11 @@
                             <tbody>
                             {% for app in completed_applications %}
                             <tr>
-                                <td><a href="{% url 'fund:user_profile' app.id %}"</a>{{app.id}}</td>
+                                <td><a href="{% url 'fund:view_application_status' app.id %}">{{app.projectTitle}}</a></td>
                                 <td>{{app.date_of_application}}</td>
                                 <td>{{app.projectTitle}}</td>
-                                <td><a href="/review/{{ app.id }}"><button id="review{{ app.id }}" class="btn btn-primary" data-id="{{app.id}}">Review</button></a></td>
+                                <td><a href="{%url 'fund:review_application' app.id%}">Review</a></td>
+
                             </tr>
                             {% endfor %}
                             </tbody>
@@ -197,10 +161,5 @@
     </div>
     {% endif %}
 </main>
-
-{% endblock %}
-
-
-{% block javascript_block %}
 
 {% endblock %}

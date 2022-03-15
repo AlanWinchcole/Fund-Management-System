@@ -30,7 +30,6 @@ class ApplicationData(models.Model) :
 
     length = models.IntegerField(null=True, blank=True)
     application_complete = models.BooleanField(default=False)
-    application_reviewed = models.BooleanField(default=False)
     date_of_application = models.DateField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -53,7 +52,7 @@ class Review(models.Model):
         RED = 0
         AMBER = 1
         GREEN = 2
-    
+
     application = models.ForeignKey(ApplicationData, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
@@ -64,7 +63,7 @@ class Review(models.Model):
     local_economic_res_building = models.IntegerField(choices=Light.choices, default=Light.RED)
     social_return_acc = models.IntegerField(choices=Light.choices, default=Light.RED)
     total_score = models.IntegerField(default=0, editable=False)
-    
+
     general_feedback = models.TextField(blank=True, null=True)
     date_completed = models.DateField(null=True, blank=True, auto_now_add = True)
     review_complete = models.BooleanField(default=False)

@@ -68,13 +68,6 @@ class ApplicationForm(forms.ModelForm):
             'application_complete':forms.CheckboxInput(attrs={'class':'boolean'}),
         }
 
-class AppReviewdForm(forms.ModelForm):
-
-    class Meta:
-
-        model = ApplicationData
-        fields = ('application_reviewed',)
-        labels = {'application_reviewed' : 'Is your review complete?'}
 
 
 
@@ -97,7 +90,7 @@ class ReviewForm(forms.ModelForm):
             'local_economic_res_building' : 'Local economic and resilience building',
             'social_return_acc' : 'Social return and accountability',
             'general_feedback' : 'Comments',
-            'review_complete' : 'Review Complete',
+            'review_complete' : 'Please check that you have filled your review for this application correctly and tick this box',
 
         }
 

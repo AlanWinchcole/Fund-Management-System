@@ -56,7 +56,12 @@
             <br>
             {{ form.general_feedback }}
           </div>
-          <span class="tooltip">?</span>
+
+          <div class="form-row">
+            <label for="general_feedback"><strong>{{form.review_complete.label}}</strong></label>
+            {{ form.review_complete }}
+          </div>
+
           <input type="submit" value="Submit" class="btn btn-primary" onclick="check_empty();">
       </form>
       <form id = "AppReviewdForm" method="post" action="" enctype="multipart/form-data">

@@ -67,11 +67,9 @@ def user_logout(request) :
 def reviewApplication(request, id):
     application = ApplicationData.objects.get(id=id)
     review_form = ReviewForm()
-    app_reviewd_form = AppReviewdForm()
     if request.method == 'POST' :
         review_form = ReviewForm(request.POST)
-        app_reviewd_form = AppReviewdForm(request.POST)
-        if review_form.is_valid() and app_reviewd_form.is_valid():
+        if review_form.is_valid():
             review = review_form.save(commit=False)
             review.application = application
             review.user = request.user
@@ -84,7 +82,7 @@ def reviewApplication(request, id):
         else:
             print(review_form.errors, app_reviewd_form.errors)
     else:
-        return render(request, 'fund/review.html', { 'form' :review_form, 'revform' : app_reviewd_form })
+        return render(request, 'fund/review.html', { 'form' :review_form,})
 
 
 
@@ -267,7 +265,7 @@ def dashboard(request) :
         admin = True
         users = get_user_model()
         user_list = users.objects.all()
-        completed_applications = ApplicationData.objects.filter(application_complete=True, application_reviewed=False).order_by(
+        completed_applications = ApplicationData.objects.filter(application_complete=True).order_by(
             'date_of_application')
         return render(request, 'fund/dashboard.html',
                       context={ 'completed_applications' :completed_applications,
