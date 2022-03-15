@@ -29,6 +29,6 @@ urlpatterns = [
     path('spend_profile/', views.SpendProfile, name ="spend_profile"),
     path("application_introduction/", views.applicationIntroduction, name = "application_introduction"),
     path("user_profile/<str:username>", views.user_profile, name = "user_profile"),
-    path("review/<int:id>", views.reviewApplication, name="review_application")
+    path("review/<int:id>", views.reviewApplication, name="review_application"),
+    path("view_review/<int:id>", views.view_review, name="view_review")
 ]
-

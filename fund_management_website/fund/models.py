@@ -68,12 +68,12 @@ class Review(models.Model):
     date_completed = models.DateField(null=True, blank=True, auto_now_add = True)
     review_complete = models.BooleanField(default=False)
 
-    #def score(self):
-        #return self.co_production + self.capacity_building + self.partnership_working + self.climate_environment + self.local_economic_res_building + self.social_return_acc
+    def score(self):
+        return self.co_production + self.capacity_building + self.partnership_working + self.climate_environment + self.local_economic_res_building + self.social_return_acc
 
 
     def save(self, *args, **kwargs):
-        #self.total_score = self.score()
+        self.total_score = self.score()
         super(Review, self).save(*args, **kwargs)
 # Each application has a budget profile
 class BudgetProfile(models.Model) :

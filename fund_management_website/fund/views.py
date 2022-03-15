@@ -284,6 +284,11 @@ def dashboard(request) :
 
 from django.contrib.auth.decorators import user_passes_test
 
+def view_review(request, id):
+    admin = True if request.user.is_superuser else False
+    review = Review.objects.get(id=id)
+    review_form = ReviewForm(instance=review)
+    return render(request, 'fund/review_view.html', {'review':review,'review_form':review_form})
 
 @user_passes_test(lambda u :u.is_superuser)
 def user_profile(request, username) :

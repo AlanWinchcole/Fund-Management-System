@@ -90,7 +90,7 @@ class ReviewForm(forms.ModelForm):
             'local_economic_res_building' : 'Local economic and resilience building',
             'social_return_acc' : 'Social return and accountability',
             'general_feedback' : 'Comments',
-            'review_complete' : 'Please check that you have filled your review for this application correctly and tick this box',
+            'review_complete' : 'Is the review ready to be submitted?',
 
         }
 
