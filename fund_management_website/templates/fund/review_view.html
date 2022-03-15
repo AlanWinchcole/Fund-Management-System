@@ -9,14 +9,14 @@
 <main role="main" class="inner cover">
   <div class="container-fluid">
       <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-          <h1 class="cover-heading text-center">Review Status</h1>
-          <p class="lead text-center">Current state of review for this Application
+          <h1 class="cover-heading text-center">Review Summary</h1>
+          <p class="lead text-center">Completed by <a href="{% url 'fund:user_profile' review.user %}">{{review.user}}</a> on the {{ review.date_completed }}
+            for this Application #<a href="{% url 'fund:view_application_status' review.application.id %}">{{ review.application.id }}
           </p>
       </div>
   </div>
   <hr>
   <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-          <h1 class="cover-heading text-center">Review Summary</h1>
 
       </div>
   <div class="container">
@@ -24,7 +24,8 @@
       <div class = "container-fluid pb-3 col-10 border rounded-1 px-5 p-5">
           {% for field in review_form %}
           <div class="fieldWrapper">
-            <p class="lead"><strong>{{ field.label_tag }} </strong>&nbsp; <br>{{ field.value }}
+            <p class="lead"><strong>{{ field.label_tag }}</strong>
+            <br>{{ field.value }}
           {% if field.help_text %}
           <p class="help">{{ field.help_text|safe }}</p>
           {% endif %}
