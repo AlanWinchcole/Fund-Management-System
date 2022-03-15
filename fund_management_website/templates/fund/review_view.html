@@ -1,0 +1,43 @@
+{% extends 'fund/base.html' %}
+{% load static %}
+
+{%block title_block %}
+    Review View
+{% endblock %}
+
+{% block body_block %}
+<main role="main" class="inner cover">
+  <div class="container-fluid">
+      <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+          <h1 class="cover-heading text-center">Review Status</h1>
+          <p class="lead text-center">Current state of review for this Application
+          </p>
+      </div>
+  </div>
+  <hr>
+  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+          <h1 class="cover-heading text-center">Review Summary</h1>
+
+      </div>
+  <div class="container">
+      <div class="row">
+      <div class = "container-fluid pb-3 col-10 border rounded-1 px-5 p-5">
+          {% for field in review_form %}
+          <div class="fieldWrapper">
+            <p class="lead"><strong>{{ field.label_tag }} </strong>&nbsp; <br>{{ field.value }}
+          {% if field.help_text %}
+          <p class="help">{{ field.help_text|safe }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+
+</main>
+
+{% endblock %}
+
+
+{% block javascript_block %}
+
+{% endblock %}

@@ -65,7 +65,7 @@ def user_logout(request) :
     logout(request)
 
 def reviewApplication(request, id):
-    if not request.user.is_superuser or not request.user.is_staff:
+    if not request.user.is_superuser and not request.user.is_staff:
         return redirect("fund:dashboard")
     application = ApplicationData.objects.get(id=id)
     review_form = ReviewForm()
@@ -283,6 +283,17 @@ def dashboard(request) :
                                                                 "username" :username, "full_name" :full_name,
                                                                 "email" :email, "contact" :contact,
                                                                 })
+
+
+def reviews(request):
+    if not request.user.is_superuser and not request.user.is_staff:
+        return render(request, 'fund/dashboard.html')
+    if request.user.is_superuser and request.user.is_staff:
+        reviews = Review.objects.all()
+    elif request.user.is_superuser and not request.user.is_staff:
+        reviews = Review.objects.filter(user=request.user)
+    return render(request, 'fund/reviews.html', context={'reviews':reviews})
+
 
 
 from django.contrib.auth.decorators import user_passes_test
