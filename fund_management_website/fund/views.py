@@ -86,6 +86,20 @@ def reviewApplication(request, id):
     else:
         return render(request, 'fund/review.html', { 'form' :review_form })
 
+def updateReview(request, id):
+    if not request.user.is_superuser and request.user.is_staff:
+        return redirect("fund:dashboard")
+    review = Review.objects.get(id=id)
+    review_form = ReviewForm(instance= review)
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST, instance = review)
+        if review_form.is_valid:
+            review_form.save()
+            return redirect("fund:dashboard")
+        else:
+            print(review_form.errors)
+    return render(request, 'fund/review.html', context = {'title_text':"Update your review", 'form':review_form, 'form_text':"Update your review"})
+
 
 
 def application(request) :
@@ -378,3 +392,6 @@ def add_comment(request, id):
             print(comment_form.errors)
     else:
         return render(request, 'fund/add_to_db.html', {'form':comment_form, 'title_text': "Add Comment", 'form_text': "Comment"})
+
+
+
