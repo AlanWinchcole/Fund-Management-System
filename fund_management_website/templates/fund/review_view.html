@@ -23,7 +23,8 @@
           {% for field in review_form %}
           <div class="fieldWrapper">
             <p class="lead"><strong>{{ field.label_tag }}</strong>
-            <br>{{ field.value }}
+            <br>
+                <span id="myspan">{{ field.value }}</span>
           {% if field.help_text %}
           <p class="help">{{ field.help_text|safe }}</p>
           {% endif %}
@@ -38,5 +39,22 @@
 
 
 {% block javascript_block %}
+<script>
+    const matches = document.querySelectorAll("span#myspan");
+    const reqSpan = Array.from(matches).slice(0,6);
+    for (var i = 0; i < reqSpan.length; i++) {
+        if((reqSpan[i].textContent) === "0"){
+            reqSpan[i].textContent= "Red";
+        }
+        if((reqSpan[i].textContent) === "1"){
+            reqSpan[i].textContent= "Amber";
+        }
+        if((reqSpan[i].textContent) === "2"){
+            reqSpan[i].textContent= "Green";
+        }
+
+    }
+
+</script>
 
 {% endblock %}

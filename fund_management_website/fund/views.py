@@ -342,13 +342,18 @@ def view_application_status(request, id):
     application_form = ApplicationForm(instance=application)
     comments = Comments.objects.filter(application = application)
     if request.user.is_staff:
-        statusform = UpdateAppStatus()
+        statusform = UpdateAppStatus(instance = application)
         if request.method == 'POST':
-            satusform = UpdateAppStatus(request.POST)
-            if satusform.is_valid():
+            statusform = UpdateAppStatus(request.POST, instance = application)
+            if statusform.is_valid():
+                statusform = statusform.save(commit = False)
+                statusform.user = application.user
+
                 statusform.save()
+                print(statusform.app_status)
+                render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin,'statusform':statusform})
             else:
-                print(satusform.errors)
+                print(statusform.errors)
 
         return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin,'statusform':statusform})
     print(comments)

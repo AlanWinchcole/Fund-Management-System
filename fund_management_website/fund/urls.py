@@ -33,5 +33,5 @@ urlpatterns = [
     path("add_comment/<int:id>", views.add_comment, name= "add_comment"),
     path("review/<int:id>", views.reviewApplication, name="review_application"),
     path("reviews", views.reviews, name="reviews"),
-    path("view_review/<int:id>", views.view_review, name="view_review")
+    path("view_review/<int:id>", views.view_review, name="view_review"),
 ]

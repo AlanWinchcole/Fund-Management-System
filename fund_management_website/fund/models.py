@@ -144,7 +144,8 @@ class SpendingItems(models.Model):
     @property
     def calc_budget_remaining(self):
         """Calculates and returns remaining budget"""
-        return self.budget_allocation - self.money_spent
+        if self.budget_allocation and self.money_spent:
+            return self.budget_allocation - self.money_spent
 
 # Model to allow multiple file uploads
 class EvidenceFile(models.Model):
