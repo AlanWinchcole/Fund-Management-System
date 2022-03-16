@@ -42,12 +42,12 @@ class ApplicationForm(forms.ModelForm):
             # 'contactName' :"Contact Name",
             # 'contactEmail' :"Contact Email",
             'projectDesc' :"Project Description",
-            'userGroupDesc' :"User Group Description",
-            'learningOpp' :"Learning Opportunity",
-            'keyPartnersWork' :"Key Partners Work",
-            'projImpactClimate' :"Project's Impact on Climate",
-            'projSupportLocBus' :"How does project support local business?",
-            'proContribution' :"Pro Contribution",
+            'userGroupDesc' :"Co-Production (Human)",
+            'learningOpp' :"Capacity building (Learning)",
+            'keyPartnersWork' :"Partnership working (Systems)",
+            'projImpactClimate' :"Climate and Environment",
+            'projSupportLocBus' :"Local economic and resilience building",
+            'proContribution' :"Social return",
             'application_complete':"Is your application complete?",
 
         }
