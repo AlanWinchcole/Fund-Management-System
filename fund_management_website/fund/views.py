@@ -106,37 +106,45 @@ def application(request) :
     user = request.user
     print(user)
     application_form = ApplicationForm()
+    budget_form = BudgetForm()
     if request.method == 'POST' :
         application_form = ApplicationForm(request.POST)
+        budget_form = BudgetForm(request.POST)
         if application_form.is_valid() :
             print("form is valid")
             application = application_form.save(commit=False)
             application.user = user
+            budget= budget_form.save(commit=False)
+            budget.associated_application = application
             print(application.user)
             application.save()
+            budget.save()
             return redirect('fund:dashboard')
         else :
             print(application_form.errors)
     else :
 
-        return render(request, 'fund/application.html', { 'form' :application_form })
+        return render(request, 'fund/application.html', { 'form' :application_form, 'form1':budget_form })
 
 
 # id is the application id
 def updateApplication(request, id) :
     applicationObj = ApplicationData.objects.get(id=id)
     application_form = ApplicationForm(instance=applicationObj)
+    budget_form = BudgetForm(instance=applicationObj)
 
     if request.method == 'POST' :
         application_form = ApplicationForm(request.POST, instance=applicationObj)
+        budget_form = BudgetForm(request.POST, instance=applicationObj)
         if application_form.is_valid() :
             print("form is valid")
             application_form.save()
+            budget_form.save()
             return redirect('fund:dashboard')
         else :
             print(application_form.errors)
     else :
-        return render(request, 'fund/application.html', { 'form' :application_form })
+        return render(request, 'fund/application.html', { 'form' :application_form , 'form1':budget_form})
 
 
 def budgetProfile(request) :
