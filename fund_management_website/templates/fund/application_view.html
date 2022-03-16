@@ -33,64 +33,56 @@
         </div>
     </div>
     <hr>
+
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-            <h1 class="cover-heading text-center">Application Summary</h1>
-
-        </div>
-    <div class="container">
-        <div class="row">
-        <div class = "container-fluid pb-3 col-10 border rounded-1 px-5 p-5">
-            {% for field in application_form %}
-
-            <div class="fieldWrapper">
-                <p class="lead"><strong>{{ field.label_tag }} </strong>&nbsp; <br>{{ field.value }}
-            {% if field.help_text %}
-            <p class="help">{{ field.help_text|safe }}</p>
-            {% endif %}
-                </p>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Application Summary</h4>
             </div>
-            {% endfor %}
+            <div class="card-body">
+                {% for field in application_form %}
+                <div class="card p-3 m-3" >
+                    <h5 class="card-title">{{ field.label_tag }}</h5>
+                    <p class="card-text">{{ field.value }}</p>
+                    {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
         </div>
-
-    </div>
     </div>
 
-    <hr>
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-            <h1 class="cover-heading text-center">Comments</h1>
-        <br>
-        {% if admin %}
-        <a class=" btn btn-link btn-lg" href="{%url 'fund:add_comment' application.id%}">Add Comment</a>
-        {% endif %}
-        </div>
 
-<!--    <div class="card">-->
 
-<!--        <div class="card-body">-->
-<!--        <div class = "container-fluid pb-3 col-10 rounded-1 px-5 p-5">-->
-<!--            {% for comment in comments %}-->
-<!--            <div class = "container-fluid pb-3 rounded-1 px-5 p-5">-->
-<!--                {{comment.comment}}-->
-<!--                <br>-->
-<!--                {% if admin %}Commented by <a href="{% url 'fund:user_profile' comment.user.username %}">{{comment.user.username}}</a> on {% endif %}{{comment.date}}-->
-<!--            </div>-->
-<!--            {% endfor %}-->
-<!--        </div>-->
-
-<!--        </div>-->
-<!--    </div>-->
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <div class="card">
         <div class="card-header">
-            Comments
+            <div class="row">
+
+                <div class="col-4">
+                    Comments
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                    {% if admin %}
+            <a class="btn btn-secondary btn-sm" href="{%url 'fund:add_comment' application.id%}" role="button">Add Comment</a>
+        {% endif %}
+                </div>
+
+            </div>
+
+
         </div>
-        {% for comment in comments %}
         <div class="card-body">
+        {% for comment in comments %}
+        <div class="card p-3 m-3" style="width: 70rem;">
              <h5 class="card-title">{{comment.comment}}</h5>
             <p class="card-text">{% if admin %}Commented by <a href="{% url 'fund:user_profile' comment.user.username %}">{{comment.user.username}}</a> on {% endif %}{{comment.date}}</p>
 
         </div>
         {% endfor %}
+        </div>
     </div>
     </div>
 
