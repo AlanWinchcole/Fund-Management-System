@@ -1,6 +1,6 @@
 """ Module to define different forms"""
 from django import forms
-from .models import UserProfile, ApplicationData, User, Review
+from .models import UserProfile, ApplicationData, User, Comments, Review
 
 
 class UserForm(forms.ModelForm) :
@@ -67,6 +67,24 @@ class ApplicationForm(forms.ModelForm):
             'proContribution' :forms.Textarea(attrs={ 'class' :'form-control' }),
             'application_complete':forms.CheckboxInput(attrs={'class':'boolean'}),
         }
+
+class UpdateAppStatus(forms.ModelForm):
+
+    class Meta:
+        model = ApplicationData
+        fields = ('app_status',)
+        labels = {'app_status':'Change application status?'}
+
+class CommentForm(forms.ModelForm):
+    """Forms for Comments"""
+
+    class Meta:
+        """Meta properties of CommentForm"""
+        model = Comments
+        fields = ('comment', )
+
+        labels = { 'comment' :"Plese add your comments for this application", }
+
 
 
 

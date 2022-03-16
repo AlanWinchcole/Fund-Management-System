@@ -15,6 +15,12 @@ class UserProfile(models.Model):
 
 
 class ApplicationData(models.Model) :
+
+    class Status(models.TextChoices):
+        REJECTED = 'Rejected'
+        PENDING = 'Pending'
+        ACCEPTED = 'Accepted'
+
     """Define table for Applications in database"""
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     organisationName = models.CharField(max_length=200, null=True, blank=True)
@@ -31,6 +37,8 @@ class ApplicationData(models.Model) :
     length = models.IntegerField(null=True, blank=True)
     application_complete = models.BooleanField(default=False)
     date_of_application = models.DateField(null=True, blank=True)
+    reviewed = models.BooleanField(default=False)
+    app_status = models.TextField(choices = Status.choices, default = Status.PENDING)
 
     def save(self, *args, **kwargs):
         """override save method to add date of application"""
@@ -73,6 +81,7 @@ class Review(models.Model):
 
 
     def save(self, *args, **kwargs):
+        self.application.reviewed = True
         self.total_score = self.score()
         super(Review, self).save(*args, **kwargs)
 # Each application has a budget profile

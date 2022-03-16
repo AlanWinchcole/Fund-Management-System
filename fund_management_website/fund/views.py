@@ -65,6 +65,8 @@ def user_logout(request) :
     logout(request)
 
 def reviewApplication(request, id):
+    if not request.user.is_superuser and not request.user.is_staff:
+        return redirect("fund:dashboard")
     application = ApplicationData.objects.get(id=id)
     review_form = ReviewForm()
     if request.method == 'POST' :
@@ -80,9 +82,9 @@ def reviewApplication(request, id):
 
             return redirect("fund:dashboard")
         else:
-            print(review_form.errors, app_reviewd_form.errors)
+            print(review_form.errors)
     else:
-        return render(request, 'fund/review.html', { 'form' :review_form,})
+        return render(request, 'fund/review.html', { 'form' :review_form })
 
 
 
@@ -261,11 +263,17 @@ def dashboard(request) :
     username = request.user.username
     full_name = request.user.get_full_name()
     email = request.user.email
-    if request.user.is_superuser :
+    print(request.user.is_staff)
+    print(request.user.is_superuser)
+    if request.user.is_superuser or request.user.is_staff:
         admin = True
         users = get_user_model()
         user_list = users.objects.all()
-        completed_applications = ApplicationData.objects.filter(application_complete=True).order_by(
+        if request.user.is_superuser and request.user.is_staff:
+            completed_applications = ApplicationData.objects.filter(application_complete=True).order_by(
+            'date_of_application')
+        else:
+            completed_applications = ApplicationData.objects.filter(application_complete=True,reviewed=False ).order_by(
             'date_of_application')
         return render(request, 'fund/dashboard.html',
                       context={ 'completed_applications' :completed_applications,
@@ -280,6 +288,17 @@ def dashboard(request) :
                                                                 "username" :username, "full_name" :full_name,
                                                                 "email" :email, "contact" :contact,
                                                                 })
+
+
+def reviews(request):
+    if not request.user.is_superuser and not request.user.is_staff:
+        return render(request, 'fund/dashboard.html')
+    if request.user.is_superuser and request.user.is_staff:
+        reviews = Review.objects.all()
+    elif request.user.is_superuser and not request.user.is_staff:
+        reviews = Review.objects.filter(user=request.user)
+    return render(request, 'fund/reviews.html', context={'reviews':reviews})
+
 
 
 from django.contrib.auth.decorators import user_passes_test
@@ -316,3 +335,41 @@ def user_profile(request, username) :
 
 def applicationIntroduction(request) :
     return render(request, 'fund/application_introduction.html')
+
+def view_application_status(request, id):
+    admin = True if request.user.is_superuser else False
+    application = ApplicationData.objects.get(id = id)
+    application_form = ApplicationForm(instance=application)
+    comments = Comments.objects.filter(application = application)
+    if request.user.is_staff:
+        statusform = UpdateAppStatus()
+        if request.method == 'POST':
+            satusform = UpdateAppStatus(request.POST)
+            if satusform.is_valid():
+                statusform.save()
+            else:
+                print(satusform.errors)
+
+        return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin,'statusform':statusform})
+    print(comments)
+    for comment in comments:
+        print(comment.comment)
+    else:
+        return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin})
+
+
+def add_comment(request, id):
+    user = request.user
+    comment_form =  CommentForm()
+    if request.method =='POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = user
+            comment.application = ApplicationData.objects.get(id=id)
+            comment.save()
+            return redirect('fund:view_application_status', id)
+        else:
+            print(comment_form.errors)
+    else:
+        return render(request, 'fund/add_to_db.html', {'form':comment_form, 'title_text': "Add Comment", 'form_text': "Comment"})
