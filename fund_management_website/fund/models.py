@@ -33,6 +33,7 @@ class ApplicationData(models.Model) :
     projImpactClimate = models.TextField(max_length=300, null=True, blank=True)
     projSupportLocBus = models.TextField(max_length=300, null=True, blank=True)
     proContribution = models.TextField(max_length=300, null=True, blank=True)
+    feedback = models.TextField(max_length=200, null=True, blank=True)
 
     length = models.IntegerField(null=True, blank=True)
     application_complete = models.BooleanField(default=False)

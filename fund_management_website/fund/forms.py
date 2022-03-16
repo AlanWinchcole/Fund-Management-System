@@ -75,6 +75,15 @@ class UpdateAppStatus(forms.ModelForm):
         fields = ('app_status',)
         labels = {'app_status':'Change application status?'}
 
+
+class FeedbackForm(forms.ModelForm):
+
+    class Meta:
+
+        model = ApplicationData
+        fields = ('feedback',)
+        labels = {'feedback': 'Comments and Feedback'}
+
 class CommentForm(forms.ModelForm):
     """Forms for Comments"""
 
