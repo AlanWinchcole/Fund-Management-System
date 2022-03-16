@@ -131,11 +131,11 @@ def application(request) :
 def updateApplication(request, id) :
     applicationObj = ApplicationData.objects.get(id=id)
     application_form = ApplicationForm(instance=applicationObj)
-    budget_form = BudgetForm(instance=applicationObj)
-
+    budgetObj = BudgetProfile.objects.get(associated_application = applicationObj)
+    budget_form = BudgetForm(instance=budgetObj)
     if request.method == 'POST' :
         application_form = ApplicationForm(request.POST, instance=applicationObj)
-        budget_form = BudgetForm(request.POST, instance=applicationObj)
+        budget_form = BudgetForm(request.POST, instance=budgetObj)
         if application_form.is_valid() :
             print("form is valid")
             application_form.save()
