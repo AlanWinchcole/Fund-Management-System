@@ -60,23 +60,39 @@
             <h1 class="cover-heading text-center">Comments</h1>
         <br>
         {% if admin %}
-        <a class=" btn btn-primary btn-lg" href="{%url 'fund:add_comment' application.id%}">Add Comment</a>
+        <a class=" btn btn-link btn-lg" href="{%url 'fund:add_comment' application.id%}">Add Comment</a>
         {% endif %}
         </div>
 
-    <div class="row">
-        <div class = "container-fluid pb-3 col-10 rounded-1 px-5 p-5">
-            {% for comment in comments %}
-            <div class = "container-fluid pb-3 rounded-1 px-5 p-5">
-                {{comment.comment}}
-                <br>
-                {% if admin %}Commented by <a href="{% url 'fund:user_profile' comment.user.username %}">{{comment.user.username}}</a> on {% endif %}{{comment.date}}
-            </div>
-            {% endfor %}
-        </div>
+<!--    <div class="card">-->
 
+<!--        <div class="card-body">-->
+<!--        <div class = "container-fluid pb-3 col-10 rounded-1 px-5 p-5">-->
+<!--            {% for comment in comments %}-->
+<!--            <div class = "container-fluid pb-3 rounded-1 px-5 p-5">-->
+<!--                {{comment.comment}}-->
+<!--                <br>-->
+<!--                {% if admin %}Commented by <a href="{% url 'fund:user_profile' comment.user.username %}">{{comment.user.username}}</a> on {% endif %}{{comment.date}}-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <div class="card">
+        <div class="card-header">
+            Comments
+        </div>
+        {% for comment in comments %}
+        <div class="card-body">
+             <h5 class="card-title">{{comment.comment}}</h5>
+            <p class="card-text">{% if admin %}Commented by <a href="{% url 'fund:user_profile' comment.user.username %}">{{comment.user.username}}</a> on {% endif %}{{comment.date}}</p>
+
+        </div>
+        {% endfor %}
     </div>
-    <hr>
+    </div>
 
 
 
@@ -84,15 +100,4 @@
 {% endblock %}
 
 {% block javascript_block%}
-function sendStatus(){
-
-            var app_id = $("#app_id").val();
-            var status = $("#orderType").val()
-            $.ajax({
-                url:"{% url 'fund:add_item_spend' %}',
-                type:'POST',
-                data:{appId:app_id,status = status}
-            })
-
-}
 {% endblock %}

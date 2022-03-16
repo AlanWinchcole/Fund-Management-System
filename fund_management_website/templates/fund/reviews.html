@@ -85,6 +85,7 @@ Reviews
                                 <th>Review Date</th>
                                 <th>View Review</th>
                                 <th>Update Review</th>
+                                <th>Score</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +95,8 @@ Reviews
                             <td>{{rev.application.projectTitle}}</td>
                             <td>{{rev.date_completed}}</td>
                             <td><a href="{%url 'fund:view_review' rev.id %}">View Review</a></td>
-                            <td><a href="#">Update Review</a></td>
+                            <td><a href="{% url 'fund:update_review' rev.id %}">Update Review</a></td>
+                            <td>{{rev.total_score}}/12</td>
                         </tr>
                         {% endfor %}
                         </tbody>

@@ -32,6 +32,7 @@ urlpatterns = [
     path("view_application_status/<int:id>", views.view_application_status, name="view_application_status"),
     path("add_comment/<int:id>", views.add_comment, name= "add_comment"),
     path("review/<int:id>", views.reviewApplication, name="review_application"),
-    path("reviews", views.reviews, name="reviews"),
+    path("reviews/", views.reviews, name="reviews"),
     path("view_review/<int:id>", views.view_review, name="view_review"),
+    path("update_review/<int:id>", views.updateReview, name="update_review"),
 ]
