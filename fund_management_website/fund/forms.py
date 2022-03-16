@@ -1,6 +1,6 @@
 """ Module to define different forms"""
 from django import forms
-from .models import UserProfile, ApplicationData, User, Comments, Review
+from .models import UserProfile, ApplicationData, User, Comments, Review, BudgetProfile
 
 
 class UserForm(forms.ModelForm) :
@@ -92,7 +92,16 @@ class CommentForm(forms.ModelForm):
         model = Comments
         fields = ('comment', )
 
-        labels = { 'comment' :"Plese add your comments for this application", }
+        labels = { 'comment' :"Please add your comments for this application", }
+
+
+class BudgetForm(forms.ModelForm):
+    """Forms for Budget Allocation"""
+    class Meta:
+        """Meta Properties of BudgetForm"""
+        model = BudgetProfile
+        fields = ('totalBudget',)
+        labels = {"totalBudget":"Please state total budget to be allocated to the project",}
 
 
 
