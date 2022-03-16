@@ -73,7 +73,7 @@
                         <tr>
                             <td>{{application.id}}</td>
                             <td>{{application.projectTitle}}</td>
-                            <td><a href="#"> View Status </a></td>
+                            <td><a href="{% url 'fund:view_application_status' application.id %}"> View Status </a></td>
                         </tr>
                         {% endfor %}
                         </tbody>
