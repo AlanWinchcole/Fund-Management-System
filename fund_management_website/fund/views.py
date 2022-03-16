@@ -362,7 +362,6 @@ def view_application_status(request, id):
             if statusform.is_valid():
                 statusform = statusform.save(commit = False)
                 statusform.user = application.user
-
                 statusform.save()
                 print(statusform.app_status)
                 render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin,'statusform':statusform})
