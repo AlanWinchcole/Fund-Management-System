@@ -115,10 +115,12 @@ def application(request) :
             application = application_form.save(commit=False)
             application.user = user
             budget= budget_form.save(commit=False)
-            budget.associated_application = application
+            application.associated_budgetProfile = budget
+            # budget.associated_application = application
             print(application.user)
-            application.save()
             budget.save()
+            application.save()
+
             return redirect('fund:dashboard')
         else :
             print(application_form.errors)
@@ -131,11 +133,12 @@ def application(request) :
 def updateApplication(request, id) :
     applicationObj = ApplicationData.objects.get(id=id)
     application_form = ApplicationForm(instance=applicationObj)
-    budgetObj = BudgetProfile.objects.get(associated_application = applicationObj)
-    budget_form = BudgetForm(instance=budgetObj)
+    budgetInstance = applicationObj.associated_budgetProfile
+    #budgetObj = BudgetProfile.objects.get(associated_application = applicationObj)
+    budget_form = BudgetForm(instance=budgetInstance)
     if request.method == 'POST' :
         application_form = ApplicationForm(request.POST, instance=applicationObj)
-        budget_form = BudgetForm(request.POST, instance=budgetObj)
+        budget_form = BudgetForm(request.POST, instance=budgetInstance)
         if application_form.is_valid() :
             print("form is valid")
             application_form.save()
@@ -147,10 +150,18 @@ def updateApplication(request, id) :
         return render(request, 'fund/application.html', { 'form' :application_form , 'form1':budget_form})
 
 
-def budgetProfile(request) :
-    items = BudgetItems.objects.all()
-    # items = SubBudgetProfile.objects.all()
-    return render(request, "fund/budgetProfile.html", { "items" :items })
+def budgetProfile(request, id) :
+    application= ApplicationData.objects.get(id =id)
+    bP = application.associated_budgetProfile
+    #items = BudgetItems.objects.get(associated_budget_profile = bP)
+    try:
+        items = BudgetItems.objects.filter(associated_budget_profile = bP)
+    except:
+        items = None
+        pass
+    #subItems = BudgetItems.objects.get
+
+    return render(request, "fund/budgetProfile.html", { "items" :items, "app_id":application.id })
 
 
 def SpendProfile(request) :
@@ -164,23 +175,25 @@ def SpendProfile(request) :
 
 @csrf_exempt
 def addItem(request) :
-    heading = request.POST.get("heading")
+    # heading = request.POST.get("heading")
+    app_id =request.POST.get("app_id")
+    print(app_id)
+    bP = ApplicationData.objects.get(id = int(app_id)).associated_budgetProfile
     ID = request.POST.get("ID")
     item_name = request.POST.get("item_name")
     description = request.POST.get("description")
     budget_allocation = request.POST.get("budget_allocation")
 
     try :
-
-        heading = SubBudgetProfile(heading=heading)
-        heading.save()
-        item = BudgetItems(ID=ID, heading=heading, item_name=item_name, description=description,
+        # heading = SubBudgetProfile(heading=heading)
+        # heading.save()
+        item = BudgetItems(ID=ID, associated_budget_profile=bP, item_name=item_name, description=description,
                            budget_allocation=budget_allocation)
         item.save()
-        spend_items = SpendingItems(ID=ID, heading=heading, item_name=item_name, description=description,
-                                    budget_allocation=budget_allocation)
-        spend_items.save()
-        item_data = { "heading" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
+        # spend_items = SpendingItems(ID=ID, heading=heading, item_name=item_name, description=description,
+        #                             budget_allocation=budget_allocation)
+        # spend_items.save()
+        # item_data = { "heading" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
         return JsonResponse(item_data, safe=False)
     except :
         item_data = { "error" :True, "errorMessage" :"Failed to add item" }

@@ -19,6 +19,7 @@
             <h1 class="cover-heading text-center">Welcome to your Budget Profile</h1>
             <p class="lead text-center">This is your current Budget Profile, you can see the current details you have filled out and also add, edit or delete them.
             </p>
+            <span id="ms" hidden="true">{{app_id}}</span>
         </div>
     </div>
     <hr>
@@ -49,7 +50,7 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Heading</th>
+<!--                        <th>Heading</th>-->
                         <th>Item Name</th>
                         <th>Description</th>
                         <th>Total Cost (£)</th>
@@ -60,7 +61,7 @@
                     {% for item in items %}
                     <tr>
                         <td>{{ item.ID }}</td>
-                        <td class="editable" data-type="heading">{{ item.heading }}</td>
+<!--                        <td class="editable" data-type="heading">{{ item.heading }}</td>-->
                         <td class="editable" data-type="item_name">{{ item.item_name }}</td>
                         <td class="editable" data-type="description">{{ item.description }}</td>
                         <td class="editable" data-type="budget_allocation">{{ item.budget_allocation }}</td>
@@ -86,10 +87,10 @@
       </div>
       <div class="modal-body">
 
-          <div class="form-group">
-              <label>Heading : </label>
-              <input type="text" name="heading" id="ins_heading" class="form-control" placeholder="Heading">
-          </div>
+<!--          <div class="form-group">-->
+<!--              <label>Heading : </label>-->
+<!--              <input type="text" name="heading" id="ins_heading" class="form-control" placeholder="Heading">-->
+<!--          </div>-->
           <div class="form-group">
               <label>Item Name : </label>
               <input type="text" name="item_name" id="ins_item_name" class="form-control" placeholder="Description">
@@ -125,15 +126,18 @@
 <script>
     $(".btn-insert-data").click(function(){
 
-        var heading=$("#ins_heading").val();
+<!--       // var heading=$("#ins_heading").val();-->
+        var heading=$("#ms").text();
+        console.log(heading.type);
         var item_name=$("#ins_item_name").val();
         var description=$("#ins_description").val();
         var budget_allocation=$("#ins_budget_allocation").val();
-        if(heading==""){
-        	$("#ins_error").text("Please Enter a Heading")
-            $("#ins_error").show()
-            return;
-        }else if(item_name==""){
+<!--       // if(heading==""){-->
+<!--        //	$("#ins_error").text("Please Enter a Heading")-->
+<!--         //   $("#ins_error").show()-->
+<!--          //  return;-->
+<!--       // }else -->
+        if(item_name==""){
             $("#ins_error").text("Please Enter a name to identify the item")
             $("#ins_error").show()
             return;
@@ -151,14 +155,15 @@
             $.ajax({
                 url:'{% url 'fund:add_item' %}',
                 type:'POST',
-                data:{heading:heading,item_name:item_name,description:description,budget_allocation:budget_allocation}
+                data:{app_id:heading,item_name:item_name,description:description,budget_allocation:budget_allocation}
             })
             .done(function(response){
                 if(response['error']==false){
                     $("#ins_error").hide();
                     $("#ins_success").text(response['errorMessage']);
                     $("#ins_success").show();
-                    var html_data="<tr><td>"+response['ID']+"</td><td class='editable' data-type='heading'>"+heading+"</td><td class='editable' data-type='item_name'>"+item_name+ "</td><td class='editable' data-type='description'>"+description+ "</td><td class='editable' data-type='budget_allocation'>"+budget_allocation+"</td><td class='btn-td-block'><button class='btn btn-block btn-delete btn-danger'>DELETE</button></td></tr>";
+                    var html_data="<tr><td>"+response['ID']+"</td><td class='editable' data-type='item_name'>"+item_name+ "</td><td class='editable' data-type='description'>"+description+ "</td><td class='editable' data-type='budget_allocation'>"+budget_allocation+"</td><td class='btn-td-block'><button class='btn btn-block btn-delete btn-danger'>DELETE</button></td></tr>";
+                    // <td class='editable' data-type='heading'>"+heading+"</td>
                     $(".table tbody").append(html_data);
                 }
                 else{
@@ -208,12 +213,12 @@
          });
         $("tbody tr").each(function(){
              var ID=$(this).children().eq(0).text()
-             var heading=$(this).children().eq(1).text()
+<!--           //  var heading=$(this).children().eq(1).text()-->
              var item_name=$(this).children().eq(2).text()
              var description=$(this).children().eq(3).text()
              var budget_allocation=$(this).children().eq(4).text()
 
-             var single_data={"ID":ID,"heading":heading,"item_name":item_name,"description":description,"budget_allocation":budget_allocation};
+             var single_data={"ID":ID,"item_name":item_name,"description":description,"budget_allocation":budget_allocation};
              json_data.push(single_data);
         });
 

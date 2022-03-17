@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
 
-from fund.models import UserProfile, ApplicationData, BudgetProfile, SubBudgetProfile\
+from fund.models import UserProfile, ApplicationData, BudgetProfile\
     ,BudgetItems, SpendingProfile, SpendingItems, EvidenceFile, Comments, Review
 
 
@@ -11,7 +11,6 @@ from fund.models import UserProfile, ApplicationData, BudgetProfile, SubBudgetPr
 admin.site.register(UserProfile)
 admin.site.register(ApplicationData)
 admin.site.register(BudgetProfile)
-admin.site.register(SubBudgetProfile)
 admin.site.register(BudgetItems)
 admin.site.register(SpendingProfile)
 admin.site.register(SpendingItems)

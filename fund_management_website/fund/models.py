@@ -14,6 +14,13 @@ class UserProfile(models.Model):
     contact_number = models.CharField(validators=[regex_validator], max_length=12, blank=True)
 
 
+# Each application has a budget profile
+class BudgetProfile(models.Model) :
+    """Define table for Budget Profile in database"""
+
+    totalBudget = models.DecimalField(max_digits=10, decimal_places=2)
+    objects = models.Manager()
+
 class ApplicationData(models.Model) :
 
     class Status(models.TextChoices):
@@ -41,6 +48,10 @@ class ApplicationData(models.Model) :
     reviewed = models.BooleanField(default=False)
     app_status = models.TextField(choices = Status.choices, default = Status.PENDING)
 
+
+    # One application can only have one budget profile
+    associated_budgetProfile = models.OneToOneField(BudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
+
     def save(self, *args, **kwargs):
         """override save method to add date of application"""
         if self.application_complete:
@@ -54,6 +65,9 @@ class ApplicationData(models.Model) :
     class Meta :
         """ Further information about Application"""
         verbose_name_plural = "ApplicationData"
+
+
+
 
 class Review(models.Model):
 
@@ -85,33 +99,27 @@ class Review(models.Model):
         self.application.reviewed = True
         self.total_score = self.score()
         super(Review, self).save(*args, **kwargs)
-# Each application has a budget profile
-class BudgetProfile(models.Model) :
-    """Define table for Budget Profile in database"""
-    # One application can only have one budget profile
-    associated_application = models.OneToOneField(ApplicationData, on_delete=models.CASCADE, blank=True, null=True)
-    totalBudget = models.DecimalField(max_digits=10, decimal_places=2)
-    objects = models.Manager()
+
 
 # Budget profile would be divided into different headings
-class SubBudgetProfile(models.Model):
-    """Define table for Sub Budget Profile in database"""
-    associated_budget_profile = models.ForeignKey(BudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
-    heading = models.CharField(max_length=255, null=False, blank=False, unique=True, primary_key=True)
-    budget_allocation = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    sub_budget_slug = models.SlugField(max_length=255, unique=True,blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        """Override save method to slugify the budget heading"""
-        self.sub_budget_slug = slugify(self.heading)
-        super(SubBudgetProfile, self).save(*args, **kwargs)
+# class SubBudgetProfile(models.Model):
+#     """Define table for Sub Budget Profile in database"""
+#     associated_budget_profile = models.ForeignKey(BudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
+#     heading = models.CharField(max_length=255, null=False, blank=False, unique=True, primary_key=True)
+#     budget_allocation = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+#     sub_budget_slug = models.SlugField(max_length=255, unique=True,blank=True, null=True)
+#
+#     def save(self, *args, **kwargs):
+#         """Override save method to slugify the budget heading"""
+#         self.sub_budget_slug = slugify(self.heading)
+#         super(SubBudgetProfile, self).save(*args, **kwargs)
 
 
 # Each heading will be itemised
 class BudgetItems(models.Model):
     """Define table for Budget Items in database"""
     ID = models.AutoField(primary_key=True)
-    heading = models.ForeignKey(SubBudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
+    associated_budget_profile = models.ForeignKey(BudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
     #heading = models.CharField(max_length=255, blank=False, null=False)
     item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -121,7 +129,7 @@ class BudgetItems(models.Model):
 # Heading wise Spending Profile
 class SpendingProfile(models.Model):
     """Define table for Spending Profile in database"""
-    associated_budget_profile = models.OneToOneField(SubBudgetProfile, on_delete=models.CASCADE, null=False)
+    associated_budget_profile = models.OneToOneField(BudgetItems, on_delete=models.CASCADE, null=False)
     total_money_spent = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
 # https://www.geeksforgeeks.org/filefield-django-models/
