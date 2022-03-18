@@ -11,7 +11,7 @@
       <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
           <h1 class="cover-heading text-center">Review Summary</h1>
           <p class="lead text-center">Completed by <a href="{% url 'fund:user_profile' review.user %}">{{review.user}}</a> on the {{ review.date_completed }}
-            for Application #<a href="{% url 'fund:view_application_status' review.application.id %}">{{ review.application.id }}</a>
+
           </p>
       </div>
   </div>

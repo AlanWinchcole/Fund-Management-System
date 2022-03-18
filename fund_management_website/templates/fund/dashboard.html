@@ -74,6 +74,7 @@
                                 <th>Application ID</th>
                                 <th>Application Title</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,6 +87,7 @@
                             <td>N/A</td>
                             {% endif %}
                             <td><a href="{%url 'fund:update_application' application.id %}"> Update</a></td>
+                            <td><a href="{% url 'fund:budget_profile' application.id %}">Edit Budget Profile</a></td>
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -154,6 +156,7 @@
                                 <tr>
                                     <th>Full name</th>
                                     <th>Username</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -167,6 +170,11 @@
                                 <td>N\A</td>
                                 {% endif %}
                                  <td><a href="{% url 'fund:user_profile' user.username %}"</a>{{user.username}}</td>
+                                {% if user.is_superuser %}
+                                    <td>LAG Member</td>
+                                {% else%}
+                                    <td>Applicant</td>
+                                {% endif %}
                             </tr>
                             {% endif %}
                             {% endfor %}

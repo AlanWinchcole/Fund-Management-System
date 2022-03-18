@@ -57,7 +57,7 @@ Reviews
                             <td>{{rev.application.projectTitle}}</td>
                             <td><a href="{%url 'fund:user_profile' rev.user %}">{{ rev.user }}</a></td>
                             <td>{{rev.date_completed}}</td>
-                            <<td>{{rev.total_score}}</td>
+                            <<td>{{rev.total_score}}/12</td>
                             <td><a href="{%url 'fund:view_review' rev.id %}">View Review</a></td>
                         </tr>
                         {% endfor %}

@@ -160,6 +160,12 @@
 
         </div>
         {% endfor %}
+            {% if not comments %}
+            <div class="card p-3 m-3" style="width: 70rem;">
+                <p class="card-text"> No Comments Yet</p>
+            </div>
+            {% endif%}
+
         </div>
     </div>
     </div>

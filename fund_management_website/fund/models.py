@@ -56,6 +56,9 @@ class ApplicationData(models.Model) :
         """override save method to add date of application"""
         if self.application_complete:
             self.date_of_application = timezone.now()
+        if self.app_status == 'Accepted':
+            newSP = SpendingProfile.objects.get_or_create(associated_budget_profile = self.associated_budgetProfile)[0]
+            newSP.save()
         super(ApplicationData, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -129,7 +132,7 @@ class BudgetItems(models.Model):
 # Heading wise Spending Profile
 class SpendingProfile(models.Model):
     """Define table for Spending Profile in database"""
-    associated_budget_profile = models.OneToOneField(BudgetItems, on_delete=models.CASCADE, null=False)
+    associated_budget_profile = models.OneToOneField(BudgetProfile, on_delete=models.CASCADE, null=False)
     total_money_spent = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
 # https://www.geeksforgeeks.org/filefield-django-models/
@@ -169,6 +172,7 @@ class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     date = models.DateField(null=True, blank=True, auto_now_add = True)
     application = models.ForeignKey(ApplicationData, on_delete=models.CASCADE, null=True, blank=True)
+    budgetProfile = models.ForeignKey(BudgetProfile, on_delete=models.CASCADE, null=True, blank=True)
 
     # def save(self,*args,**kwargs):
     #     """Method to save date when a new comment is made"""
