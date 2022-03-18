@@ -326,4 +326,4 @@ class ReviewApplicationViewTest(TestCase):
     def test_review_application_template_used(self) :
         """Method to test if budget page is rendered correctly"""
         response = self.client.get('http://127.0.0.1:8000/review/1')
-        self.assertTemplateUsed(response, 'fund/review.html')
+        self.assertTemplateUsed(response, 'fund/review/1.html')
