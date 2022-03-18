@@ -154,6 +154,7 @@
                                 <tr>
                                     <th>Full name</th>
                                     <th>Username</th>
+                                    <th>User type</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -167,6 +168,11 @@
                                 <td>N\A</td>
                                 {% endif %}
                                  <td><a href="{% url 'fund:user_profile' user.username %}"</a>{{user.username}}</td>
+                                {% if user.is_superuser and not user.is_staff %}
+                                <td>LAG Member</td>
+                                {% else %}
+                                <td>Applicant</td>
+                                {% endif %}
                             </tr>
                             {% endif %}
                             {% endfor %}

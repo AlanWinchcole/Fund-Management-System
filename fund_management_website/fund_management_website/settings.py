@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'fund',
     'bootstrap5',
     'formtools',
+    'coverage',
 ]
 
 MIDDLEWARE = [
@@ -139,4 +140,3 @@ LOGOUT_REDIRECT_URL = "/login"
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
