@@ -28,7 +28,7 @@ class ApplicationDataTest(TestCase) :
     def test_str_method(self) :
         """Method to test the if application was created properly"""
         test_app = fund.models.ApplicationData.objects.get(id=1)
-        expected_str = str(test_app.projectTitle)
+        expected_str = str(test_app.id)
         self.assertEqual(str(test_app), expected_str)
 
     def test_organisationName_label(self) :
@@ -278,12 +278,12 @@ class ApplicationViewTest(TestCase) :
 
     def test_application_view_load(self) :
         """Method to test the status code for application view"""
-        response = self.client.get('http://127.0.0.1:8000/application/')
+        response = self.client.get('http://127.0.0.1:8000/apply/')
         self.assertEqual(response.status_code, 200)
 
     def test_application_template_used(self) :
         """Method to see if the application view is rendered correctly"""
-        response = self.client.get('http://127.0.0.1:8000/application/')
+        response = self.client.get('http://127.0.0.1:8000/apply/')
         self.assertTemplateUsed(response, 'fund/application.html')
 
 
@@ -318,10 +318,12 @@ class ReviewApplicationViewTest(TestCase):
 
     def test_review_application_view_load(self) :
         """Method to test status code for budget profile view"""
+        self.user = User.objects.create_superuser(username='testlag', password='12345')
+        login = self.client.login(username='testlag', password='12345')
         response = self.client.get('http://127.0.0.1:8000/review/1')
         self.assertEqual(response.status_code, 200)
 
-    def test_budget_profile_template_used(self) :
+    def test_review_application_template_used(self) :
         """Method to test if budget page is rendered correctly"""
         response = self.client.get('http://127.0.0.1:8000/review/1')
-        self.assertTemplateUsed(response, 'fund/review.html')    
+        self.assertTemplateUsed(response, 'fund/review.html')

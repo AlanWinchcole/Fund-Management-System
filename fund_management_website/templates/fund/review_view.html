@@ -95,20 +95,20 @@
                   <p class="help">{{ review_form.social_return_acc.help_text|safe }}</p>
                   {% endif %}
               </div>
+          </div>
 
-              <div class="card-body">
-                  <div class="card p-3 m-3" style="width: 70rem;">
-                      <h5 class="card-title">{{ review_form.general_feedback.label }}</h5>
-                      <p>Feedback from reviewer</p>
-                      <br>
-                      <span id="myspan">{{ review_form.general_feedback.value }}</span>
-                      {% if review_form.general_feedback.help_text %}
-                      <p class="help">{{ review_form.general_feedback.help_text|safe }}</p>
-                      {% endif %}
-                  </div>
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.general_feedback.label }}</h5>
+                  <p>Feedback from reviewer</p>
+                  <br>
+                  <span id="myspan">{{ review_form.general_feedback.value }}</span>
+                  {% if review_form.general_feedback.help_text %}
+                  <p class="help">{{ review_form.general_feedback.help_text|safe }}</p>
+                  {% endif %}
+              </div>
 
           </div>
-      </div>
 
       </div>
     </div>
