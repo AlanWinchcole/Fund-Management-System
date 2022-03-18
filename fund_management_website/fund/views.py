@@ -182,12 +182,12 @@ def SpendProfile(request, id) :
 
 @csrf_exempt
 def addItem(request) :
-    # heading = request.POST.get("heading")
     app_id =request.POST.get("app_id")
     print(app_id)
     bP = ApplicationData.objects.get(id = int(app_id)).associated_budgetProfile
     sp = SpendingProfile.objects.get(associated_application =app_id)
     ID = request.POST.get("ID")
+    heading = request.POST.get("heading1")
     item_name = request.POST.get("item_name")
     description = request.POST.get("description")
     budget_allocation = request.POST.get("budget_allocation")
@@ -195,10 +195,10 @@ def addItem(request) :
     try :
         # heading = SubBudgetProfile(heading=heading)
         # heading.save()
-        item = BudgetItems(ID=ID, associated_budget_profile=bP, item_name=item_name, description=description,
+        item = BudgetItems(ID=ID, associated_budget_profile=bP,heading=heading, item_name=item_name, description=description,
                            budget_allocation=budget_allocation)
         item.save()
-        spend_items = SpendingItems(ID=ID, associated_spending_profile=sp, item_name=item_name, description=description,
+        spend_items = SpendingItems(ID=ID, associated_spending_profile=sp,heading=heading, item_name=item_name, description=description,
                                     budget_allocation=budget_allocation)
         spend_items.save()
         item_data = { "app_id" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
@@ -242,7 +242,7 @@ def saveItem(request) :
             # item2.save()
             # item_heading = SubBudgetProfile.objects.get(heading=dic_single['heading'])
             item = BudgetItems.objects.get(ID=dic_single['ID'])
-            # item.heading=item_heading.heading
+            item.heading=dic_single['heading']
             item.item_name = dic_single['item_name']
             item.description = dic_single['description']
             item.budget_allocation = dic_single['budget_allocation']
