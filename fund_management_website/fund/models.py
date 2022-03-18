@@ -132,8 +132,8 @@ class BudgetItems(models.Model):
 # Heading wise Spending Profile
 class SpendingProfile(models.Model):
     """Define table for Spending Profile in database"""
-    associated_budget_profile = models.OneToOneField(BudgetProfile, on_delete=models.CASCADE, null=False)
-    associated_application = models.OneToOneField(ApplicationData, on_delete=models.CASCADE, null=False)
+    associated_budget_profile = models.OneToOneField(BudgetProfile, on_delete=models.CASCADE, null=True)
+    associated_application = models.OneToOneField(ApplicationData, on_delete=models.CASCADE, null=True)
     total_money_spent = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
 # https://www.geeksforgeeks.org/filefield-django-models/

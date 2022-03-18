@@ -155,7 +155,7 @@ def budgetProfile(request, id) :
     bP = application.associated_budgetProfile
     #items = BudgetItems.objects.get(associated_budget_profile = bP)
     try:
-        items = BudgetItems.objects.get(associated_budget_profile = bP)
+        items = BudgetItems.objects.filter(associated_budget_profile = bP)
 
     except:
         items = None
@@ -186,6 +186,7 @@ def addItem(request) :
     app_id =request.POST.get("app_id")
     print(app_id)
     bP = ApplicationData.objects.get(id = int(app_id)).associated_budgetProfile
+    sp = SpendingProfile.objects.get(associated_application =app_id)
     ID = request.POST.get("ID")
     item_name = request.POST.get("item_name")
     description = request.POST.get("description")
@@ -197,9 +198,9 @@ def addItem(request) :
         item = BudgetItems(ID=ID, associated_budget_profile=bP, item_name=item_name, description=description,
                            budget_allocation=budget_allocation)
         item.save()
-        # spend_items = SpendingItems(ID=ID, heading=heading, item_name=item_name, description=description,
-        #                             budget_allocation=budget_allocation)
-        # spend_items.save()
+        spend_items = SpendingItems(ID=ID, associated_spending_profile=sp, item_name=item_name, description=description,
+                                    budget_allocation=budget_allocation)
+        spend_items.save()
         item_data = { "app_id" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
         return JsonResponse(item_data, safe=False)
     except :

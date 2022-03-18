@@ -32,6 +32,11 @@
               {% endif %}
               {% if user.is_superuser and not user.is_staff %}
               <p class="lead text-center"><a href="{% url 'fund:review_application' application.id %}" target="_blank">Review Application</a></p>
+              <p class="lead text-center"><a href="{% url 'fund:budget_profile' application.id %}" target="_blank">View Budget Profile</a></p>
+              {% endif %}
+              {% if request.user.is_staff %}
+              <p class="lead text-center"><a href="{% url 'fund:budget_profile' application.id %}" target="_blank">View Budget Profile</a></p>
+              <p class="lead text-center"><a href="{% url 'fund:spend_profile' application.id %}" target="_blank">View Spend Profile</a></p>
               {% endif %}
         </div>
     </div>
