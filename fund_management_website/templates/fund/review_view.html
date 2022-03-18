@@ -18,18 +18,99 @@
   <hr>
 
   <div class="container">
-      <div class="row">
-      <div class = "container-fluid pb-3 col-10 border rounded-1 px-5 p-5">
-          {% for field in review_form %}
-          <div class="fieldWrapper">
-            <p class="lead"><strong>{{ field.label_tag }}</strong>
-            <br>
-                <span id="myspan">{{ field.value }}</span>
-          {% if field.help_text %}
-          <p class="help">{{ field.help_text|safe }}</p>
-          {% endif %}
-        </div>
-        {% endfor %}
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <div class="card">
+          <div class="card-header">
+              <h4 class="card-title">Review Summary</h4>
+          </div>
+
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.co_production.label }}</h5>
+                  <p>Has this application adequately consulted their user group and demonstrate an understanding of their needs</p>
+                  <br>
+                  <span id="myspan">{{ review_form.co_production.value }}</span>
+                  {% if review_form.co_production.help_text %}
+                  <p class="help">{{ review_form.co_production.help_text|safe }}</p>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.capacity_building.label }}</h5>
+                  <p>The application evidences an understanding of how learning is captured and reflected</p>
+                  <br>
+                  <span id="myspan">{{ review_form.capacity_building.value }}</span>
+                  {% if review_form.capacity_building.help_text %}
+                  <p class="help">{{ review_form.capacity_building.help_text|safe }}</p>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.partnership_working.label }}</h5>
+                  <p>The project has evidenced how they are working in partnership to improve outcomes</p>
+                  <br>
+                  <span id="myspan">{{ review_form.partnership_working.value }}</span>
+                  {% if review_form.partnership_working.help_text %}
+                  <p class="help">{{ review_form.partnership_working.help_text|safe }}</p>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.climate_environment.label }}</h5>
+                  <p>The project understands its impact on the climate and environment and how they manage this</p>
+                  <br>
+                  <span id="myspan">{{ review_form.climate_environment.value }}</span>
+                  {% if review_form.climate_environment.help_text %}
+                  <p class="help">{{ review_form.climate_environment.help_text|safe }}</p>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.local_economic_res_building.label }}</h5>
+                  <p>The project understands how it impacts and benefits the local economy</p>
+                  <br>
+                  <span id="myspan">{{ review_form.local_economic_res_building.value }}</span>
+                  {% if review_form.local_economic_res_building.help_text %}
+                  <p class="help">{{ review_form.local_economic_res_building.help_text|safe }}</p>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.social_return_acc.label }}</h5>
+                  <p>The project understands how it impacts and benefits the local community</p>
+                  <br>
+                  <span id="myspan">{{ review_form.social_return_acc.value }}</span>
+                  {% if review_form.social_return_acc.help_text %}
+                  <p class="help">{{ review_form.social_return_acc.help_text|safe }}</p>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="card-body">
+              <div class="card p-3 m-3" style="width: 70rem;">
+                  <h5 class="card-title">{{ review_form.general_feedback.label }}</h5>
+                  <p>Feedback from reviewer</p>
+                  <br>
+                  <span id="myspan">{{ review_form.general_feedback.value }}</span>
+                  {% if review_form.general_feedback.help_text %}
+                  <p class="help">{{ review_form.general_feedback.help_text|safe }}</p>
+                  {% endif %}
+              </div>
+
+          </div>
+
+      </div>
     </div>
 
 

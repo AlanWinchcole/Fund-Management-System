@@ -30,11 +30,14 @@
               {% else %}
               <h2 class="cover-heading text-center" style="color: red;">{{ application.app_status }}</h2>
               {% endif %}
+              {% if user.is_superuser and not user.is_staff %}
+              <p class="lead text-center"><a href="{% url 'fund:review_application' application.id %}" target="_blank">Review Application</a></p>
+              {% endif %}
         </div>
     </div>
     <hr>
 
-
+  <div class="container">
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
         <div class="card">
             <div class="card-header">
@@ -42,7 +45,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.organisationName.label }}</h5>
                     <p>Please tell us the name of your organisation:</p>
                     <p class="card-text">{{ application_form.organisationName.value }}</p>
@@ -50,7 +53,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.projectTitle.label }}</h5>
                     <p>Please tell us the title of your proposed project:</p>
                     <p class="card-text">{{ application_form.projectTitle.value }}</p>
@@ -58,7 +61,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.CH_OSCR_number.label }}</h5>
                     <p>If you have a Companies House or OSCAR Registration number please include below:</p>
                     <p class="card-text">{{ application_form.CH_OSCR_number.value }}</p>
@@ -66,7 +69,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.projectDesc.label }}</h5>
                     <p>Please briefly tell us about your project and what you are looking to achieve:</p>
                     <p class="card-text">{{ application_form.projectDesc.value }}</p>
@@ -74,7 +77,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.userGroupDesc.label }}</h5>
                     <p>Please describe your user group and your understanding of their needs?</p>
                     <p class="card-text">{{ application_form.userGroupDesc.value }}</p>
@@ -82,7 +85,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.learningOpp.label }}</h5>
                     <p>Tell us how learning opportunities will be used to adapt and improve the project plan? How will you share and reflect on your experiences?</p>
                     <p class="card-text">{{ application_form.learningOpp.value }}</p>
@@ -90,7 +93,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.keyPartnersWork.label }}</h5>
                     <p>How have you worked with key partner/s to understand and develop a holistic approach to delivering wider benefits? <br>Is there an agreed schedule and format for regular exchanges?</p>
                     <p class="card-text">{{ application_form.keyPartnersWork.value }}</p>
@@ -98,7 +101,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.projImpactClimate.label }}</h5>
                     <p>How will your project impact on the climate and environment? What actions for positive impacts will you take?</p>
                     <p class="card-text">{{ application_form.projImpactClimate.value }}</p>
@@ -106,7 +109,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.projSupportLocBus.label }}</h5>
                     <p>How will your project will support and/or create local business and/or employment opportunities?</p>
                     <p class="card-text">{{ application_form.projSupportLocBus.value }}</p>
@@ -114,7 +117,7 @@
             </div>
 
             <div class="card-body">
-                <div class="card p-3 m-3" >
+                <div class="card p-3 m-3" style="width: 70rem;">
                     <h5 class="card-title">{{ application_form.proContribution.label }}</h5>
                     <p>How will your project contribute to individual and/or community well-being? How will your project contribute to local social inclusion and community resilience?</p>
                     <p class="card-text">{{ application_form.proContribution.value }}</p>
@@ -130,6 +133,7 @@
 
         </div>
     </div>
+      </div>
 
 
 

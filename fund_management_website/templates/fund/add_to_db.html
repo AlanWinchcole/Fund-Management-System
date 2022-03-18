@@ -11,7 +11,11 @@
         <h1 class="text-center"> {{form_text}} </h1>
         <form id = "ApplicationForm" method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
+            <br>
+            <strong>{{form.comment.label}}</strong>
+            <br>
+            {{form.comment}}
+            <br>
             <input type="submit" value="Submit" class="btn btn-primary" onclick="check_empty();">
         </form>
     </div>
