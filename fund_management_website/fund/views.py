@@ -340,7 +340,7 @@ def dashboard(request) :
 
 def reviews(request):
     if not request.user.is_superuser and not request.user.is_staff:
-        return render(request, 'fund/dashboard.html')
+        return redirect("fund:dashboard")
     if request.user.is_superuser and request.user.is_staff:
         reviews = Review.objects.all()
     elif request.user.is_superuser and not request.user.is_staff:
@@ -352,6 +352,8 @@ def reviews(request):
 from django.contrib.auth.decorators import user_passes_test
 
 def view_review(request, id):
+    if not request.user.is_superuser and not request.user.is_staff:
+        return redirect("fund:dashboard")
     admin = True if request.user.is_superuser else False
     review = Review.objects.get(id=id)
     review_form = ReviewForm(instance=review)
