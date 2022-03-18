@@ -226,8 +226,8 @@ def saveItem(request) :
     dict_data = json.loads(data)
     try :
         for dic_single in dict_data :
-            heading = SubBudgetProfile(heading=dic_single['heading'])
-            heading.save()
+            #heading = SubBudgetProfile(heading=dic_single['heading'])
+            #heading.save()
             # item2 = BudgetItems(heading=heading.heading)
             # item2.save()
             # item_heading = SubBudgetProfile.objects.get(heading=dic_single['heading'])

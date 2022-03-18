@@ -214,9 +214,9 @@
         $("tbody tr").each(function(){
              var ID=$(this).children().eq(0).text()
 <!--           //  var heading=$(this).children().eq(1).text()-->
-             var item_name=$(this).children().eq(2).text()
-             var description=$(this).children().eq(3).text()
-             var budget_allocation=$(this).children().eq(4).text()
+             var item_name=$(this).children().eq(1).text()
+             var description=$(this).children().eq(2).text()
+             var budget_allocation=$(this).children().eq(3).text()
 
              var single_data={"ID":ID,"item_name":item_name,"description":description,"budget_allocation":budget_allocation};
              json_data.push(single_data);
