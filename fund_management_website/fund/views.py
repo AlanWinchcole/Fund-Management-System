@@ -193,7 +193,7 @@ def addItem(request) :
         # spend_items = SpendingItems(ID=ID, heading=heading, item_name=item_name, description=description,
         #                             budget_allocation=budget_allocation)
         # spend_items.save()
-        # item_data = { "heading" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
+        item_data = { "app_id" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
         return JsonResponse(item_data, safe=False)
     except :
         item_data = { "error" :True, "errorMessage" :"Failed to add item" }

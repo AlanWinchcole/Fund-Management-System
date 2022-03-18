@@ -159,8 +159,8 @@ class SpendingItems(models.Model):
 # Model to allow multiple file uploads
 class EvidenceFile(models.Model):
     """Define table for Evidences in database"""
-    file = models.FileField(upload_to=user_directory_path)
-    spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, related_name='evidences')
+    file = models.FileField(upload_to=user_directory_path,blank=True, null=True)
+    spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, related_name='evidences',blank=True, null=True)
 
 
 class Comments(models.Model):
