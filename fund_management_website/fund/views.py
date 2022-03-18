@@ -155,7 +155,8 @@ def budgetProfile(request, id) :
     bP = application.associated_budgetProfile
     #items = BudgetItems.objects.get(associated_budget_profile = bP)
     try:
-        items = BudgetItems.objects.filter(associated_budget_profile = bP)
+        items = BudgetItems.objects.get(associated_budget_profile = bP)
+
     except:
         items = None
         pass
@@ -164,13 +165,19 @@ def budgetProfile(request, id) :
     return render(request, "fund/budgetProfile.html", { "items" :items, "app_id":application.id })
 
 
-def SpendProfile(request) :
-    items = SpendingItems.objects.all()
+def SpendProfile(request, id) :
+    app = ApplicationData.objects.get(id =id)
+    sp = SpendingProfile.objects.get(associated_application =app)
+    items = SpendingItems.objects.filter(associated_spending_profile =sp)
+    if not items: print("its not here")
+    for i in items:
+        print(i)
+    # items = SpendingItems.objects.get(associated_application =app)
     # spendObj = SpendingItems.objects.get(id=id)
     # item =  SpendingItems(request.POST, instance=spendObj)
     # item.save()
     # headings = BudgetItems.objects.all()
-    return render(request, "fund/SpendProfile.html", { "items" :items })
+    return render(request, "fund/SpendProfile.html", {'items':items, 'app_id':app.id})
 
 
 @csrf_exempt
@@ -202,6 +209,8 @@ def addItem(request) :
 
 @csrf_exempt
 def addItemSpendProfile(request) :
+    app_id = request.POST.get("app_id")
+    sp = SpendingProfile.objects.get(associated_application = ApplicationData.objects.get(id =app_id))
     heading = request.POST.get("heading")
     ID = request.POST.get("ID")
     item_name = request.POST.get("item_name")
@@ -211,7 +220,7 @@ def addItemSpendProfile(request) :
     try :
 
         spend_items = SpendingItems(ID=ID, heading=heading, item_name=item_name, description=description,
-                                    money_spent=money_spent)
+                                    money_spent=money_spent, associated_spending_profile =sp)
         spend_items.save()
         item_data = { "heading" :spend_items.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
         return JsonResponse(item_data, safe=False)

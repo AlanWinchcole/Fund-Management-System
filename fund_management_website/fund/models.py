@@ -57,7 +57,7 @@ class ApplicationData(models.Model) :
         if self.application_complete:
             self.date_of_application = timezone.now()
         if self.app_status == 'Accepted':
-            newSP = SpendingProfile.objects.get_or_create(associated_budget_profile = self.associated_budgetProfile)[0]
+            newSP = SpendingProfile.objects.get_or_create(associated_budget_profile = self.associated_budgetProfile, associated_application = self)[0]
             newSP.save()
         super(ApplicationData, self).save(*args, **kwargs)
 
@@ -133,6 +133,7 @@ class BudgetItems(models.Model):
 class SpendingProfile(models.Model):
     """Define table for Spending Profile in database"""
     associated_budget_profile = models.OneToOneField(BudgetProfile, on_delete=models.CASCADE, null=False)
+    associated_application = models.OneToOneField(ApplicationData, on_delete=models.CASCADE, null=False)
     total_money_spent = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
 # https://www.geeksforgeeks.org/filefield-django-models/
@@ -143,9 +144,8 @@ def user_directory_path(instance, filename):
 # Each heading has itemised expenditure
 class SpendingItems(models.Model):
     """Define table for Spending Items in database"""
-    user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True)
     ID = models.AutoField(primary_key=True)
-    #associated_spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, null=True, blank=True)
+    associated_spending_profile = models.ForeignKey(SpendingProfile, on_delete=models.CASCADE, null=True, blank=True)
     heading = models.CharField(max_length=255, blank=True, null=True)
     item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)

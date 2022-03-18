@@ -15,6 +15,7 @@
 <body>
 <div class="container-fluid">
         <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+            <span id="ms" hidden="true">{{app_id}}</span>
 
             <h1 class="cover-heading text-center">Welcome to your Spend Profile</h1>
             <p class="lead text-center">This is your current Spend Profile, this is where you will report your spending against your proposed budget.
@@ -137,6 +138,7 @@
 <script>
         $(".btn-insert-data").click(function(){
 
+        var app_id = $("#ms").text();
         var heading=$("#ins_heading").val();
         var item_name=$("#ins_item_name").val();
         var description=$("#ins_description").val();
@@ -163,7 +165,7 @@
             $.ajax({
                 url:'{% url 'fund:add_item_spend' %}',
                 type:'POST',
-                data:{heading:heading,item_name:item_name,description:description,money_spent:money_spent}
+                data:{app_id:app_id,heading:heading,item_name:item_name,description:description,money_spent:money_spent}
             })
             .done(function(response){
                 if(response['error']==false){
@@ -235,10 +237,11 @@
         });
 
         var string_data=JSON.stringify(json_data)
+        var app_id = $("#ms").text();
         $.ajax({
                 url:'{% url 'fund:save_item_spend' %}',
                 type:'POST',
-                data:{data:string_data}
+                data:{app_id:app_id, data:string_data}
             })
             .done(function(response){
                 if(response['error']==false){
