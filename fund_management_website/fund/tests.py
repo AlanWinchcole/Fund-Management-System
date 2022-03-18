@@ -738,3 +738,206 @@ class ApplicationDataTest(TestCase) :
         test_app = fund.models.ApplicationData.objects.get(id=1)
         fb = test_app.feedback
         self.assertEqual(fb, 'Very good process')
+
+
+# Test suite for Review Model
+class ReviewTest(TestCase):
+
+        @classmethod
+        def setUpTestData(cls) :
+            """Method to define the setup data"""
+            fund.models.ApplicationData.objects.create(
+                user=User.objects.create(username='User' + str(random.randint(10000, 200000)), password='AbD12Cefl02'),
+                organisationName='ABCD', projectTitle='BCDA', CH_OSCR_number='0938904', projectDesc='AdC',
+                userGroupDesc='GGJJLL', learningOpp='NOEPLRRS', keyPartnersWork='AFGCLG', projImpactClimate='KKKK',
+                projSupportLocBus='uiopla', proContribution='dsadad')
+
+            laguser = User.objects.create_superuser(username='testlag', password='12345')
+            staffuser = User.objects.create_superuser(username='teststaff', password='12345')
+            normaluser = User.objects.create(username='user1234', password='12345')
+            fund.models.Review.objects.create(application=fund.models.ApplicationData.objects.get(id=1), user=laguser, co_production=2, capacity_building=2, partnership_working=1,
+                                                climate_environment=2, local_economic_res_building=0, social_return_acc=2, general_feedback='Excellent', review_complete=True)
+
+
+        def test_co_prodcution_label(self):
+
+            test_rev= fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('co_production').verbose_name
+            self.assertEqual(field_label, 'co production')
+
+        def test_co_production_default(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            co_pro = test_rev._meta.get_field('co_production').default
+            self.assertEqual(co_pro, 0)
+
+        def test_co_production_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            co_pro = test_rev.co_production
+            self.assertEqual(co_pro, 2)
+
+        def test_capacity_building_label(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('capacity_building').verbose_name
+            self.assertEqual(field_label, 'capacity building')
+
+        def test_capacity_building_default(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            cap = test_rev._meta.get_field('capacity_building').default
+            self.assertEqual(cap, 0)
+
+        def test_capacity_building_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            cap = test_rev.capacity_building
+            self.assertEqual(cap, 2)
+
+        def test_partnership_working_label(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('partnership_working').verbose_name
+            self.assertEqual(field_label, 'partnership working')
+
+        def test_partnership_working_default(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            pw = test_rev._meta.get_field('partnership_working').default
+            self.assertEqual(pw, 0)
+
+        def test_partnership_working_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            pw = test_rev.partnership_working
+            self.assertEqual(pw, 1)
+
+        def test_climate_environment_label(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('climate_environment').verbose_name
+            self.assertEqual(field_label, 'climate environment')
+
+        def test_climate_environment_default(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            ce = test_rev._meta.get_field('climate_environment').default
+            self.assertEqual(ce, 0)
+
+        def test_climate_environment_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            ce = test_rev.climate_environment
+            self.assertEqual(ce, 2)
+
+        def test_local_economic_res_building_label(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('local_economic_res_building').verbose_name
+            self.assertEqual(field_label, 'local economic res building')
+
+        def test_local_economic_res_building_default(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            local = test_rev._meta.get_field('local_economic_res_building').default
+            self.assertEqual(local, 0)
+
+        def test_local_economic_res_building_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            local = test_rev.local_economic_res_building
+            self.assertEqual(local, 0)
+
+        def test_social_return_acc_label(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('social_return_acc').verbose_name
+            self.assertEqual(field_label, 'social return acc')
+
+        def test_social_return_acc_default(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            social = test_rev._meta.get_field('social_return_acc').default
+            self.assertEqual(social, 0)
+
+        def test_social_return_acc_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            social = test_rev.local_economic_res_building
+            self.assertEqual(social, 0)
+
+        def test_general_feedback_label(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('general_feedback').verbose_name
+            self.assertEqual(field_label, 'general feedback')
+
+        def test_general_feedback_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            fb = test_rev.general_feedback
+            self.assertEqual(fb, 'Excellent')
+
+
+        def test_review_complete_label(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            field_label = test_rev._meta.get_field('review_complete').verbose_name
+            self.assertEqual(field_label, 'review complete')
+
+
+        def test_review_complete_value(self):
+
+            test_rev = fund.models.Review.objects.get(id=1)
+            rc = test_rev.review_complete
+            self.assertTrue(rc)
+
+class UserProfileTest(TestCase):
+
+        @classmethod
+        def setUpTestData(cls) :
+            """Method to define the setup data"""
+            normaluser = User.objects.create(username='user1234', password='12345')
+            profile = fund.models.UserProfile.objects.create(user=normaluser, contact_number='+4499039211')
+
+        def test_contact_label(self):
+
+            test_profile = fund.models.UserProfile.objects.get(id=1)
+            field_label = test_profile._meta.get_field('contact_number').verbose_name
+            self.assertEqual(field_label, 'contact number')
+
+        def test_contact_value(self):
+
+            test_profile = fund.models.UserProfile.objects.get(id=1)
+            number = test_profile.contact_number
+            self.assertEqual(number, '+4499039211')
+
+        def test_contact_max_len(self):
+
+            test_profile = fund.models.UserProfile.objects.get(id=1)
+            max = test_profile._meta.get_field('contact_number').max_length
+            self.assertEqual(max, 12)
+
+class ApplicationForm(TestCase):
+
+        @classmethod
+        def setUpTestData(cls) :
+            """Method to define the setup data"""
+            normaluser = User.objects.create(username='user1234', password='12345')
+            fund.models.ApplicationData.objects.create(user=normaluser,organisationName='ABCD',
+             projectTitle='BCDA', CH_OSCR_number='0938904', projectDesc='AdC',userGroupDesc='GGJJLL', learningOpp='NOEPLRRS',
+              keyPartnersWork='AFGCLG', projImpactClimate='KKKK',projSupportLocBus='uiopla', proContribution='dsadad')
+
+
+
+            laguser = User.objects.create_superuser(username='testlag', password='12345')
+            staffuser = User.objects.create_superuser(username='teststaff', password='12345')
+
+        def test_app_form_creation(self):
+
+            form = fund.forms.ApplicationForm(data={'organisationName':'ABCD','projectTitle':'BCDA', 'CH_OSCR_number':'0938904', 'projectDesc':'AdC',
+            'userGroupDesc':'GGJJLL', 'learningOpp':'NOEPLRRS', 'keyPartnersWork':'AFGCLG', 'projImpactClimate':'KKKK',
+            'projSupportLocBus':'uiopla', 'proContribution':'dsadad','application_complete':True})
+
+            self.assertTrue(isinstance(form, fund.forms.ApplicationForm))
