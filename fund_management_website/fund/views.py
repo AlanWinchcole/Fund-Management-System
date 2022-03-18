@@ -169,9 +169,9 @@ def SpendProfile(request, id) :
     app = ApplicationData.objects.get(id =id)
     sp = SpendingProfile.objects.get(associated_application =app)
     items = SpendingItems.objects.filter(associated_spending_profile =sp)
-    if not items: print("its not here")
-    for i in items:
-        print(i)
+    #if not items: print("its not here")
+    #for i in items:
+        #print(i)
     # items = SpendingItems.objects.get(associated_application =app)
     # spendObj = SpendingItems.objects.get(id=id)
     # item =  SpendingItems(request.POST, instance=spendObj)
@@ -182,12 +182,12 @@ def SpendProfile(request, id) :
 
 @csrf_exempt
 def addItem(request) :
-    # heading = request.POST.get("heading")
     app_id =request.POST.get("app_id")
     print(app_id)
     bP = ApplicationData.objects.get(id = int(app_id)).associated_budgetProfile
     sp = SpendingProfile.objects.get(associated_application =app_id)
     ID = request.POST.get("ID")
+    heading = request.POST.get("heading1")
     item_name = request.POST.get("item_name")
     description = request.POST.get("description")
     budget_allocation = request.POST.get("budget_allocation")
@@ -195,10 +195,10 @@ def addItem(request) :
     try :
         # heading = SubBudgetProfile(heading=heading)
         # heading.save()
-        item = BudgetItems(ID=ID, associated_budget_profile=bP, item_name=item_name, description=description,
+        item = BudgetItems(ID=ID, associated_budget_profile=bP,heading=heading, item_name=item_name, description=description,
                            budget_allocation=budget_allocation)
         item.save()
-        spend_items = SpendingItems(ID=ID, associated_spending_profile=sp, item_name=item_name, description=description,
+        spend_items = SpendingItems(ID=ID, associated_spending_profile=sp,heading=heading, item_name=item_name, description=description,
                                     budget_allocation=budget_allocation)
         spend_items.save()
         item_data = { "app_id" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
@@ -217,11 +217,12 @@ def addItemSpendProfile(request) :
     item_name = request.POST.get("item_name")
     description = request.POST.get("description")
     money_spent = request.POST.get("money_spent")
+    bP_budget_allocation = request.POST.get("bP_budget_allocation")
 
     try :
 
         spend_items = SpendingItems(ID=ID, heading=heading, item_name=item_name, description=description,
-                                    money_spent=money_spent, associated_spending_profile =sp)
+                                    money_spent=money_spent,budget_allocation=bP_budget_allocation, associated_spending_profile =sp)
         spend_items.save()
         item_data = { "heading" :spend_items.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
         return JsonResponse(item_data, safe=False)
@@ -242,7 +243,7 @@ def saveItem(request) :
             # item2.save()
             # item_heading = SubBudgetProfile.objects.get(heading=dic_single['heading'])
             item = BudgetItems.objects.get(ID=dic_single['ID'])
-            # item.heading=item_heading.heading
+            item.heading=dic_single['heading']
             item.item_name = dic_single['item_name']
             item.description = dic_single['description']
             item.budget_allocation = dic_single['budget_allocation']
@@ -266,10 +267,12 @@ def saveItemSpendProfile(request) :
             # item2.save()
             # item_heading = SubBudgetProfile.objects.get(heading=dic_single['heading'])
             item = SpendingItems.objects.get(ID=dic_single['ID'])
+            print(item)
             item.heading = dic_single['heading']
             item.item_name = dic_single['item_name']
             item.description = dic_single['description']
             item.evidence = dic_single['evidence']
+            item.budget_allocation = dic_single['bP_budget_allocation']
             item.money_spent = dic_single['money_spent']
             item.save()
         item_data = { "error" :False, "errorMessage" :"Items Updated Successfully" }

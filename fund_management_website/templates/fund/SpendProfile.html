@@ -113,7 +113,7 @@
           </div>
           <div class="form-group">
               <label>Item Budget : </label>
-              <input type="number" step="0.01" name="budget_allocation" id="ins_budget_allocation_new" class="form-control" placeholder="Total Spent">
+              <input type="number" step="0.01" name="budget_allocation_new" id="ins_budget_allocation_new" class="form-control" placeholder="Total Spent">
           </div>
           <div class="form-group">
               <input type="button" name="submit" class="btn btn-block btn-info btn-insert-data" value="Add Item">
@@ -143,6 +143,7 @@
         var item_name=$("#ins_item_name").val();
         var description=$("#ins_description").val();
         var money_spent=$("#ins_budget_allocation").val();
+        var bP_budget_allocation=$("#ins_budget_allocation_new").val();
         if(heading==""){
             $("#ins_error").text("Please Enter a Heading")
             $("#ins_error").show()
@@ -159,20 +160,24 @@
             $("#ins_error").text("Please Enter the money spent")
             $("#ins_error").show()
             return;
+        }else if(bP_budget_allocation==""){
+            $("#ins_error").text("Please Enter the budget for this item")
+            $("#ins_error").show()
+            return;
         }else{
                 $(".btn-insert-data").attr("disabled","disabled");
                 $(".btn-insert-data").text("Adding... Please Wait..");
             $.ajax({
                 url:'{% url 'fund:add_item_spend' %}',
                 type:'POST',
-                data:{app_id:app_id,heading:heading,item_name:item_name,description:description,money_spent:money_spent}
+                data:{app_id:app_id,heading:heading,item_name:item_name,description:description,money_spent:money_spent,bP_budget_allocation:bP_budget_allocation}
             })
             .done(function(response){
                 if(response['error']==false){
                     $("#ins_error").hide();
                     $("#ins_success").text(response['errorMessage']);
                     $("#ins_success").show();
-                    var html_data="<tr><td>"+response['ID']+"</td><td class='editable' data-type='heading'>"+heading+"</td><td class='editable' data-type='item_name'>"+item_name+ "</td><td class='editable' data-type='description'>"+description+ "</td><td class='editable' data-type='budget_allocation'>"+money_spent+"</td><td class='btn-td-block'><button class='btn btn-block btn-delete btn-danger'>DELETE</button></td></tr>";
+                    var html_data="<tr><td>"+response['ID']+"</td><td class='editable' data-type='heading'>"+heading+"</td><td class='editable' data-type='item_name'>"+item_name+ "</td><td class='editable' data-type='description'>"+description+ "</td><td class='editable' data-type='budget_allocation'>"+money_spent+"</td><td class='editable' data-type='budget_allocation_new'>"+bP_budget_allocation+"</td></tr>";
                     $(".table tbody").append(html_data);
                 }
                 else{
@@ -203,11 +208,14 @@
             if(types=='Evidence'){
                 var html_data="<input type='file' id='request.user.id' name='filename' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
                 $(this).html(html_data);
-            }else if(types!='money_spent'){
-                var html_data="<input type='text' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
+            }else if(types=='money_spent'){
+                var html_data="<input type='number' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
+                $(this).html(html_data);
+            }else if(types=='budget_allocation'){
+                var html_data="<input type='number' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
                 $(this).html(html_data);
             }else{
-                var html_data="<input type='number' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
+                var html_data="<input type='text' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
                 $(this).html(html_data);
             }
        });
@@ -231,8 +239,9 @@
              var description=$(this).children().eq(3).text()
              var evidence=$(this).children().eq(4).text()
              var money_spent=$(this).children().eq(5).text()
+             var bP_budget_allocation=$(this).children().eq(6).text()
 
-             var single_data={"ID":ID,"heading":heading,"item_name":item_name,"description":description,"evidence":evidence,"money_spent":money_spent};
+             var single_data={"ID":ID,"heading":heading,"item_name":item_name,"description":description,"evidence":evidence,"money_spent":money_spent, "bP_budget_allocation":bP_budget_allocation};
              json_data.push(single_data);
         });
 

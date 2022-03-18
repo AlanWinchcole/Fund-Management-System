@@ -123,7 +123,7 @@ class BudgetItems(models.Model):
     """Define table for Budget Items in database"""
     ID = models.AutoField(primary_key=True)
     associated_budget_profile = models.ForeignKey(BudgetProfile, on_delete=models.CASCADE, blank=True, null=True)
-    #heading = models.CharField(max_length=255, blank=False, null=False)
+    heading = models.CharField(max_length=255, blank=False, null=True)
     item_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     budget_allocation = models.DecimalField(max_digits=10, decimal_places=2)
