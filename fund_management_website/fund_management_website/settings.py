@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'fund',
     'bootstrap5',
     'formtools',
-    'coverage',
 ]
 
 MIDDLEWARE = [

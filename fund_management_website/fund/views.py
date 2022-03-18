@@ -412,6 +412,3 @@ def add_comment(request, id):
             print(comment_form.errors)
     else:
         return render(request, 'fund/add_to_db.html', {'form':comment_form, 'title_text': "Add Comment", 'form_text': "Comment"})
-
-
-

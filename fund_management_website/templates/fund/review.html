@@ -8,9 +8,14 @@
 
 
 <h1 class="text-center"> {{form_text}}</h1>
+<div class="container-fluid">
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
-  <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
-  </div>
+        <h1 class="cover-heading text-center">Review Application</h1>
+
+    </div>
+</div>
+
 
   <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
       <form id = "ReviewForm" method="post" action="" enctype="multipart/form-data">
@@ -72,6 +77,37 @@
           {{revform.application_reviewed}}
         </div>
       </form>
+  </div>
+
+  <div class = "container-fluid pb-3 col-8 border rounded-1 px-5 p-5">
+    <h3>For Reference:</h3>
+    <table class="table table-striped">
+
+      <thead>
+    <tr>
+      <th scope="col">Assessment Options</th>
+      <th scope="col">Assessment Outcome</th>
+      <th scope="col">Traffic Light</th>
+    </tr>
+    <tr>
+      <td>The Project Criteria has been met adequately and there is confidence the project will deliver outcomes consistent with the objectives of the funding</td>
+      <td>The LAG agrees to award funding without further requirements </td>
+      <td class="bg-success">Green</td>
+    </tr>
+    <tr>
+      <td>The Project Criteria has been met adequately. There are issues that should be addressed but not critical to successful delivery</td>
+      <td>The LAG agrees to award the funding pending the recommendations of the PF. </td>
+      <td class="bg-warning">Amber</td>
+    </tr>
+    <tr>
+      <td>There are issues that are critical to successful delivery Project objectives are not consistent with the six themes and will require some significant work</td>
+      <td>The LAG would like to see how recommendations have been implemented  (need to represent)					</td>
+      <td class="bg-danger">Red</td>
+    </tr>
+  </thead>
+
+    </table>
+
   </div>
 
 {% endblock %}

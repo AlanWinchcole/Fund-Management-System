@@ -197,8 +197,8 @@
                                     <th>ID</th>
                                     <th>Project Name</th>
                                     <th>Date Submitted</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>View status</th>
+                                    <th>Review</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -207,7 +207,7 @@
                                 <td>{{app.id}}</td>
                                 <td>{{app.projectTitle}}</td>
                                 <td>{{app.date_of_application}}</td>
-                                <td><a href="{% url 'fund:view_application_status' app.id %}"> View Status </a></td>
+                                <td><a href="{% url 'fund:view_application_status' app.id %}">View Status</a></td>
                                 {% if user.is_superuser and not user.is_staff %}
                                 <td><a href="{% url 'fund:review_application' app.id %}">Review</a></td>
                                 {% else %}
