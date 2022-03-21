@@ -139,7 +139,11 @@ class SpendingProfile(models.Model):
 # https://www.geeksforgeeks.org/filefield-django-models/
 def user_directory_path(instance, filename):
     """Defines directory path for a user"""
-    return f"user_{instance.user.id}/{filename}"
+    sp = instance.associated_spending_profile
+    bp = sp.associated_budget_profile
+    ap = ApplicationData.objects.get(associated_budgetProfile = bp)
+    user = ap.user
+    return f"user_{user.id}/{filename}"
 
 # Each heading has itemised expenditure
 class SpendingItems(models.Model):

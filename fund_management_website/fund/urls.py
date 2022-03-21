@@ -35,4 +35,5 @@ urlpatterns = [
     path("reviews/", views.reviews, name="reviews"),
     path("view_review/<int:id>", views.view_review, name="view_review"),
     path("update_review/<int:id>", views.updateReview, name="update_review"),
+    path("upload_evidence/<int:id>", views.upload_evidence, name="upload_evidence"),
 ]

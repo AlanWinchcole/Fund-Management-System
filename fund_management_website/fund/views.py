@@ -427,3 +427,16 @@ def add_comment(request, id):
             print(comment_form.errors)
     else:
         return render(request, 'fund/add_to_db.html', {'form':comment_form, 'title_text': "Add Comment", 'form_text': "Comment"})
+
+
+def upload_evidence(request, id):
+    si = SpendingItems.objects.get(ID = id)
+    ef = EvidenceForm(instance= si)
+    if request.method =='POST':
+        ef = EvidenceForm(request.POST, request.FILES, instance = si)
+        if ef.is_valid():
+            ef.save()
+            print("Evidence has been saved")
+            return redirect(reverse('fund:dashboard'))
+    return render(request, 'fund/add_to_db.html', context={'form':ef, 'title_text': "Upload Evidence", "form_text":"Please Upload evidence for this item"})
+

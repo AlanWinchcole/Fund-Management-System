@@ -1,6 +1,6 @@
 """ Module to define different forms"""
 from django import forms
-from .models import UserProfile, ApplicationData, User, Comments, Review, BudgetProfile
+from .models import UserProfile, ApplicationData, User, Comments, Review, BudgetProfile, SpendingItems
 
 
 class UserForm(forms.ModelForm) :
@@ -103,6 +103,13 @@ class BudgetForm(forms.ModelForm):
         fields = ('totalBudget',)
         labels = {"totalBudget":"Please state total budget to be allocated to the project",}
 
+class EvidenceForm(forms.ModelForm):
+    """Form for uploading Evidence for a spending Item"""
+    class Meta:
+        """Meta properties of EvidenceForm"""
+        model = SpendingItems
+        fields = ('evidence',)
+        label = {"evidence":"Please upload relevant file for this item",}
 
 
 
