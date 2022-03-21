@@ -389,6 +389,8 @@ def applicationIntroduction(request) :
 def view_application_status(request, id):
     admin = True if request.user.is_superuser else False
     application = ApplicationData.objects.get(id = id)
+    if application.reviewed:
+        review = Review.objects.get(application=id)
     application_form = ApplicationForm(instance=application)
     comments = Comments.objects.filter(application = application)
     if request.user.is_staff:
@@ -409,7 +411,7 @@ def view_application_status(request, id):
     for comment in comments:
         print(comment.comment)
     else:
-        return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin})
+        return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin, 'review':review})
 
 
 def add_comment(request, id):
@@ -439,4 +441,3 @@ def upload_evidence(request, id):
             print("Evidence has been saved")
             return redirect(reverse('fund:dashboard'))
     return render(request, 'fund/add_to_db.html', context={'form':ef, 'title_text': "Upload Evidence", "form_text":"Please Upload evidence for this item"})
-
