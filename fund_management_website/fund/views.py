@@ -410,8 +410,10 @@ def view_application_status(request, id):
     print(comments)
     for comment in comments:
         print(comment.comment)
-    else:
+    else if application.reviewed:
         return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin, 'review':review})
+    else:
+        return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin,})
 
 
 def add_comment(request, id):
