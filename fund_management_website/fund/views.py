@@ -407,9 +407,9 @@ def view_application_status(request, id):
                 print(statusform.errors)
 
         return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin,'statusform':statusform})
-    print(comments)
-    for comment in comments:
-        print(comment.comment)
+    #print(comments)
+    #for comment in comments:
+        #print(comment.comment)
     elif application.reviewed:
         return render(request, 'fund/application_view.html', {'application':application, 'application_form' :application_form, 'comments':comments, 'admin':admin, 'review':review})
     else:
