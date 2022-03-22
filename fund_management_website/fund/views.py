@@ -447,4 +447,4 @@ def upload_evidence(request, id):
             ef.save()
             print("Evidence has been saved")
             return redirect(reverse('fund:dashboard'))
-    return render(request, 'fund/add_to_db.html', context={'form':ef, 'title_text': "Upload Evidence", "form_text":"Please Upload evidence for this item"})
+    return render(request, 'fund/add_to_db_evidence.html', context={'form':ef, 'title_text': "Upload Evidence", "form_text":"Please Upload evidence for this item"})
