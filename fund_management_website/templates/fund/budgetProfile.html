@@ -19,7 +19,7 @@
             <h1 class="cover-heading text-center">Welcome to your Budget Profile</h1>
             <p class="lead text-center">This is your current Budget Profile, you can see the current details you have filled out and also add, edit or delete them.</p>
             {% else %}
-            <h1 class="cover-heading text-center">Budget Porfile for application #{{application.id}}</h1>
+            <h1 class="cover-heading text-center">Budget Profile for application #{{app_id}} created by {{application.user.username}}</h1>
             <p class="lead text-center"></p>
             {% endif %}
             <span id="ms" hidden="true">{{app_id}}</span>

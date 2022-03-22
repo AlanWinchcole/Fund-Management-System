@@ -162,7 +162,7 @@ def budgetProfile(request, id) :
         pass
     #subItems = BudgetItems.objects.get
 
-    return render(request, "fund/budgetProfile.html", { "items" :items, "app_id":application.id })
+    return render(request, "fund/budgetProfile.html", { "items" :items, "app_id":application.id, "application":application })
 
 
 def SpendProfile(request, id) :
