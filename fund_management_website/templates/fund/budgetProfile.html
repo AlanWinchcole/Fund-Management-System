@@ -15,10 +15,12 @@
 <body>
 <div class="container-fluid">
         <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-
+            {% if not request.user.is_superuser and not request.user.is_staff %}
             <h1 class="cover-heading text-center">Welcome to your Budget Profile</h1>
-            <p class="lead text-center">This is your current Budget Profile, you can see the current details you have filled out and also add, edit or delete them.
-            </p>
+            <p class="lead text-center">This is your current Budget Profile, you can see the current details you have filled out and also add, edit or delete them.</p>
+            {% else %}
+            <h1 class="cover-heading text-center">Budget Porfile for application #{{application.id}}</h1>
+            <p class="lead text-center"></p>
             <span id="ms" hidden="true">{{app_id}}</span>
         </div>
     </div>
@@ -252,7 +254,7 @@
                  $("#save_all_btn").hide();
             })
 
-    }); 
+    });
     $(document).on("click",".btn-delete",function(){
             var this_html=$(this);
             this_html.attr("disabled","disabled");
@@ -283,7 +285,7 @@
                  $("#upt_error").text("Something Went Wrong!");
                  $("#upt_error").show();
             });
-    });  
+    });
 </script>
 </body>
 {% endblock %}
