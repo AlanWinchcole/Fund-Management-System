@@ -59,6 +59,14 @@ class ApplicationData(models.Model) :
         if self.app_status == 'Accepted':
             newSP = SpendingProfile.objects.get_or_create(associated_budget_profile = self.associated_budgetProfile, associated_application = self)[0]
             newSP.save()
+            all_budget_items = BudgetItems.objects.filter(associated_budget_profile=self.associated_budgetProfile)
+            for bi in all_budget_items :
+                spend_items = SpendingItems(ID=bi.ID, associated_spending_profile=newSP, heading=bi.heading, item_name=bi.item_name,
+                                            description=bi.description,
+                                            budget_allocation=bi.budget_allocation)
+                spend_items.save()
+                print("Spent item has been created")
+
         super(ApplicationData, self).save(*args, **kwargs)
 
     def __str__(self):
