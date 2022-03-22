@@ -185,7 +185,7 @@ def addItem(request) :
     app_id =request.POST.get("app_id")
     print(app_id)
     bP = ApplicationData.objects.get(id = int(app_id)).associated_budgetProfile
-    sp = SpendingProfile.objects.get(associated_application =app_id)
+    #sp = SpendingProfile.objects.get(associated_application =app_id)
     ID = request.POST.get("ID")
     heading = request.POST.get("heading1")
     item_name = request.POST.get("item_name")
@@ -198,9 +198,14 @@ def addItem(request) :
         item = BudgetItems(ID=ID, associated_budget_profile=bP,heading=heading, item_name=item_name, description=description,
                            budget_allocation=budget_allocation)
         item.save()
-        spend_items = SpendingItems(ID=ID, associated_spending_profile=sp,heading=heading, item_name=item_name, description=description,
-                                    budget_allocation=budget_allocation)
-        spend_items.save()
+        try:
+            spend_items = SpendingItems(ID=ID, associated_spending_profile=sp,heading=heading, item_name=item_name, description=description,
+                                        budget_allocation=budget_allocation)
+            spend_items.save()
+
+        except:
+            print("There is no spend items yet")
+            pass
         item_data = { "app_id" :item.ID, "error" :False, "errorMessage" :"Item Added Successfully" }
         return JsonResponse(item_data, safe=False)
     except :
