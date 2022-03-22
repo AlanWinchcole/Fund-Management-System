@@ -121,7 +121,11 @@
                             <td><a href="{%url 'fund:update_application' application.id %}"> Update</a></td>
                             <td><a href="{% url 'fund:view_application_status' application.id %}"> View Status </a></td>
                             <td><a href="{% url 'fund:budget_profile' application.id %}">Budget Profile</a></td>
+                            {% if application.app_status == "Accepted" %}
                             <td><a href="{% url 'fund:spend_profile' application.id%}">Spend Profile</a></td>
+                            {% else %}
+                            <td></td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                         </tbody>
