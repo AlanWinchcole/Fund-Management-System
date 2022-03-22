@@ -8,15 +8,15 @@ from fund.models import UserProfile, ApplicationData, BudgetProfile\
 
 # Register your models here.
 # unregister these at code freeze
-admin.site.register(UserProfile)
-admin.site.register(ApplicationData)
-admin.site.register(BudgetProfile)
-admin.site.register(BudgetItems)
-admin.site.register(SpendingProfile)
-admin.site.register(SpendingItems)
-admin.site.register(EvidenceFile)
-admin.site.register(Comments)
-admin.site.register(Review)
+#admin.site.register(UserProfile)
+#admin.site.register(ApplicationData)
+#admin.site.register(BudgetProfile)
+#admin.site.register(BudgetItems)
+#admin.site.register(SpendingProfile)
+#admin.site.register(SpendingItems)
+#admin.site.register(EvidenceFile)
+#admin.site.register(Comments)
+#admin.site.register(Review)
 
 
 admin.site.unregister(Group)
