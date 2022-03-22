@@ -16,10 +16,14 @@
 <div class="container-fluid">
         <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
             <span id="ms" hidden="true">{{app_id}}</span>
-
+            {% if not request.user.is_superuser and not request.user.is_staff %}
             <h1 class="cover-heading text-center">Welcome to your Spend Profile</h1>
             <p class="lead text-center">This is your current Spend Profile, this is where you will report your spending against your proposed budget.
             </p>
+            {% else %}
+            <h1 class="cover-heading text-center">Budget Profile for application #{{app_id}}</h1>
+            <p class="lead text-center"></p>
+            {% endif %}
         </div>
     </div>
     <hr>
@@ -206,7 +210,7 @@
        $(".editable").each(function(){
            var value=$(this).text();
            var types=$(this).data('type');
-           
+
             if(types=='Evidence'){
                 var html_data="<input type='file' id='request.user.id' name='filename' name='"+types+"'  class='form-control input_"+types+" input_data' value='"+value+"'>";
                 $(this).html(html_data);
@@ -279,7 +283,7 @@
                  $("#save_all_btn").hide();
             })
 
-    }); 
+    });
 </script>
 </body>
 {% endblock %}
